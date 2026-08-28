@@ -261,6 +261,9 @@ import("node:fs").then(async ({ readdirSync: rd, readFileSync: rf, statSync: st 
   }
 });
 cpSync(join(root, "site", "assets"), join(out, "assets"), { recursive: true });
+/* Diagrams live beside the Markdown so GitHub renders them too; the site
+   serves them from the same assets path the pages already resolve to. */
+cpSync(join(root, "docs", "assets"), join(out, "assets"), { recursive: true });
 writeFileSync(join(out, "assets", "search-index.json"), JSON.stringify(searchIndex));
 
 /* 404: same shell, the house's own words. */
