@@ -113,16 +113,20 @@ function renderPage(page, index) {
   const headings = [];
 
   const renderer = new marked.Renderer();
+  /* Inline content inside headings and table cells must render through THIS
+     renderer, or their links would fall back to the default one and keep
+     their .md targets. */
+  const inline = (tokens) => marked.Parser.parseInline(tokens, { renderer });
   renderer.heading = ({ tokens, depth }) => {
     const text = tokens.map((token) => token.raw ?? "").join("");
-    const rendered = marked.Parser.parseInline(tokens);
+    const rendered = inline(tokens);
     const id = slug(text);
     if (depth === 2) headings.push({ id, text });
     if (depth === 1) return `<h1 id="${id}">${rendered}</h1>`;
     return `<h${depth} id="${id}"><a class="anchor" href="#${id}" aria-label="Link to this section">${rendered}</a></h${depth}>`;
   };
   renderer.link = function ({ href, title, tokens }) {
-    const text = marked.Parser.parseInline(tokens);
+    const text = inline(tokens);
     const rewritten = rewriteHref(href, srcDir);
     const external = /^https?:/.test(rewritten) && !rewritten.startsWith(siteOrigin);
     const extra = external ? ' rel="noopener"' : "";
@@ -132,8 +136,8 @@ function renderPage(page, index) {
     return `<div class="codeframe"><button type="button" class="copy" aria-label="Copy code">Copy</button><pre><code${lang ? ` class="language-${esc(lang)}"` : ""}>${esc(text)}</code></pre></div>`;
   };
   renderer.table = function ({ header, rows }) {
-    const head = header.map((cell) => `<th>${marked.Parser.parseInline(cell.tokens)}</th>`).join("");
-    const body = rows.map((row) => `<tr>${row.map((cell) => `<td>${marked.Parser.parseInline(cell.tokens)}</td>`).join("")}</tr>`).join("");
+    const head = header.map((cell) => `<th>${inline(cell.tokens)}</th>`).join("");
+    const body = rows.map((row) => `<tr>${row.map((cell) => `<td>${inline(cell.tokens)}</td>`).join("")}</tr>`).join("");
     return `<div class="tableframe"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
   };
 
@@ -232,6 +236,30 @@ function renderPage(page, index) {
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 flat.forEach((page, index) => renderPage(page, index));
+
+/* Self-check: every .md link in the rendered pages must point at GitHub
+   (view-source and edit links). A relative .md link surviving into the site
+   means a renderer path skipped the rewrite. */
+import("node:fs").then(async ({ readdirSync: rd, readFileSync: rf, statSync: st }) => {
+  const leaks = [];
+  const scan = (dir) => {
+    for (const name of rd(dir)) {
+      const full = join(dir, name);
+      if (st(full).isDirectory()) scan(full);
+      else if (name.endsWith(".html")) {
+        for (const [, href] of rf(full, "utf8").matchAll(/href="([^"]+\.md(?:#[^"]*)?)"/g)) {
+          if (!href.startsWith("https://github.com/")) leaks.push(`${full}: ${href}`);
+        }
+      }
+    }
+  };
+  scan(out);
+  if (leaks.length) {
+    console.error(`build self-check: ${leaks.length} unrewritten .md link(s)`);
+    for (const leak of leaks) console.error(`  ${leak}`);
+    process.exit(1);
+  }
+});
 cpSync(join(root, "site", "assets"), join(out, "assets"), { recursive: true });
 writeFileSync(join(out, "assets", "search-index.json"), JSON.stringify(searchIndex));
 
