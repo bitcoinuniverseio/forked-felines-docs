@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 330" role="img" aria-labelledby="prov-title prov-desc" font-family="Palatino Linotype, Palatino, Georgia, serif">
+  <title id="prov-title">The provenance chain</title>
+  <desc id="prov-desc">Five links in a chain. The frozen seed and the frozen recipe feed the deterministic generator, whose exact output bytes are hashed into the artwork digest recorded before reservation. The same bytes are inscribed on Bitcoin. Verification runs backwards: anyone can hash the inscribed bytes and compare them with the recorded digest.</desc>
+  <rect width="920" height="330" fill="#f6efdd"/>
+  <rect x="6" y="6" width="908" height="318" fill="none" stroke="#3a2a1d" stroke-width="4"/>
+  <text x="460" y="46" text-anchor="middle" font-size="21" font-weight="700" letter-spacing="4" fill="#6f5420">FROM FROZEN SEED TO BITCOIN, AND BACK</text>
+  <g text-anchor="middle">
+    <rect x="50" y="90" width="140" height="76" fill="#efe5cc" stroke="#3a2a1d" stroke-width="3"/>
+    <text x="120" y="120" font-size="13.5" font-weight="700" fill="#221c14">FROZEN SEED</text>
+    <text x="120" y="140" font-size="11.5" fill="#4c4232">+ frozen recipe,</text>
+    <text x="120" y="155" font-size="11.5" fill="#4c4232">weights included</text>
+    <path d="M190 128 L240 128" stroke="#a87b2f" stroke-width="3" marker-end="url(#arrow-b)"/>
+    <rect x="244" y="90" width="150" height="76" fill="#16211a" stroke="#b98d43" stroke-width="3"/>
+    <text x="319" y="122" font-size="13.5" font-weight="700" fill="#ecdcb0">GENERATOR</text>
+    <text x="319" y="142" font-size="11.5" fill="#b98d43">deterministic: same in,</text>
+    <text x="319" y="156" font-size="11.5" fill="#b98d43">same bytes out, forever</text>
+    <path d="M394 128 L444 128" stroke="#a87b2f" stroke-width="3" marker-end="url(#arrow-b)"/>
+    <rect x="448" y="90" width="160" height="76" fill="#6e1f24" stroke="#a87b2f" stroke-width="3"/>
+    <text x="528" y="118" font-size="13.5" font-weight="700" fill="#f6efdd">ARTWORK DIGEST</text>
+    <text x="528" y="138" font-size="11.5" fill="#ecdcb0">SHA-256 + byte length,</text>
+    <text x="528" y="153" font-size="11.5" fill="#ecdcb0">recorded before reservation</text>
+    <path d="M608 128 L658 128" stroke="#a87b2f" stroke-width="3" marker-end="url(#arrow-b)"/>
+    <rect x="662" y="90" width="200" height="76" fill="#1c2a20" stroke="#b98d43" stroke-width="4"/>
+    <text x="762" y="118" font-size="13.5" font-weight="700" fill="#ecdcb0">INSCRIBED ON BITCOIN</text>
+    <text x="762" y="138" font-size="11.5" fill="#b98d43">the whole SVG, as bytes,</text>
+    <text x="762" y="153" font-size="11.5" fill="#b98d43">at the inscription ID</text>
+  </g>
+  <!-- verification loop -->
+  <path d="M762 168 C762 240 300 240 528 172" stroke="#6f5420" stroke-width="2.5" fill="none" stroke-dasharray="7 6" marker-end="url(#arrow-d)"/>
+  <text x="560" y="238" text-anchor="middle" font-size="13" font-weight="700" fill="#6f5420">VERIFY: hash the inscribed bytes yourself, compare with the recorded digest</text>
+  <text x="460" y="296" text-anchor="middle" font-size="12.5" font-style="italic" fill="#4c4232">Every check the house performs before serving a portrait is a check you can repeat with your own node.</text>
+  <defs>
+    <marker id="arrow-b" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="#a87b2f"/></marker>
+    <marker id="arrow-d" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill="#6f5420"/></marker>
+  </defs>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 300" role="img" aria-labelledby="mintflow-title mintflow-desc" font-family="Palatino Linotype, Palatino, Georgia, serif">
+  <title id="mintflow-title">The mint flow</title>
+  <desc id="mintflow-desc">Six stations in order: read the offer, name the recipient address, review one signed total, approve in your wallet, the kitchen tracks real Bitcoin states, and the Feline is served to your address. Payment happens only at station four, after the total is known.</desc>
+  <rect width="920" height="300" fill="#f6efdd"/>
+  <rect x="6" y="6" width="908" height="288" fill="none" stroke="#3a2a1d" stroke-width="4"/>
+  <text x="460" y="44" text-anchor="middle" font-size="21" font-weight="700" letter-spacing="4" fill="#6f5420">THE MINT, STATION BY STATION</text>
+  <line x1="60" y1="150" x2="860" y2="150" stroke="#a87b2f" stroke-width="2"/>
+  <!-- stations -->
+  <g text-anchor="middle" font-size="13">
+    <g>
+      <circle cx="90" cy="150" r="26" fill="#16211a" stroke="#a87b2f" stroke-width="2.5"/>
+      <text x="90" y="156" fill="#ecdcb0" font-size="15" font-weight="700">1</text>
+      <text x="90" y="205" fill="#221c14" font-weight="700">READ THE OFFER</text>
+      <text x="90" y="223" fill="#4c4232" font-size="11.5">no wallet needed</text>
+    </g>
+    <g>
+      <circle cx="238" cy="150" r="26" fill="#16211a" stroke="#a87b2f" stroke-width="2.5"/>
+      <text x="238" y="156" fill="#ecdcb0" font-size="15" font-weight="700">2</text>
+      <text x="238" y="205" fill="#221c14" font-weight="700">NAME THE RECIPIENT</text>
+      <text x="238" y="223" fill="#4c4232" font-size="11.5">credits found automatically</text>
+    </g>
+    <g>
+      <circle cx="386" cy="150" r="26" fill="#16211a" stroke="#a87b2f" stroke-width="2.5"/>
+      <text x="386" y="156" fill="#ecdcb0" font-size="15" font-weight="700">3</text>
+      <text x="386" y="205" fill="#221c14" font-weight="700">ONE SIGNED TOTAL</text>
+      <text x="386" y="223" fill="#4c4232" font-size="11.5">valid 15 minutes</text>
+    </g>
+    <g>
+      <rect x="500" y="118" width="64" height="64" fill="#6e1f24" stroke="#a87b2f" stroke-width="2.5"/>
+      <text x="532" y="156" fill="#f6efdd" font-size="15" font-weight="700">4</text>
+      <text x="532" y="205" fill="#221c14" font-weight="700">APPROVE IN WALLET</text>
+      <text x="532" y="223" fill="#4c4232" font-size="11.5">money moves here only</text>
+    </g>
+    <g>
+      <circle cx="690" cy="150" r="26" fill="#16211a" stroke="#a87b2f" stroke-width="2.5"/>
+      <text x="690" y="156" fill="#ecdcb0" font-size="15" font-weight="700">5</text>
+      <text x="690" y="205" fill="#221c14" font-weight="700">THE KITCHEN TRACKS</text>
+      <text x="690" y="223" fill="#4c4232" font-size="11.5">real Bitcoin states only</text>
+    </g>
+    <g>
+      <circle cx="838" cy="150" r="26" fill="#1c2a20" stroke="#b98d43" stroke-width="4"/>
+      <text x="838" y="156" fill="#ecdcb0" font-size="15" font-weight="700">6</text>
+      <text x="838" y="205" fill="#221c14" font-weight="700">SERVED</text>
+      <text x="838" y="223" fill="#4c4232" font-size="11.5">the Feline is at your address</text>
+    </g>
+  </g>
+  <text x="460" y="268" text-anchor="middle" font-size="12.5" font-style="italic" fill="#4c4232">Stations 1 to 3 cost nothing and can be repeated freely. Rejecting the wallet prompt at station 4 is always safe.</text>
+</svg>

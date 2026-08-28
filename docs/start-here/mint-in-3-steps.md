@@ -2,6 +2,8 @@
 
 **Goal**: reserve, pay for, and receive one Forked Feline.
 
+![The mint, station by station: read the offer, name the recipient, review one signed total, approve in your wallet (the only moment money moves), the kitchen tracks real Bitcoin states, and the Feline is served to your address.](../assets/mint-flow.svg)
+
 **Before you start**
 
 - A Bitcoin address that can receive an inscription. A Taproot address from a wallet that understands Ordinals is the usual choice. See [Supported wallets](../collectors/supported-wallets.md).

@@ -2,6 +2,8 @@
 
 Provenance is the chain of evidence from the frozen seed to the bytes at your address. Forked Felines records it before each Feline is reserved and publishes it once the Feline is confirmed.
 
+![From frozen seed to Bitcoin, and back. The frozen seed and recipe feed the deterministic generator; its exact output bytes are hashed into the artwork digest recorded before reservation; the same bytes are inscribed whole on Bitcoin. A dashed verification arrow runs backwards: hash the inscribed bytes yourself and compare with the recorded digest.](../assets/provenance-chain.svg)
+
 ## The evidence on every Feline's card
 
 | Line | What it proves |
