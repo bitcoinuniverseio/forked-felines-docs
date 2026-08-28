@@ -6,7 +6,7 @@
 
 **The official KNOT HEADS companion collection: up to 3,333 hand-drawn felines, each one a deterministic SVG inscribed whole on Bitcoin.**
 
-[**Open the live product**](https://forkedfelines.art) · [**Read the House Manual**](https://bitcoinuniverseio.github.io/forked-felines-docs/) · [**Get support**](https://forkedfelines.art/support)
+[**Open the live product**](https://forkedfelines.art) · [**Read the House Manual**](https://docs.forkedfelines.art/) · [**Get support**](https://forkedfelines.art/support)
 
 </div>
 
@@ -75,7 +75,7 @@ The house will never DM first, never ask for your seed phrase, and never ask you
 ## Official links
 
 - Live product: <https://forkedfelines.art>
-- Documentation site: <https://bitcoinuniverseio.github.io/forked-felines-docs/>
+- Documentation site: <https://docs.forkedfelines.art/>
 - Support (in the app, private): <https://forkedfelines.art/support>
 - House status: <https://forkedfelines.art/status>
 
