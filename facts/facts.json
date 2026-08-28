@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "forked-felines.public-product/v5",
+  "pricingVersion": "forked-felines.community-remediation/v4",
+  "productName": "Forked Felines",
+  "liveProduct": "https://forkedfelines.art",
+  "productFactsEndpoint": "https://forkedfelines.art/api/v1/product",
+  "maximumSupply": 3333,
+  "publicMintPriceSats": 8888,
+  "communityMintPriceSats": 0,
+  "baseServiceFeeSats": 1500,
+  "rbfServiceFeeIncrementSats": 1500,
+  "holderSnapshotBlockHeight": 963238,
+  "holderSnapshotBlockHash": "00000000000000000001608f168db0955f711094794e99bf7a14a7167028ee2a",
+  "holderEntitlement": "one-free-mint-credit-per-knot-head-from-fixed-snapshot",
+  "buyerRemediation": "five-free-mint-credits-or-original-mint-price-refund-per-qualifying-feline",
+  "futureAirdropProtocol": "BRC_2_0",
+  "quoteTtlSeconds": 900,
+  "orderTtlSeconds": 3600,
+  "artworkFormat": "deterministic SVG, inscribed whole on Bitcoin",
+  "knotHeadsAllowlistSize": 1110,
+  "verifiedAt": "2026-08-28",
+  "verifiedAgainst": "GET https://forkedfelines.art/api/v1/product"
+}

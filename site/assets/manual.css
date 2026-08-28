@@ -1,0 +1,203 @@
+/* The House Manual: an ivory reading room off a forest corridor.
+   Brass rules, walnut frames, oxblood actions, engraved headings,
+   and monospace wherever Bitcoin speaks. After hours, the candles. */
+
+:root {
+  --ivory: #f6efdd;
+  --ivory-deep: #efe5cc;
+  --paper-edge: #e3d4b2;
+  --ink: #221c14;
+  --ink-soft: #4c4232;
+  --forest: #16211a;
+  --forest-wall: #1c2a20;
+  --forest-line: #2c3f31;
+  --oxblood: #6e1f24;
+  --oxblood-bright: #8a262c;
+  --brass: #a87b2f;
+  --brass-bright: #b98d43;
+  --walnut: #3a2a1d;
+  --walnut-deep: #241a10;
+  --candle: #ecdcb0;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, "Cascadia Mono", "JetBrains Mono", Consolas, Menlo, monospace;
+  --room-bg: var(--ivory);
+  --room-ink: var(--ink);
+  --frame-shadow: 0 1px 0 #fff8 inset, 0 1px 3px #221c1422;
+}
+
+html[data-hours="after"] {
+  --room-bg: #141a15;
+  --room-ink: #e8dfc8;
+  --ivory-deep: #1a221b;
+  --paper-edge: #2c3f31;
+  --ink-soft: #b3a889;
+  --oxblood: #c96b6b;
+  --oxblood-bright: #d98181;
+  --brass: #c49a55;
+  --frame-shadow: 0 1px 0 #ffffff0a inset, 0 1px 3px #00000066;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+
+body {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--room-ink);
+  background: var(--room-bg);
+}
+
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--oxblood); color: #fff; padding: .5rem 1rem; z-index: 50; }
+.skip-link:focus { left: .5rem; top: .5rem; }
+
+/* The door: forest header with a brass-lettered sign */
+.door {
+  display: flex; align-items: center; gap: 1rem;
+  background: var(--forest);
+  color: var(--candle);
+  padding: .65rem 1.1rem;
+  border-bottom: 3px solid var(--brass-bright);
+  position: sticky; top: 0; z-index: 20;
+}
+.housemark { text-decoration: none; display: flex; flex-direction: column; line-height: 1.1; }
+.housemark-sign { font-family: var(--serif); font-weight: 700; letter-spacing: .18em; color: var(--brass-bright); font-size: 1.02rem; }
+.housemark-sub { font-size: .62rem; letter-spacing: .42em; color: var(--candle); opacity: .85; }
+.door-actions { margin-left: auto; display: flex; align-items: center; gap: .6rem; }
+.door-link { color: var(--candle); text-decoration: none; font-size: .85rem; border: 1px solid var(--forest-line); padding: .35rem .7rem; border-radius: 2px; }
+.door-link:hover, .door-link:focus-visible { border-color: var(--brass-bright); color: var(--brass-bright); }
+.search-open, .hours-toggle, .drawer-toggle {
+  font-family: var(--serif); font-size: .85rem; color: var(--candle);
+  background: var(--forest-wall); border: 1px solid var(--forest-line);
+  padding: .35rem .7rem; border-radius: 2px; cursor: pointer;
+}
+.search-open kbd { font-family: var(--mono); font-size: .7rem; border: 1px solid var(--forest-line); border-radius: 2px; padding: 0 .3rem; margin-left: .45rem; opacity: .8; }
+.search-open:hover, .hours-toggle:hover, .drawer-toggle:hover,
+.search-open:focus-visible, .hours-toggle:focus-visible, .drawer-toggle:focus-visible { border-color: var(--brass-bright); }
+.hours-toggle[aria-pressed="true"] { color: var(--brass-bright); border-color: var(--brass); }
+.drawer-toggle { display: none; letter-spacing: .2em; font-size: .72rem; }
+
+/* The manual: corridor (nav), page, and the standing card (toc) */
+.manual { display: grid; grid-template-columns: 15.5rem minmax(0, 46rem) 13rem; gap: 2.2rem; max-width: 82rem; margin: 0 auto; padding: 0 1.2rem 3rem; }
+
+.rooms { padding: 1.6rem 0 2rem; border-right: 1px solid var(--paper-edge); font-size: .92rem; }
+.nav-room h2 { font-size: .68rem; letter-spacing: .34em; text-transform: uppercase; color: var(--brass); border-bottom: 1px solid var(--paper-edge); padding-bottom: .35rem; margin: 1.4rem 0 .5rem; }
+.nav-room:first-child h2 { margin-top: 0; }
+.nav-room ul { list-style: none; margin: 0; padding: 0; }
+.nav-room a { display: block; color: var(--room-ink); text-decoration: none; padding: .22rem .5rem; border-left: 2px solid transparent; }
+.nav-room a:hover, .nav-room a:focus-visible { border-left-color: var(--brass); }
+.nav-room a[aria-current="page"] { border-left-color: var(--oxblood); color: var(--oxblood); font-weight: 700; }
+.rooms-note { font-size: .72rem; color: var(--ink-soft); letter-spacing: .06em; margin-top: 2rem; font-style: italic; }
+
+.page { padding-top: 1.6rem; min-width: 0; }
+.crumbs { font-size: .8rem; letter-spacing: .05em; color: var(--ink-soft); margin-bottom: 1rem; }
+.crumbs a { color: var(--ink-soft); }
+.crumb-sep { margin: 0 .45rem; color: var(--brass); }
+
+/* Reading column: engraved headings over ivory */
+.reading h1 {
+  font-size: 2rem; line-height: 1.15; letter-spacing: .02em;
+  border-bottom: 3px double var(--brass); padding-bottom: .55rem; margin: 0 0 1.1rem;
+}
+.reading h2 { font-size: 1.32rem; margin: 2.1rem 0 .6rem; letter-spacing: .015em; border-bottom: 1px solid var(--paper-edge); padding-bottom: .3rem; }
+.reading h3 { font-size: 1.08rem; margin: 1.5rem 0 .4rem; }
+.reading h2 .anchor, .reading h3 .anchor { color: inherit; text-decoration: none; }
+.reading h2 .anchor:hover::after, .reading h3 .anchor:hover::after { content: " §"; color: var(--brass); }
+.reading a { color: var(--oxblood); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.reading a:hover { color: var(--oxblood-bright); }
+.reading strong { color: var(--room-ink); }
+.reading blockquote {
+  margin: 1rem 0; padding: .7rem 1.1rem;
+  background: var(--ivory-deep); border-left: 3px solid var(--brass);
+  font-style: italic;
+}
+.reading ul, .reading ol { padding-left: 1.4rem; }
+.reading li { margin: .28rem 0; }
+.reading code { font-family: var(--mono); font-size: .84em; background: var(--ivory-deep); border: 1px solid var(--paper-edge); border-radius: 2px; padding: .06em .32em; }
+.reading hr { border: none; border-top: 1px solid var(--paper-edge); margin: 2rem 0; }
+.reading img { max-width: 100%; height: auto; border: 6px solid var(--walnut); box-shadow: var(--frame-shadow); }
+
+/* Code: the cellar terminal, framed in walnut */
+.codeframe { position: relative; margin: 1rem 0; border: 4px solid var(--walnut); background: var(--forest); box-shadow: var(--frame-shadow); }
+.codeframe pre { margin: 0; padding: .9rem 1rem; overflow-x: auto; }
+.codeframe code { font-family: var(--mono); font-size: .84rem; color: #cde3cf; background: none; border: none; padding: 0; }
+.codeframe .copy {
+  position: absolute; top: .4rem; right: .4rem;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .08em;
+  color: var(--candle); background: var(--forest-wall); border: 1px solid var(--forest-line);
+  padding: .22rem .55rem; border-radius: 2px; cursor: pointer;
+}
+.codeframe .copy:hover, .codeframe .copy:focus-visible { border-color: var(--brass-bright); color: var(--brass-bright); }
+.codeframe .copy[data-done] { color: #8fce9b; border-color: #8fce9b; }
+
+/* Tables: the ledger */
+.tableframe { overflow-x: auto; margin: 1rem 0; border: 1px solid var(--paper-edge); }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--brass); text-align: left; border-bottom: 2px solid var(--brass); padding: .5rem .7rem; }
+td { padding: .48rem .7rem; border-bottom: 1px solid var(--paper-edge); vertical-align: top; }
+tbody tr:nth-child(even) { background: color-mix(in srgb, var(--ivory-deep) 55%, transparent); }
+td code { white-space: nowrap; }
+
+/* The standing card: on-page contents */
+.toc { position: sticky; top: 4.6rem; align-self: start; margin-top: 1.6rem; font-size: .82rem; border-left: 1px solid var(--paper-edge); padding-left: 1rem; }
+.toc h2 { font-size: .66rem; letter-spacing: .32em; text-transform: uppercase; color: var(--brass); margin: 0 0 .5rem; }
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc a { color: var(--ink-soft); text-decoration: none; display: block; padding: .16rem 0; }
+.toc a:hover, .toc a:focus-visible { color: var(--oxblood); }
+
+/* Pager: previous and next courses */
+.pager { display: flex; justify-content: space-between; gap: 1rem; margin: 2.4rem 0 1rem; }
+.pager a { flex: 1; max-width: 48%; text-decoration: none; border: 1px solid var(--paper-edge); padding: .7rem .9rem; background: var(--ivory-deep); box-shadow: var(--frame-shadow); }
+.pager a span { display: block; font-size: .66rem; letter-spacing: .3em; text-transform: uppercase; color: var(--brass); }
+.pager a strong { color: var(--oxblood); font-size: .95rem; }
+.pager-next { text-align: right; margin-left: auto; }
+.pager a:hover strong, .pager a:focus-visible strong { color: var(--oxblood-bright); }
+
+/* Colophon */
+.colophon { border-top: 3px double var(--brass); margin-top: 2rem; padding-top: 1rem; font-size: .8rem; color: var(--ink-soft); }
+.colophon a { color: var(--oxblood); }
+.colophon code { font-family: var(--mono); font-size: .75rem; }
+.colophon-line { letter-spacing: .02em; }
+.marginalia { font-style: italic; opacity: .8; }
+
+/* Search: a card over the room */
+.search-veil { position: fixed; inset: 0; background: #16211acc; z-index: 40; display: flex; align-items: flex-start; justify-content: center; padding-top: 12vh; }
+.search-veil[hidden] { display: none; }
+.search-card { width: min(38rem, 92vw); background: var(--room-bg); border: 4px solid var(--walnut); box-shadow: 0 12px 40px #00000055; padding: 1rem; }
+.search-input { width: 100%; font-family: var(--serif); font-size: 1.05rem; color: var(--room-ink); background: var(--ivory-deep); border: 1px solid var(--paper-edge); padding: .6rem .8rem; }
+.search-input:focus { outline: 2px solid var(--brass); }
+.search-results { list-style: none; margin: .6rem 0 0; padding: 0; max-height: 46vh; overflow-y: auto; }
+.search-results a { display: block; padding: .5rem .6rem; text-decoration: none; color: var(--room-ink); border-left: 2px solid transparent; }
+.search-results .hit-section { font-size: .64rem; letter-spacing: .28em; text-transform: uppercase; color: var(--brass); display: block; }
+.search-results .hit-snippet { font-size: .8rem; color: var(--ink-soft); display: block; }
+.search-results a:hover, .search-results a:focus-visible, .search-results li[aria-selected="true"] a { border-left-color: var(--oxblood); background: var(--ivory-deep); }
+.search-hint { font-size: .7rem; color: var(--ink-soft); letter-spacing: .08em; margin: .6rem 0 0; }
+
+/* 404 */
+.notfound { max-width: 40rem; margin: 8vh auto; text-align: center; padding: 0 1.2rem; }
+.plaque { display: inline-block; font-family: var(--mono); font-size: .72rem; letter-spacing: .32em; color: var(--candle); background: var(--walnut-deep); border: 2px solid var(--brass); padding: .3rem .9rem; }
+.notfound h1 { font-size: 1.7rem; letter-spacing: .03em; }
+.button-oxblood, .button-plain { display: inline-block; text-decoration: none; padding: .55rem 1.1rem; margin: .3rem; font-size: .95rem; }
+.button-oxblood { background: var(--oxblood); color: #fff; border: 1px solid var(--oxblood); }
+.button-oxblood:hover { background: var(--oxblood-bright); }
+.button-plain { color: var(--oxblood); border: 1px solid var(--paper-edge); background: var(--ivory-deep); }
+
+/* Focus is always visible in the house */
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+/* Rooms drawer on a phone */
+@media (max-width: 64rem) {
+  .manual { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .toc { display: none; }
+  .drawer-toggle { display: inline-block; }
+  .rooms { display: none; border-right: none; border-bottom: 1px solid var(--paper-edge); padding: .6rem 0 1rem; }
+  .rooms.open { display: block; }
+  .door { flex-wrap: wrap; }
+  .door-actions { gap: .4rem; }
+  .reading h1 { font-size: 1.55rem; }
+  body { font-size: 1rem; }
+  .pager { flex-direction: column; }
+  .pager a { max-width: none; }
+}

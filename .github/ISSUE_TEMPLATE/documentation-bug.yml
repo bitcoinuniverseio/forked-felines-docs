@@ -1,0 +1,31 @@
+name: Wrong or stale documentation
+description: A page states something that is incorrect or no longer true.
+title: "[fact] "
+labels: [documentation, fact]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. Please do not include order IDs, wallet addresses you want private, or anything from a security report (see SECURITY.md for those).
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: Link to the page (or file path) with the problem.
+      placeholder: docs/collectors/prices-and-fees.md
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What the page says
+      description: Quote the wrong or stale statement.
+    validations:
+      required: true
+  - type: textarea
+    id: right
+    attributes:
+      label: What is actually true
+      description: What you observed, and where (the live site, the product API, an inscription, ...).
+    validations:
+      required: true

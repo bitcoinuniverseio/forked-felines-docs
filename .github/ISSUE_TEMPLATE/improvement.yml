@@ -1,0 +1,17 @@
+name: Documentation improvement
+description: A missing explanation, a page that should exist, or a better structure.
+title: "[improve] "
+labels: [documentation, enhancement]
+body:
+  - type: textarea
+    id: gap
+    attributes:
+      label: What is missing or could be better
+      description: What question were you trying to answer, and where did the docs leave you?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Optional. What you would add or change. Pull requests are welcome too, see CONTRIBUTING.md.

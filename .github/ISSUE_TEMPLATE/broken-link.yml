@@ -1,0 +1,22 @@
+name: Broken link or image
+description: A link 404s, an anchor misses, or an image does not load.
+title: "[link] "
+labels: [documentation, links]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page containing the link
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: The broken link or image
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: What happens
+      placeholder: 404, wrong page, image missing on mobile, ...

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-label="Forked Felines. A brass plaque reading THE FORK FAILED. THEY BOOKED A TABLE.">
+  <defs>
+    <linearGradient id="walnut" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2a1d"/>
+      <stop offset=".5" stop-color="#241a10"/>
+      <stop offset="1" stop-color="#1b120a"/>
+    </linearGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9b26a"/>
+      <stop offset=".45" stop-color="#b98d43"/>
+      <stop offset="1" stop-color="#8f6a2c"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="200" fill="url(#walnut)"/>
+  <rect x="8" y="8" width="704" height="184" fill="none" stroke="#16211a" stroke-width="6"/>
+  <rect x="18" y="18" width="684" height="164" fill="none" stroke="url(#brass)" stroke-width="2.5"/>
+  <!-- screws -->
+  <g fill="url(#brass)" stroke="#1b120a" stroke-width="1">
+    <circle cx="34" cy="34" r="6"/><circle cx="686" cy="34" r="6"/>
+    <circle cx="34" cy="166" r="6"/><circle cx="686" cy="166" r="6"/>
+  </g>
+  <g stroke="#1b120a" stroke-width="1.4" stroke-linecap="round">
+    <path d="M30 30 L38 38 M682 38 L690 30 M30 170 L38 162 M682 162 L690 170"/>
+  </g>
+  <!-- crest: cat over crossed forks -->
+  <g transform="translate(78 100)">
+    <circle r="52" fill="#16211a" stroke="url(#brass)" stroke-width="3"/>
+    <g stroke="#ece0c4" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-17 -32 C-20 -20 -19 -11 -10 -6 C-4 -2 4 -2 10 -6 C19 -11 20 -20 17 -32 L8 -25 C3 -27.5 -3 -27.5 -8 -25 Z"/>
+    </g>
+    <path d="M-8 -13 q3.4 -3.4 6.8 0 q-3.4 3.4 -6.8 0 Z" fill="#b98d43"/>
+    <path d="M1.2 -13 q3.4 -3.4 6.8 0 q-3.4 3.4 -6.8 0 Z" fill="#b98d43"/>
+    <g stroke="#b9bdc2" stroke-linecap="round" fill="none">
+      <g transform="rotate(-24 0 26)">
+        <path d="M0 8 L0 40" stroke-width="4"/>
+        <path d="M-5 8 L-5 16 M5 8 L5 16" stroke-width="3"/>
+      </g>
+      <g transform="rotate(24 0 26)">
+        <path d="M0 8 L0 40" stroke-width="4"/>
+        <path d="M-5 8 L-5 16 M5 8 L5 16" stroke-width="3"/>
+      </g>
+    </g>
+  </g>
+  <!-- engraved lettering -->
+  <g font-family="Palatino Linotype, Palatino, Georgia, serif">
+    <text x="160" y="86" font-size="44" font-weight="700" letter-spacing="6" fill="url(#brass)">FORKED FELINES</text>
+    <text x="162" y="116" font-size="14" letter-spacing="7" fill="#ece0c4" opacity=".92">SUPPER CLUB · ABOVE THE NODE</text>
+    <text x="162" y="152" font-size="17" font-style="italic" letter-spacing="2" fill="#c9a75f">THE FORK FAILED. THEY BOOKED A TABLE.</text>
+  </g>
+  <!-- brass rule -->
+  <rect x="160" y="97" width="470" height="2" fill="url(#brass)" opacity=".8"/>
+</svg>

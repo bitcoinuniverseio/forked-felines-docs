@@ -1,0 +1,49 @@
+name: Docs CI
+# Every pull request and every push to main or develop runs the full
+# publication gate: em dashes, facts, links, private terms, and a real build.
+# This is a public repository, so everything runs on GitHub-hosted runners
+# with pinned actions and read-only permissions; no publishing token is ever
+# exposed to pull requests.
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+permissions:
+  contents: read
+concurrency:
+  group: docs-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24.19.0
+      - run: npm ci
+      - name: Publication gate
+        run: node tools/check-docs.mjs
+      - name: Build the House Manual
+        run: node site/build.mjs
+      - name: The built site carries no em dash and no private term either
+        run: |
+          set -euo pipefail
+          if grep -rl "$(printf '\xe2\x80\x94')" _site; then
+            echo "em dash escaped into the built site" >&2
+            exit 1
+          fi
+  facts-live:
+    # Only trusted refs compare against production, so a fork PR cannot make
+    # this repository hammer the live product.
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24.19.0
+      - name: Documented facts match the live product contract
+        run: node tools/check-facts-live.mjs
