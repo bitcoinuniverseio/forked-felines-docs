@@ -2,6 +2,8 @@
 
 Two different addresses play two different roles in every mint. Keeping them straight explains almost everything about how the mint behaves.
 
+![Two addresses, two jobs. Any wallet pays the exact total, once, to the payment address printed on the signed bill. The house verifies the payment, inscribes, and delivers the Feline on chain to the receiving address you named, which is also checked read-only against the Knot Heads guest list at block 963,238. The two addresses may be the same but never have to be.](../assets/address-roles.svg)
+
 ## The receiving address
 
 The address you enter in the recipient field. It:
