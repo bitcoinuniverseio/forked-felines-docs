@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Product support (orders, payments, wallets, refunds)
+    url: https://forkedfelines.art/support
+    about: Private, in-app support where the team can see your order. The issue tracker cannot help with orders.
+  - name: Report a security problem
+    url: https://github.com/bitcoinuniverseio/forked-felines-docs/security/advisories/new
+    about: Private vulnerability reporting. Never describe an unpatched vulnerability in a public issue.

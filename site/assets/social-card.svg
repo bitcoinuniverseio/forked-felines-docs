@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Forked Felines House Manual. The fork failed. They booked a table.">
+  <defs>
+    <linearGradient id="walnut" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2a1d"/>
+      <stop offset=".5" stop-color="#241a10"/>
+      <stop offset="1" stop-color="#170f08"/>
+    </linearGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9b26a"/>
+      <stop offset=".45" stop-color="#b98d43"/>
+      <stop offset="1" stop-color="#8f6a2c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#walnut)"/>
+  <rect x="26" y="26" width="1148" height="578" fill="none" stroke="#16211a" stroke-width="10"/>
+  <rect x="44" y="44" width="1112" height="542" fill="none" stroke="url(#brass)" stroke-width="3.5"/>
+  <g fill="url(#brass)" stroke="#170f08" stroke-width="1.5">
+    <circle cx="70" cy="70" r="9"/><circle cx="1130" cy="70" r="9"/>
+    <circle cx="70" cy="560" r="9"/><circle cx="1130" cy="560" r="9"/>
+  </g>
+  <g transform="translate(240 315)">
+    <circle r="140" fill="#16211a" stroke="url(#brass)" stroke-width="6"/>
+    <circle r="118" fill="#1c2a20" stroke="#b98d43" stroke-width="2"/>
+    <g stroke="#ece0c4" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-46 -84 C-54 -52 -50 -26 -28 -14 C-12 -4 12 -4 28 -14 C50 -26 54 -52 46 -84 L22 -66 C10 -72 -10 -72 -22 -66 Z"/>
+    </g>
+    <path d="M-22 -36 q9 -9 18 0 q-9 9 -18 0 Z" fill="#b98d43"/>
+    <path d="M4 -36 q9 -9 18 0 q-9 9 -18 0 Z" fill="#b98d43"/>
+    <path d="M-5 -16 L5 -16 L0 -8 Z" fill="#ece0c4"/>
+    <g stroke="#b9bdc2" stroke-linecap="round" fill="none">
+      <g transform="rotate(-25 0 66)">
+        <path d="M0 20 L0 104" stroke-width="10"/>
+        <path d="M-12 20 L-12 40 M12 20 L12 40" stroke-width="7"/>
+      </g>
+      <g transform="rotate(25 0 66)">
+        <path d="M0 20 L0 104" stroke-width="10"/>
+        <path d="M-12 20 L-12 40 M12 20 L12 40" stroke-width="7"/>
+      </g>
+    </g>
+  </g>
+  <g font-family="Palatino Linotype, Palatino, Georgia, serif">
+    <text x="440" y="240" font-size="76" font-weight="700" letter-spacing="8" fill="url(#brass)">FORKED</text>
+    <text x="440" y="322" font-size="76" font-weight="700" letter-spacing="8" fill="url(#brass)">FELINES</text>
+    <text x="443" y="372" font-size="26" letter-spacing="12" fill="#ece0c4" opacity=".92">THE HOUSE MANUAL</text>
+    <rect x="443" y="396" width="620" height="3" fill="url(#brass)" opacity=".85"/>
+    <text x="443" y="446" font-size="30" font-style="italic" letter-spacing="2" fill="#c9a75f">THE FORK FAILED. THEY BOOKED A TABLE.</text>
+    <text x="443" y="500" font-size="24" letter-spacing="1" fill="#ece0c4" opacity=".85">3,333 felines. Inscribed whole on Bitcoin.</text>
+    <text x="443" y="536" font-size="24" letter-spacing="1" fill="#ece0c4" opacity=".85">Every one can show its working.</text>
+  </g>
+</svg>

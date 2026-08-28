@@ -1,0 +1,24 @@
+name: Unclear instruction
+description: You followed a guide and got lost, stuck, or surprised.
+title: "[unclear] "
+labels: [documentation, clarity]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      placeholder: docs/start-here/mint-in-3-steps.md
+    validations:
+      required: true
+  - type: textarea
+    id: where
+    attributes:
+      label: Where you got stuck
+      description: Which step, and what you expected against what happened. No order IDs or private addresses, please.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would have helped
+      description: Optional. A sentence you wish the page had contained.
