@@ -10,12 +10,28 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const facts = JSON.parse(readFileSync(join(root, "facts", "facts.json"), "utf8"));
 
-const response = await fetch(facts.productFactsEndpoint, { headers: { accept: "application/json" } });
-if (!response.ok) {
-  console.error(`live check: ${facts.productFactsEndpoint} answered ${response.status}`);
+/* The product answers from one origin; a runner's route to it can flake.
+   Bounded retries separate "the network hiccuped" from "the facts moved",
+   and only the second is a documentation event. */
+async function fetchLive() {
+  let lastError;
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    try {
+      const response = await fetch(facts.productFactsEndpoint, {
+        headers: { accept: "application/json" },
+        signal: AbortSignal.timeout(15_000),
+      });
+      if (!response.ok) throw new Error(`answered ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      lastError = error;
+      if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, attempt * 5_000));
+    }
+  }
+  console.error(`live check: ${facts.productFactsEndpoint} unreachable after 4 attempts: ${lastError}`);
   process.exit(1);
 }
-const live = await response.json();
+const live = await fetchLive();
 
 const errors = [];
 const expect = (label, actual, wanted) => {
