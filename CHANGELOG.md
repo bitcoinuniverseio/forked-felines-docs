@@ -2,6 +2,23 @@
 
 Notable changes to the Forked Felines public documentation. Product changes are reflected here when they change what a collector should know.
 
+## 2026-08-29
+
+### Changed
+
+- [The collection wall](docs/collection/collection-wall.md): the wall now arrives hung. Its frames are in the page the server sends, so a search engine, a link preview, and a phone on a slow connection all see the same portraits a browser shows. Previously the wall was fetched only in the browser, and the served page linked to none of the confirmed Felines. A wall that is already hung now stays hung when a refresh fails.
+- Every page of the product now carries a proper preview card when its link is shared. Previously only the support page did, so a link pasted into a chat arrived as a bare row of text.
+- The holder entitlement is called a **free-mint credit** everywhere. A few product surfaces still used a name from a retired policy; the documentation always used the current one, and now the product agrees with it.
+
+### Publication gate
+
+- No word may be published twice in a row. Markdown wraps prose across source lines, so a word typed twice reads as two clean lines in a diff and as a defect on the page.
+- One verification date. The README, the reference page, and `facts/facts.json` must agree on when the facts were last checked against the live product contract.
+
+### Product facts
+
+- Unchanged. Re-verified against the live `GET /api/v1/product` contract on 2026-08-29.
+
 ## 2026-08-28
 
 ### Added
