@@ -2,7 +2,7 @@
 
 The exact facts of Forked Felines, as published by the live product contract. If any page anywhere disagrees with this one, this one and the live endpoint win.
 
-**Source of truth**: `GET https://forkedfelines.art/api/v1/product`, schema `forked-felines.public-product/v5`. Last verified against the live endpoint: **2026-08-28**.
+**Source of truth**: `GET https://forkedfelines.art/api/v1/product`, schema `forked-felines.public-product/v5`. Last verified against the live endpoint: **2026-08-29**.
 
 ## Collection
 
