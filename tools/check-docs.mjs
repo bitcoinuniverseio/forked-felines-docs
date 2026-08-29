@@ -69,6 +69,21 @@ for (const [file, tokens] of requiredCopy) {
   }
 }
 
+/* 3b. One verification date. The README, the reference page, and the House
+   Manual footer all state when the facts were last checked against the live
+   contract, and three hand-written copies of one date drift the moment two of
+   them are edited and the third is not. */
+for (const file of ["README.md", "docs/reference/official-product-facts.md"]) {
+  const content = readFileSync(join(root, file), "utf8");
+  if (!content.includes(facts.verifiedAt)) {
+    errors.push(`${file}: does not state the verification date ${facts.verifiedAt} recorded in facts/facts.json`);
+  }
+  const otherDates = [...content.matchAll(/\b20\d\d-\d\d-\d\d\b/g)].map(([date]) => date).filter((date) => date !== facts.verifiedAt);
+  for (const date of new Set(otherDates)) {
+    errors.push(`${file}: states verification date ${date}, but facts/facts.json records ${facts.verifiedAt}`);
+  }
+}
+
 /* 4. Stale prices may only appear beside the word "historical" on the same page. */
 const historicalOnly = ["11,000", "16,161", "22,222", "33,333", "4,440"];
 for (const file of markdownFiles) {
@@ -145,6 +160,33 @@ for (const file of markdownFiles) {
   const content = readFileSync(file, "utf8");
   const badSats = content.match(/\b\d+\.\d+\s?sats?\b/);
   if (badSats) errors.push(`${relative(root, file)}: "${badSats[0]}" uses a decimal sat amount; sats are integers`);
+}
+
+/* 9. No word is published twice in a row. Markdown wraps prose across source
+   lines, so "the exact\nexact bytes" reads as two clean lines in a diff and as
+   a defect on the page. Code spans and link targets are replaced with a mark
+   that is not whitespace, so two words that were never adjacent on the page
+   cannot become a false repeat once what sat between them is removed. */
+const removedMarkup = " · ";
+const intentionalRepeats = new Set(["had", "that", "so"]);
+for (const file of markdownFiles) {
+  const prose = readFileSync(file, "utf8")
+    .replace(/\r\n/g, "\n")
+    .replace(/```[\s\S]*?```/g, "\n\n")
+    .replace(/`[^`\n]*`/g, removedMarkup)
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, " $1 ")
+    .replace(/https?:\/\/\S+/g, removedMarkup);
+  /* A blank line ends a phrase: a heading and the paragraph under it are two
+     phrases, even when both open on the same word. */
+  for (const phrase of prose.split(/\n[ \t]*\n/)) {
+    /* Case-insensitive: "The the" is the same defect as "the the". Only
+       whitespace may sit between the two, so "the Bar. Bar staff" is not a
+       repeat and neither is "New York, New York". */
+    for (const [whole, word] of phrase.matchAll(/\b([A-Za-z][A-Za-z'’]+)[ \t\r\n]+\1\b/gi)) {
+      if (intentionalRepeats.has(word.toLowerCase())) continue;
+      errors.push(`${relative(root, file)}: duplicated word "${whole.replace(/\s+/g, " ")}"`);
+    }
+  }
 }
 
 if (errors.length) {

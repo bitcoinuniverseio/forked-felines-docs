@@ -23,7 +23,11 @@ Each Feline's card carries a short note in the house's voice, selected determini
 
 ## Honest states
 
-- While the wall loads, it says so, at the same measurements as the loaded wall, so nothing jumps.
+- The wall arrives hung. The frames are in the page the server sends, so the portraits and their links are there
+  before any JavaScript runs, and a search engine, a link preview, and a phone on a slow connection all see the
+  same wall you see.
+- If the listing cannot be read at all, the wall says so at the same measurements as the loaded wall, so nothing
+  jumps. A wall that is already hung stays hung; a failed refresh only costs it freshness.
 - If artwork cannot be verified and served, the frame says unavailable rather than guessing. See [Verified artwork](verified-artwork.md).
 
 ## Next
