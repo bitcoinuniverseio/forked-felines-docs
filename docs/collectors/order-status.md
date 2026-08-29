@@ -22,7 +22,7 @@ The ticket reads state from the server, which reads it from Bitcoin. Nothing on 
 
 | Ticket says | What actually happened | What you do |
 | --- | --- | --- |
-| THE BILL WENT COLD | The reservation window closed without a confirmed payment | If you paid after expiry, the payment is refunded to its source. Otherwise just order again |
+| THE BILL WENT COLD | The reservation window closed without a confirmed payment | If you paid after expiry, the payment is refunded to its source. Otherwise, order again whenever you are ready |
 | RESERVATION CANCELLED | You cancelled before paying. Nothing was consumed | Mint again any time |
 | MANAGER AT THE TILL | A refund is queued | Nothing. It returns to the original payment source |
 | DROPPED TRAY. KITCHEN RETRIES. | A step failed and retries automatically. No funds are lost by this state | Nothing |
