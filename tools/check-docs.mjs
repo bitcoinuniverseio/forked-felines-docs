@@ -80,6 +80,12 @@ for (const [key, value] of Object.entries(pinned)) {
   if (!/answeredUnparseable/.test(live)) {
     errors.push("tools/check-facts-live.mjs: a 2xx with an unparseable body must fail as drift, not as unreachable");
   }
+  /* A 4xx has to survive the retry loop. A real 404 followed by three dropped
+     connections would otherwise exit 75 and publish, which is the gate's own
+     case being masked by noise. */
+  if (!/contractMissingStatus/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: a 4xx must be sticky across retries, not overwritten by a later dropped connection");
+  }
   for (const workflow of [".github/workflows/deploy-pages.yml", ".github/workflows/docs-ci.yml"]) {
     const content = readFileSync(join(root, workflow), "utf8");
     if (content.includes("run: node tools/check-facts-live.mjs")) {

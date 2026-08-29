@@ -47,14 +47,33 @@ const facts = JSON.parse(readFileSync(join(root, "facts", "facts.json"), "utf8")
                                          documentation says it is
      2xx, unparseable body   drift       it answered and it is not a contract
 
-   The last attempt wins rather than the worst one, because a 404 followed
-   by three dropped connections is better described as "we lost the path"
-   than as "the contract moved". */
+   The last attempt wins, with one exception. A 4xx that is not 429 is
+   sticky: once the product has told us the contract is not there, later
+   attempts dropping the path cannot unsay it. Without that clause a real
+   404 followed by three refused connections exits 75 and publishes, which
+   is the gate's core case being masked by noise.
+
+   The exception is decided by the asymmetry rather than by likelihood.
+   Wrongly exiting 1 costs a blocked publish: visible, recoverable, one
+   re-run. Wrongly exiting 75 costs a silent publish against a contract
+   nobody compared. Where the two costs are that lopsided, be wrong in the
+   direction someone notices.
+
+   The counter-argument, recorded because it is the thing that would
+   change this: if some intermediary in front of the product answered 404
+   while transiently failing, a healthy deploy would block a publish for
+   no reason. Nothing in this path is known to do that. A container swap
+   surfaces as 502 or 503, and a 404 from this endpoint means the route is
+   genuinely not registered, which is the persistent condition rather than
+   the transient one. Ordering never matters among no-response, 5xx and
+   429, because all three answer 75 regardless. */
 async function fetchLive() {
   let lastError;
   /* null means the product never answered on the most recent attempt. */
   let answeredStatus = null;
   let answeredUnparseable = false;
+  /* Sticky: set by any attempt that saw the contract missing, never cleared. */
+  let contractMissingStatus = null;
 
   for (let attempt = 1; attempt <= 4; attempt += 1) {
     const pause = async () => {
@@ -77,6 +96,9 @@ async function fetchLive() {
 
     answeredStatus = response.status;
     answeredUnparseable = false;
+    if (response.status >= 400 && response.status < 500 && response.status !== 429) {
+      contractMissingStatus ??= response.status;
+    }
 
     if (!response.ok) {
       lastError = new Error(`answered ${response.status}`);
@@ -95,6 +117,12 @@ async function fetchLive() {
 
   const transient = answeredStatus === null || answeredStatus >= 500 || answeredStatus === 429;
   const endpoint = facts.productFactsEndpoint;
+
+  if (contractMissingStatus !== null) {
+    console.error(`live check: ${endpoint} answered ${contractMissingStatus} on at least one of 4 attempts`);
+    console.error("live check: MISMATCH. The contract is not where the documentation says it is. Do not publish: find where it moved and update facts/facts.json.");
+    process.exit(1);
+  }
 
   if (answeredUnparseable) {
     console.error(`live check: ${endpoint} answered ${answeredStatus} with a body that is not JSON: ${lastError}`);
