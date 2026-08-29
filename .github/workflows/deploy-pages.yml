@@ -23,8 +23,24 @@ jobs:
       - run: npm ci
       - name: Publication gate
         run: node tools/check-docs.mjs
+      # Two outcomes, two meanings. A mismatch is documentation drift and must
+      # never publish. Unreachable means a runner could not open a socket to
+      # the product, which says nothing about the facts and used to block the
+      # publication of correct documentation while the site served an older
+      # build. The facts stay guarded either way: the publication gate above
+      # pins every one of them offline and has already run.
       - name: Documented facts match the live product contract
-        run: node tools/check-facts-live.mjs
+        run: |
+          set +e
+          node tools/check-facts-live.mjs
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ]; then exit 0; fi
+          if [ "$status" -eq 75 ]; then
+            echo "::warning title=Live product contract unreachable::Published without re-checking the live contract. facts/facts.json is still pinned offline by the publication gate, which ran and passed. Re-run this workflow when the endpoint is reachable to restore the live comparison."
+            exit 0
+          fi
+          exit "$status"
       - name: Build the House Manual
         run: node site/build.mjs
         env:

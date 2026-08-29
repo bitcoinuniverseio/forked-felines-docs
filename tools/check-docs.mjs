@@ -53,6 +53,50 @@ for (const [key, value] of Object.entries(pinned)) {
   if (facts[key] !== value) errors.push(`facts/facts.json: ${key} is ${JSON.stringify(facts[key])}, expected ${JSON.stringify(value)}`);
 }
 
+/* 2b. The live-contract check must keep distinguishing its two failures.
+   A mismatch is documentation drift and must never publish. Unreachable is a
+   runner that could not open a socket, which says nothing about the facts, and
+   collapsing the two back into one exit code silently restores the behaviour
+   where a network fault blocks correct documentation while the site serves an
+   older build. Both happened on 2026-08-29, 66 minutes apart, on two different
+   hosted runners, one of which reached the endpoint in the same minute another
+   could not. */
+{
+  const live = readFileSync(join(root, "tools", "check-facts-live.mjs"), "utf8");
+  if (!live.includes("EX_TEMPFAIL = 75")) {
+    errors.push("tools/check-facts-live.mjs: unreachable must exit 75, distinct from a mismatch");
+  }
+  if (!/process\.exit\(EX_TEMPFAIL\)/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: the unreachable path must exit EX_TEMPFAIL, not 1");
+  }
+  /* Asserting that EX_TEMPFAIL exists is not enough: what matters is which
+     conditions reach it. A 404 means the contract moved, which is the event
+     this gate exists to catch, and routing it to the transient exit would
+     publish the House Manual against facts nobody compared. Only a missing
+     response, a 5xx, or a 429 may be transient. */
+  if (!/answeredStatus === null \|\| answeredStatus >= 500 \|\| answeredStatus === 429/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: only no-response, 5xx and 429 may exit 75; a 4xx means the contract moved");
+  }
+  if (!/answeredUnparseable/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: a 2xx with an unparseable body must fail as drift, not as unreachable");
+  }
+  /* A 4xx has to survive the retry loop. A real 404 followed by three dropped
+     connections would otherwise exit 75 and publish, which is the gate's own
+     case being masked by noise. */
+  if (!/contractMissingStatus/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: a 4xx must be sticky across retries, not overwritten by a later dropped connection");
+  }
+  for (const workflow of [".github/workflows/deploy-pages.yml", ".github/workflows/docs-ci.yml"]) {
+    const content = readFileSync(join(root, workflow), "utf8");
+    if (content.includes("run: node tools/check-facts-live.mjs")) {
+      errors.push(`${workflow}: runs the live check bare, so an unreachable endpoint fails the build`);
+    }
+    if (!content.includes('status" -eq 75')) {
+      errors.push(`${workflow}: must treat exit 75 from the live check as a warning that still publishes`);
+    }
+  }
+}
+
 /* 3. Required fact tokens in the pages that state them. */
 const requiredCopy = new Map([
   ["README.md", ["3,333", "8,888", "1,500", "963,238", "community-remediation/v4", "forkedfelines.art"]],
