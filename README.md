@@ -16,7 +16,7 @@ This repository is the official public documentation for Forked Felines. It cont
 
 ## Quick facts
 
-Every number below is validated against the live product contract at [`/api/v1/product`](https://forkedfelines.art/api/v1/product). Last verified: **2026-08-28**.
+Every number below is validated against the live product contract at [`/api/v1/product`](https://forkedfelines.art/api/v1/product). Last verified: **2026-08-29**.
 
 | Fact | Value |
 | --- | --- |
