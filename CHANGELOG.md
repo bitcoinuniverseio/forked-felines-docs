@@ -4,7 +4,14 @@ Notable changes to the Forked Felines public documentation. Product changes are 
 
 ## 2026-08-29
 
+### Added
+
+- [Stay safe](docs/safety/stay-safe.md) now says which parts of the house are jokes and which are never jokes. The guest book is written by the house, and every card in the product now says so on the card itself, including where a single card is lifted out of the book and set beside an FAQ answer, the portrait wall, or a booth. The portraits on those cards are real published KNOT HEADS inscriptions, which is exactly what made an unlabelled card read as a customer testimonial.
+
 ### Changed
+
+- The Knot Heads press claim on the product is now dated. A marketplace position is a reading taken on a day, so the day it was reported travels with it.
+- The roadmap no longer says the collection is upcoming before it has read the capacity document. The served page previously told search engines and every first paint that a collection currently minting had not started.
 
 - [The collection wall](docs/collection/collection-wall.md): the wall now arrives hung. Its frames are in the page the server sends, so a search engine, a link preview, and a phone on a slow connection all see the same portraits a browser shows. Previously the wall was fetched only in the browser, and the served page linked to none of the confirmed Felines. A wall that is already hung now stays hung when a refresh fails.
 - Every page of the product now carries a proper preview card when its link is shared. Previously only the support page did, so a link pasted into a chat arrived as a bare row of text.
