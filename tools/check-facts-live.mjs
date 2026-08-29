@@ -2,7 +2,24 @@
  * Compares facts/facts.json with the live public product contract. Run on a
  * schedule and before releases; a mismatch means the product changed and the
  * documentation must be re-verified, page by page, before republishing.
+ *
+ * Two failures live here and they are not the same event:
+ *
+ *   exit 1   the endpoint answered and the facts disagree. Documentation
+ *            drift. Never publish. Re-verify the pages, then update facts.
+ *   exit 75  the endpoint could not be reached at all. Nothing was learned
+ *            about the facts in either direction.
+ *
+ * They used to share exit 1, which meant a runner that could not open a
+ * socket blocked the publication of documentation that was correct, while
+ * the site went on serving an older build. That is strictly worse than
+ * publishing. The facts are not unguarded while the endpoint is
+ * unreachable: check-docs.mjs pins every one of them offline and runs
+ * first in both workflows.
+ *
+ * 75 is EX_TEMPFAIL from sysexits.h, which is what it means here.
  */
+const EX_TEMPFAIL = 75;
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -29,7 +46,9 @@ async function fetchLive() {
     }
   }
   console.error(`live check: ${facts.productFactsEndpoint} unreachable after 4 attempts: ${lastError}`);
-  process.exit(1);
+  console.error("live check: UNREACHABLE, not a mismatch. The documented facts were not"
+    + " compared, and nothing here suggests they moved.");
+  process.exit(EX_TEMPFAIL);
 }
 const live = await fetchLive();
 
@@ -50,7 +69,7 @@ expect("timing.quoteTtlSeconds", live.timing?.quoteTtlSeconds, facts.quoteTtlSec
 expect("timing.orderTtlSeconds", live.timing?.orderTtlSeconds, facts.orderTtlSeconds);
 
 if (errors.length) {
-  console.error(`live facts check: ${errors.length} mismatch(es)\n`);
+  console.error(`live facts check: MISMATCH, the live contract disagrees with facts/facts.json in ${errors.length} place(s)\n`);
   for (const error of errors) console.error(`  ${error}`);
   process.exit(1);
 }

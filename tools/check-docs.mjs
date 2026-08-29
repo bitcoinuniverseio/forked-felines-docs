@@ -53,6 +53,33 @@ for (const [key, value] of Object.entries(pinned)) {
   if (facts[key] !== value) errors.push(`facts/facts.json: ${key} is ${JSON.stringify(facts[key])}, expected ${JSON.stringify(value)}`);
 }
 
+/* 2b. The live-contract check must keep distinguishing its two failures.
+   A mismatch is documentation drift and must never publish. Unreachable is a
+   runner that could not open a socket, which says nothing about the facts, and
+   collapsing the two back into one exit code silently restores the behaviour
+   where a network fault blocks correct documentation while the site serves an
+   older build. Both happened on 2026-08-29, 66 minutes apart, on two different
+   hosted runners, one of which reached the endpoint in the same minute another
+   could not. */
+{
+  const live = readFileSync(join(root, "tools", "check-facts-live.mjs"), "utf8");
+  if (!live.includes("EX_TEMPFAIL = 75")) {
+    errors.push("tools/check-facts-live.mjs: unreachable must exit 75, distinct from a mismatch");
+  }
+  if (!/process\.exit\(EX_TEMPFAIL\)/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: the unreachable path must exit EX_TEMPFAIL, not 1");
+  }
+  for (const workflow of [".github/workflows/deploy-pages.yml", ".github/workflows/docs-ci.yml"]) {
+    const content = readFileSync(join(root, workflow), "utf8");
+    if (content.includes("run: node tools/check-facts-live.mjs")) {
+      errors.push(`${workflow}: runs the live check bare, so an unreachable endpoint fails the build`);
+    }
+    if (!content.includes('status" -eq 75')) {
+      errors.push(`${workflow}: must treat exit 75 from the live check as a warning that still publishes`);
+    }
+  }
+}
+
 /* 3. Required fact tokens in the pages that state them. */
 const requiredCopy = new Map([
   ["README.md", ["3,333", "8,888", "1,500", "963,238", "community-remediation/v4", "forkedfelines.art"]],
