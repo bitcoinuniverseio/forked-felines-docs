@@ -29,23 +29,90 @@ const facts = JSON.parse(readFileSync(join(root, "facts", "facts.json"), "utf8")
 
 /* The product answers from one origin; a runner's route to it can flake.
    Bounded retries separate "the network hiccuped" from "the facts moved",
-   and only the second is a documentation event. */
+   and only the second is a documentation event.
+
+   Three different things used to land in one catch and leave as one exit
+   code, which hid the case this gate exists for. A 404 is not a network
+   fault: if the contract is renamed, moved, or version-bumped out from
+   under the documentation, the endpoint answers, and reporting that as
+   unreachable would publish the House Manual against facts nobody
+   compared. So the decision is made on what the last attempt actually
+   observed:
+
+     no response at all      transient   nothing was learned
+     5xx                     transient   it answered and is having a bad
+                                         time; a deploy window looks like this
+     429                     transient   rate limited, not moved
+     any other 4xx           drift       the contract is not where the
+                                         documentation says it is
+     2xx, unparseable body   drift       it answered and it is not a contract
+
+   The last attempt wins rather than the worst one, because a 404 followed
+   by three dropped connections is better described as "we lost the path"
+   than as "the contract moved". */
 async function fetchLive() {
   let lastError;
+  /* null means the product never answered on the most recent attempt. */
+  let answeredStatus = null;
+  let answeredUnparseable = false;
+
   for (let attempt = 1; attempt <= 4; attempt += 1) {
+    const pause = async () => {
+      if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, attempt * 5_000));
+    };
+
+    let response;
     try {
-      const response = await fetch(facts.productFactsEndpoint, {
+      response = await fetch(facts.productFactsEndpoint, {
         headers: { accept: "application/json" },
         signal: AbortSignal.timeout(15_000),
       });
-      if (!response.ok) throw new Error(`answered ${response.status}`);
+    } catch (error) {
+      lastError = error;
+      answeredStatus = null;
+      answeredUnparseable = false;
+      await pause();
+      continue;
+    }
+
+    answeredStatus = response.status;
+    answeredUnparseable = false;
+
+    if (!response.ok) {
+      lastError = new Error(`answered ${response.status}`);
+      await pause();
+      continue;
+    }
+
+    try {
       return await response.json();
     } catch (error) {
       lastError = error;
-      if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, attempt * 5_000));
+      answeredUnparseable = true;
+      await pause();
     }
   }
-  console.error(`live check: ${facts.productFactsEndpoint} unreachable after 4 attempts: ${lastError}`);
+
+  const transient = answeredStatus === null || answeredStatus >= 500 || answeredStatus === 429;
+  const endpoint = facts.productFactsEndpoint;
+
+  if (answeredUnparseable) {
+    console.error(`live check: ${endpoint} answered ${answeredStatus} with a body that is not JSON: ${lastError}`);
+    console.error("live check: MISMATCH. It answered and it is not serving the contract, so the documented facts could not be compared to anything.");
+    process.exit(1);
+  }
+
+  if (!transient) {
+    console.error(`live check: ${endpoint} answered ${answeredStatus} on every one of 4 attempts`);
+    console.error("live check: MISMATCH. The contract is not where the documentation says it is. Do not publish: find where it moved and update facts/facts.json.");
+    process.exit(1);
+  }
+
+  /* Deliberately not a wider retry budget. Widening it trades a visible
+     failure for a slower one and still fails whenever the path is out for
+     longer than whatever number was chosen. */
+  const reason = answeredStatus === null ? `unreachable after 4 attempts: ${lastError}` : `answered ${answeredStatus} after 4 attempts`;
+  console.error(`live check: ${endpoint} ${reason}`);
   console.error("live check: UNREACHABLE, not a mismatch. The documented facts were not"
     + " compared, and nothing here suggests they moved.");
   process.exit(EX_TEMPFAIL);

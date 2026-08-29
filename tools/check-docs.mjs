@@ -69,6 +69,17 @@ for (const [key, value] of Object.entries(pinned)) {
   if (!/process\.exit\(EX_TEMPFAIL\)/.test(live)) {
     errors.push("tools/check-facts-live.mjs: the unreachable path must exit EX_TEMPFAIL, not 1");
   }
+  /* Asserting that EX_TEMPFAIL exists is not enough: what matters is which
+     conditions reach it. A 404 means the contract moved, which is the event
+     this gate exists to catch, and routing it to the transient exit would
+     publish the House Manual against facts nobody compared. Only a missing
+     response, a 5xx, or a 429 may be transient. */
+  if (!/answeredStatus === null \|\| answeredStatus >= 500 \|\| answeredStatus === 429/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: only no-response, 5xx and 429 may exit 75; a 4xx means the contract moved");
+  }
+  if (!/answeredUnparseable/.test(live)) {
+    errors.push("tools/check-facts-live.mjs: a 2xx with an unparseable body must fail as drift, not as unreachable");
+  }
   for (const workflow of [".github/workflows/deploy-pages.yml", ".github/workflows/docs-ci.yml"]) {
     const content = readFileSync(join(root, workflow), "utf8");
     if (content.includes("run: node tools/check-facts-live.mjs")) {
