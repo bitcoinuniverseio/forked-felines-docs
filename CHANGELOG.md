@@ -12,6 +12,7 @@ Notable changes to the Forked Felines public documentation. Product changes are 
 
 - The Knot Heads press claim on the product is now dated. A marketplace position is a reading taken on a day, so the day it was reported travels with it.
 - The roadmap no longer says the collection is upcoming before it has read the capacity document. The served page previously told search engines and every first paint that a collection currently minting had not started.
+- The expired-order row in [Order status](docs/collectors/order-status.md) no longer tells a visitor to "just order again". The house copy rules ban that word where it would make a money-adjacent act sound trivial, and a reservation that expired is the state where a reader is most likely to be worried about a payment. The product says the same thing, in the same words.
 
 - [The collection wall](docs/collection/collection-wall.md): the wall now arrives hung. Its frames are in the page the server sends, so a search engine, a link preview, and a phone on a slow connection all see the same portraits a browser shows. Previously the wall was fetched only in the browser, and the served page linked to none of the confirmed Felines. A wall that is already hung now stays hung when a refresh fails.
 - Every page of the product now carries a proper preview card when its link is shared. Previously only the support page did, so a link pasted into a chat arrived as a bare row of text.
