@@ -26,6 +26,17 @@ This is a house rule and a security control. Any direct message that opens with 
 
 The house never runs surprise countdowns, last-chance windows, or expiring privileges. Real facts here move at Bitcoin speed. Anyone rushing you to sign something within minutes is manufacturing the pressure that makes people skip the three checks.
 
+## Which parts of this house are jokes
+
+The site is written in the voice of a supper club that does not exist, and the joke is load-bearing for the brand and never for your money. The line is drawn in the same place every time.
+
+- **The guest book is fiction.** Every entry in it was written by the house. They are jokes about Bitcoin, not customer reviews, and no real person said any of them. Each card carries the words HOUSE-WRITTEN, NOT A CUSTOMER REVIEW, wherever it appears, including on its own beside an FAQ answer or the portrait wall. The portraits on those cards are real, published KNOT HEADS inscriptions; the words underneath them are ours.
+- **House standings are decoration.** Walk-in, House Cat, Nine Lives and the rest are lore attached to a number the server already worked out. They never compute a price. The two posted collection prices are the whole pricing story.
+- **The signage, the corkboard, and the menu are jokes.** Reorgs at the exit, blockspace in the cloakroom, and the wine list are set dressing.
+- **Nothing about money, supply, ownership, order state, refunds, or safety is ever a joke.** Amounts, addresses, fees, block heights, order states and every instruction about signing are printed straight, in a monospaced face, and they come from the backend rather than from the page.
+
+If you ever cannot tell which side of that line a sentence sits on, treat it as decoration and check the plain figure on [the mint page](https://forkedfelines.art/mint) or in the [reference](../reference/official-product-facts.md).
+
 ## Wallet hygiene
 
 - Keep valuable inscriptions in a wallet that understands Ordinals, ideally one you do not browse with.
