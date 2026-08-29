@@ -20,7 +20,7 @@ Notable changes to the Forked Felines public documentation. Product changes are 
 
 ### Publication gate
 
-- An unreachable product endpoint no longer blocks publication. The live-contract check now exits 75 for "could not reach the product" and 1 for "the facts disagree", and only the second stops a publish. The two shared an exit code, so a runner that could not open a socket blocked the publication of correct documentation while the site kept serving an older build, which is the worse of the two outcomes. The facts stay guarded either way: they are pinned offline and that check runs first.
+- An unreachable product endpoint no longer blocks publication. The live-contract check now exits 75 for "could not reach the product" and 1 for "the facts disagree", and only the second stops a publish. A 404 counts as the second: if the contract moves, the endpoint answers, and that is the event this check exists to catch. The two shared an exit code, so a runner that could not open a socket blocked the publication of correct documentation while the site kept serving an older build, which is the worse of the two outcomes. The facts stay guarded either way: they are pinned offline and that check runs first.
 
 - No word may be published twice in a row. Markdown wraps prose across source lines, so a word typed twice reads as two clean lines in a diff and as a defect on the page.
 - One verification date. The README, the reference page, and `facts/facts.json` must agree on when the facts were last checked against the live product contract.
