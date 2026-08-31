@@ -20,7 +20,7 @@ Each value is recorded **at reservation time**, before inscription. The inscript
 ## How to verify a Feline yourself
 
 1. Open the Feline's page at `forkedfelines.art/collection/<edition>` and note its artwork digest, byte length, and inscription ID.
-2. Fetch the inscription's content bytes from your own node or any Ordinals-aware explorer you trust, using the inscription ID.
+2. Follow the inscription link on that page, which uses the designated Forked Felines Ord authority, or fetch the bytes from your own node using the inscription ID.
 3. Hash the bytes with SHA-256 and compare with the digest on the card. Check the byte length too.
 
 If they match, the artwork at that inscription is exactly what the house committed to before it was inscribed. You have verified provenance with no trust in the house's servers.
