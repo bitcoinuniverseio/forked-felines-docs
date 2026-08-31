@@ -8,11 +8,15 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  id-token: write
+  pages: write
 concurrency:
   group: docs-pages
   cancel-in-progress: false
 jobs:
   build:
+    permissions:
+      contents: read
     runs-on: [self-hosted, universe-ci]
     timeout-minutes: 10
     steps:
