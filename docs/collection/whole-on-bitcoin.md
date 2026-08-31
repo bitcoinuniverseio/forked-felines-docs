@@ -23,7 +23,7 @@ Each Feline is inscribed as a complete SVG document: every path, every color, th
 
 ## Seeing it yourself
 
-Every Feline's page links its inscription ID. Any Ordinals-aware explorer or your own node will show you the same bytes the house shows you, and the digest of those bytes appears on the Feline's card, so you can check that everyone is talking about the same artwork. See [Provenance](provenance.md).
+Every Feline's page links its inscription ID through the designated Forked Felines Ord authority. Your own node will show you the same bytes the house shows you, and the digest of those bytes appears on the Feline's card, so you can check that everyone is talking about the same artwork. See [Provenance](provenance.md).
 
 ## Next
 

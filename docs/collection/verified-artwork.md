@@ -9,6 +9,10 @@ A confirmed Feline's bytes can be produced two ways:
 1. **From Bitcoin**, through the project's own Ordinals index, reading the inscription itself.
 2. **From the pinned release runtime**, re-drawing the Feline from the frozen seed and recipe.
 
+The project route uses only the designated Forked Felines Ord authority. It
+does not switch to a public Ordinals or explorer API when that authority is
+unavailable.
+
 Because the artwork is deterministic, both produce identical bytes. When the first source cannot answer, during an index rebuild for example, the house redraws the portrait from the release runtime **and serves it only if the bytes hash to the digest recorded at reservation, at the recorded length**. If both sources fail, or either disagrees with the record, the site shows an honest unavailable state instead of a guess.
 
 ## Why you can trust the fallback
