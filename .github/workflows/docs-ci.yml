@@ -15,7 +15,13 @@ concurrency:
   cancel-in-progress: true
 jobs:
   verify:
-    runs-on: runs-on=${{ github.run_id }}-verify/runner=universe-hosted/cpu=2+8/env=production
+    # Certified self-hosted capacity, not RunsOn. This gate is light Node work
+    # with no container and no browser, so the standard fleet runs it in
+    # seconds. It used to ask RunsOn for an EC2 Spot host, and on 2026-09-01
+    # that control plane stopped placing instances: the run sat queued for
+    # six hours with no runner ever registered, which blocks publication on
+    # something the documentation gate does not need.
+    runs-on: [self-hosted, universe-ci, standard-ci]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -35,7 +41,7 @@ jobs:
     # Only trusted refs compare against production, so a fork PR cannot make
     # this repository hammer the live product.
     if: github.event_name == 'push'
-    runs-on: runs-on=${{ github.run_id }}-facts-live/runner=universe-hosted/cpu=2+8/env=production
+    runs-on: [self-hosted, universe-ci, standard-ci]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
