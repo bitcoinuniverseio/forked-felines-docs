@@ -17,8 +17,14 @@ jobs:
   build:
     permissions:
       contents: read
-    runs-on: runs-on=${{ github.run_id }}-build/runner=universe-hosted/cpu=2+8/env=production
+    # RunsOn's cache proxy does not implement the GitHub artifact endpoint that
+    # upload-pages-artifact requires. The Windows router pool is self-hosted,
+    # trusted, and does not intercept artifact uploads.
+    runs-on: [self-hosted, Windows, universe-router]
     timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: bitcoinuniverseio/universe-ci-actions/universe-node-env@8e24bc760556caa5ec8c7c497baaad2e9adcc912 # v1 # v1
@@ -51,7 +57,7 @@ jobs:
           path: _site
   deploy:
     needs: build
-    runs-on: runs-on=${{ github.run_id }}-deploy/runner=universe-hosted/cpu=2+8/env=production
+    runs-on: [self-hosted, Windows, universe-router]
     timeout-minutes: 10
     permissions:
       pages: write
