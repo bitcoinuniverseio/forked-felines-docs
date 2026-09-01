@@ -30,9 +30,20 @@ If they match, the artwork at that inscription is exactly what the house committ
 shasum -a 256 feline.svg
 ```
 
-## Why lists are not enough
+## What membership evidence exists today
 
-Most collections circulate as ad-hoc lists of inscription IDs, which explorers and marketplaces cannot verify against anything. Forked Felines binds each ID to a pre-recorded digest, a recipe, and a seed, so the collection's membership and its artwork are both checkable facts rather than claims.
+Proving the artwork is right is one question. Proving that an edition belongs to the collection is a different one, and today the product answers it with a list rather than a compact proof.
+
+What you can do now:
+
+- Read [`GET /api/v1/collection`](../reference/public-api.md#get-apiv1collection) and check that the inscription ID you are looking at appears there against the edition it claims. Unreleased editions never appear, so an ID absent from that list is not a confirmed Feline.
+- Verify that ID's artwork bytes against the digest on the edition's page, which is the check above.
+
+What does not exist: there is no published collection manifest document and no per-edition inclusion proof endpoint on the live product. If either appears later, it will be documented on the [Public API](../reference/public-api.md) page only once it answers.
+
+## Why a bare list of IDs is not enough
+
+Most collections circulate as an ad-hoc list of inscription IDs, which explorers and venues cannot check against anything. Forked Felines binds each ID to a digest, a recipe, and a seed recorded before reservation, so what the artwork is remains a checkable fact rather than a claim, whatever list the ID happens to travel in.
 
 ## What is deliberately not in the evidence
 

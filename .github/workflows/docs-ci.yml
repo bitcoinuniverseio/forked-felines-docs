@@ -1,9 +1,9 @@
 name: Docs CI
 # Every pull request and every push to main or develop runs the full
 # publication gate: em dashes, facts, links, private terms, and a real build.
-# This is a public repository, so everything runs on GitHub-hosted runners
-# with pinned actions and read-only permissions; no publishing token is ever
-# exposed to pull requests.
+# Everything runs on the organization self-hosted runners with pinned
+# actions and read-only permissions; no publishing token is ever exposed to
+# pull requests.
 on:
   pull_request:
   push:

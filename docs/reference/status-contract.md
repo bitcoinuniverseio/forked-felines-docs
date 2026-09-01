@@ -18,6 +18,18 @@ The design principle across all of them: **degradation closes intake rather than
 - Existing paid orders continue independently: payment observation and financial recovery run on durable state and an independent reconciler, so a closed front door never strands a paid order.
 - A healthy background worker never overrides an unsafe dependency. There is no "mostly ready".
 
+## The five states of `mintState`
+
+| State | What it means |
+| --- | --- |
+| `OPEN` | New orders are being accepted |
+| `PAUSED` | An operator has paused intake, or an emergency stop is engaged. Nothing is wrong with your funds |
+| `SOLD_OUT` | Every Feline that can be inscribed has been |
+| `FINISHED` | An operator has closed the mint |
+| `UNAVAILABLE` | A dependency is unhealthy, so the house stopped intake rather than guess |
+
+Read `safeToAcceptOrders` rather than inferring from the word: it is the single boolean the interface itself obeys, and it fails closed.
+
 ## Reading `reasonCodes`
 
 When `mintState` is not `OPEN`, `reasonCodes` lists exact causes, for example `RELEASE_MODE_READ_ONLY` (the site is deliberately running read-only) or dependency codes naming an unhealthy authority. They are technical strings meant to be precise rather than pretty, and they are the same codes the operators read.

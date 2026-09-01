@@ -4,6 +4,7 @@
  * missing alt text, and any term that belongs to the private side of the
  * house. Fails loudly, lists everything, fixes nothing.
  */
+import { createHash } from "node:crypto";
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -154,12 +155,61 @@ const privateTerms = [
   /\bredis:\/\//i, /\bpostgres(?:ql)?:\/\//i,
   /\/etc\/forked-felines/, /\/etc\/universe/, /ProgramData/,
 ];
+/* Collection artwork is path data. A run of coordinates such as "1.2.3.4" is
+   indistinguishable from an address shape to a regular expression, so the
+   plates are scanned for every pattern except that one. Every other check in
+   this file, em dashes included, still applies to them. */
+const dottedQuad = /\b(?:\d{1,3}\.){3}\d{1,3}\b/;
 for (const file of files) {
   if (file.includes("tools") && file.endsWith("check-docs.mjs")) continue;
+  const isPlate = relative(root, file).replaceAll("\\", "/").startsWith("docs/assets/plates/");
   const content = readFileSync(file, "utf8");
   for (const pattern of privateTerms) {
+    if (isPlate && pattern === dottedQuad) continue;
     const match = content.match(pattern);
     if (match) errors.push(`${relative(root, file)}: private term or secret shape "${match[0]}" must not publish`);
+  }
+}
+
+/* 5b. The published plates must be the bytes their recorded digest commits
+   to. This documentation tells readers to hash a file and compare, and offers
+   a checker that does it for them, so a plate that no longer hashes to its
+   record would turn the manual's own demonstration into a failure. */
+{
+  const observed = JSON.parse(readFileSync(join(root, "facts", "collection-observed.json"), "utf8"));
+  for (const plate of observed.plates) {
+    const file = join(root, "docs", "assets", "plates", plate.file);
+    if (!existsSync(file)) {
+      errors.push(`facts/collection-observed.json: plate ${plate.file} is recorded but not committed`);
+      continue;
+    }
+    const bytes = readFileSync(file);
+    if (bytes.length !== plate.bytes) {
+      errors.push(`docs/assets/plates/${plate.file}: ${bytes.length} bytes, recorded as ${plate.bytes}`);
+    }
+    const digest = createHash("sha256").update(bytes).digest("hex");
+    if (digest !== plate.sha256) {
+      errors.push(`docs/assets/plates/${plate.file}: hashes to ${digest}, recorded as ${plate.sha256}`);
+    }
+  }
+  if (!observed.plates.length) errors.push("facts/collection-observed.json: no plates recorded");
+}
+
+/* 5c. Every component a page asks for must be one the builder knows how to
+   render, and every component the builder can render must be used. A page
+   that marks a place the builder silently skips publishes a hole. */
+{
+  const builder = readFileSync(join(root, "site", "build.mjs"), "utf8");
+  const known = new Set([...builder.matchAll(/^\s{2}"([a-z-]+)": [a-zA-Z]+,$/gm)].map(([, name]) => name));
+  const used = new Set();
+  for (const file of markdownFiles) {
+    for (const [, name] of readFileSync(file, "utf8").matchAll(/<!--\s*component:\s*([a-z-]+)\s*-->/g)) {
+      used.add(name);
+      if (!known.has(name)) errors.push(`${relative(root, file)}: unknown component "${name}"`);
+    }
+  }
+  for (const name of known) {
+    if (!used.has(name)) errors.push(`site/build.mjs: component "${name}" is built but no page places it`);
   }
 }
 
