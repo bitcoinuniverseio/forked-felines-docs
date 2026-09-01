@@ -30,6 +30,27 @@ If they match, the artwork at that inscription is exactly what the house committ
 shasum -a 256 feline.svg
 ```
 
+## Verify collection membership with a Merkle proof
+
+The public collection manifest commits every confirmed edition to one Merkle root. A compact proof lets you verify one edition without trusting a fresh database answer or downloading every entry.
+
+1. Save `https://forkedfelines.art/api/v1/collection/manifest` from a source and time you trust.
+2. Save `https://forkedfelines.art/api/v1/collection/proof/<edition>` for the edition you are checking.
+3. Fetch the inscription artwork independently and hash its exact bytes.
+4. Recompute the proof path against the root from your saved manifest, then compare the artwork hash with `entry.artworkSha256`.
+
+The application repository includes a verifier:
+
+```bash
+npm run build -w @forked-felines/core
+node tools/verify-collection-proof.mjs \
+  --proof proof.json \
+  --manifest manifest.json \
+  --artwork feline.svg
+```
+
+Exit code `0` means the edition record reaches the independently supplied root and, when `--artwork` is present, the supplied bytes match the artwork commitment. Any other exit code means the result is not verified. A proof checked only against its own embedded root proves nothing, because a forged proof can carry a root that agrees with itself.
+
 ## Why lists are not enough
 
 Most collections circulate as ad-hoc lists of inscription IDs, which explorers and marketplaces cannot verify against anything. Forked Felines binds each ID to a pre-recorded digest, a recipe, and a seed, so the collection's membership and its artwork are both checkable facts rather than claims.

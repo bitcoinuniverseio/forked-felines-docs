@@ -24,6 +24,7 @@ New here? Three pages answer almost everything:
 - [Wallet signing](collectors/wallet-signing.md)
 - [Order status](collectors/order-status.md)
 - [My Booth](collectors/my-booth.md)
+- [The market desk](collectors/market-desk.md)
 - [Community credits](collectors/community-credits.md)
 - [Remediation and refunds](collectors/remediation-and-refunds.md)
 
