@@ -1,0 +1,11 @@
+# Collection artwork is checked out byte for byte on every platform.
+#
+# The manual publishes the SHA-256 of each plate, offers a checker that
+# reproduces it, and fails the publication gate when a plate no longer hashes
+# to its record. A line-ending conversion on one contributor's machine would
+# break all three at once, so these files are never treated as text.
+docs/assets/plates/*.svg -text
+
+# The recorded digests live here. Same reason.
+facts/collection-observed.json text eol=lf
+facts/facts.json text eol=lf

@@ -21,6 +21,32 @@ The complete order state machine, with the exact meaning of each state and what 
 | `FAILED_RECOVERABLE` | DROPPED TRAY. KITCHEN RETRIES. | A step failed and retries automatically; no funds are lost by this state | Unchanged |
 | `FAILED_QUARANTINED` | TAKEN TO THE BACK OFFICE | Needs operator attention; safe, held, and visible to staff | Held safely |
 
+## What can follow what
+
+A transition that is not in this table is rejected by the application, not merely avoided by it. There is no path from any state to a different one by way of a retry, a race, or a request.
+
+| From | May become |
+| --- | --- |
+| `CREATED` | `AWAITING_PAYMENT`, `CANCELLED`, `EXPIRED` |
+| `AWAITING_PAYMENT` | `PAYMENT_SEEN`, `CANCELLED`, `EXPIRED` |
+| `PAYMENT_SEEN` | `PAYMENT_CONFIRMED`, `AWAITING_PAYMENT`, `FAILED_RECOVERABLE` |
+| `PAYMENT_CONFIRMED` | `INSCRIBING`, `REFUND_PENDING`, `FAILED_RECOVERABLE` |
+| `INSCRIBING` | `INSCRIPTION_BROADCAST`, `FAILED_RECOVERABLE`, `FAILED_QUARANTINED` |
+| `INSCRIPTION_BROADCAST` | `INSCRIPTION_CONFIRMED`, `FAILED_RECOVERABLE`, `FAILED_QUARANTINED` |
+| `INSCRIPTION_CONFIRMED` | `DELIVERED`, `FAILED_RECOVERABLE` |
+| `DELIVERED` | nothing. Terminal |
+| `CANCELLED` | nothing. Terminal |
+| `EXPIRED` | `PAYMENT_SEEN`, `REFUND_PENDING` |
+| `REFUND_PENDING` | `REFUNDED`, `FAILED_RECOVERABLE` |
+| `REFUNDED` | nothing. Terminal |
+| `FAILED_RECOVERABLE` | `AWAITING_PAYMENT`, `PAYMENT_CONFIRMED`, `INSCRIBING`, `INSCRIPTION_BROADCAST`, `REFUND_PENDING`, `FAILED_QUARANTINED` |
+| `FAILED_QUARANTINED` | nothing. Terminal, and staff hold it there deliberately |
+
+Two rows explain most of what surprises people:
+
+- **`EXPIRED` can still see a payment.** A reservation that closed unpaid is not the end of the story if your payment turns up afterwards. That is why `EXPIRED` leads to `PAYMENT_SEEN` and then to a refund, rather than to nothing.
+- **`FAILED_RECOVERABLE` leads back into the flow.** It is a step that will be retried, not a dead end, and the states it can return to are exactly the steps that can be safely resumed.
+
 ## Guarantees across all states
 
 - **States are read, never invented.** Each transition reflects verified server-side or on-chain reality. The UI cannot advance a state.
