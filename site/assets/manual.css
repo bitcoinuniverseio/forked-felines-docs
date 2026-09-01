@@ -171,7 +171,7 @@ a:hover { color: var(--oxblood-hot); }
 .nav-room a[aria-current="page"] { border-left-color: var(--oxblood); color: var(--oxblood); font-weight: 700; }
 .rooms-note { font-size: .72rem; color: var(--ink-soft); font-style: italic; margin-top: 2.4rem; }
 
-.page { padding-top: 2rem; min-width: 0; max-width: 46rem; }
+.page { padding-top: 2rem; min-width: 0; max-width: 52rem; }
 .crumbs { font-size: .78rem; color: var(--ink-soft); }
 .crumbs a { color: var(--ink-soft); }
 .crumb-sep { margin: 0 .5rem; color: var(--rule-strong); }
@@ -182,7 +182,12 @@ a:hover { color: var(--oxblood-hot); }
 
 /* ------------------------------------------------------------ reading */
 
-.reading { max-width: var(--measure); }
+/* Prose keeps a reading measure. The gallery and the explorers are not
+   prose: they are tables of plates and values, and a 40rem column turns
+   both of them into a narrow ribbon. */
+.reading { max-width: none; }
+.reading > * { max-width: var(--measure); }
+.reading > .gallery, .reading > .explorer, .reading > .checker { max-width: none; }
 .reading h1 {
   font-size: clamp(1.9rem, 1.4rem + 1.9vw, 2.7rem);
   line-height: 1.12; letter-spacing: -.005em; margin: .35rem 0 1.6rem;
@@ -302,7 +307,7 @@ input[type="file"] { font-family: var(--sans); font-size: .88rem; color: var(--i
 select { max-width: 14rem; }
 .explorer-status { font-size: .82rem; color: var(--ink-soft); margin: .4rem 0 0; }
 
-.trait-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.trait-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); }
 .trait-card {
   border: 1px solid var(--rule); border-radius: 2px; background: var(--paper);
   padding: .9rem 1rem; box-shadow: var(--lift);
