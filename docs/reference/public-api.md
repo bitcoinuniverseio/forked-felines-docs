@@ -12,6 +12,10 @@ General behavior:
 - Public endpoints never require, accept, or reveal wallet credentials.
 - Stability: fields are added over time; existing fields are not repurposed. Each payload names its own `schemaVersion` where versioned.
 
+## Every endpoint on this page answers
+
+This page lists what the live product actually serves, and nothing else. Each endpoint below was requested against the live product on **2026-08-29** and returned a real response. An endpoint that is planned, designed, or half-built does not appear here at all, because a reference that mixes the two is worse than no reference.
+
 ## GET /api/v1/product
 
 The product facts contract. Schema `forked-felines.public-product/v5`.
@@ -43,7 +47,7 @@ The public, cacheable mint status document. Schema `forked-felines.mint-capacity
 
 | Field | Meaning |
 | --- | --- |
-| `mintState` | `OPEN`, `SOLD_OUT`, `PAUSED`, or `UNAVAILABLE` |
+| `mintState` | `OPEN`, `SOLD_OUT`, `FINISHED`, `PAUSED`, or `UNAVAILABLE` |
 | `safeToAcceptOrders` | The fail-closed boolean the UI obeys |
 | `reasonCodes` | Exact, technical reasons when intake is closed |
 | `maximumSupply`, `finalSupply` | Supply invariants |
@@ -70,31 +74,22 @@ Every confirmed Feline, for rendering a wall honestly.
 
 Unreleased editions never appear, in any state.
 
-## GET /api/v1/collection/manifest
-
-The machine-verifiable collection membership document. Schema `forked-felines.collection-proof/v1`.
-
-| Field | Meaning |
-| --- | --- |
-| `release.collectionId` / `network` / `supply` | The release identity committed by this document |
-| `release.studioCommitSha` | The pinned Studio source commit |
-| `entries[]` | Confirmed editions, sorted by edition number |
-| `entries[].inscriptionId` | The Bitcoin inscription committed for that edition |
-| `entries[].artworkSha256` | SHA-256 of the exact artwork bytes |
-| `entries[].recipeSha256` / `manifestSha256` | The frozen recipe and Studio inventory commitments |
-| `merkleRoot` | One SHA-256 commitment to the complete published entry list |
-
-The response is cacheable for 60 seconds and is also offered as `forked-felines-collection-manifest.json`.
-
-## GET /api/v1/collection/proof/{edition}
-
-A compact Merkle inclusion proof for one confirmed edition. It contains the edition entry, release identity, root, and each left or right sibling hash needed to recompute that root. An invalid edition returns `400`; an edition absent from the published collection returns `404`.
-
-Do not validate a proof against only the root inside the proof itself. Obtain the expected root independently, such as from a manifest you saved earlier, then verify the path against that root. See [Provenance](../collection/provenance.md) for the complete independent check.
-
 ## GET /api/v1/inscriptions/{inscriptionId}/content
 
-The verified artwork bytes for a confirmed Feline: `image/svg+xml`. Bytes are served only after hashing against the digest recorded at reservation; the `x-artwork-source` response header names which verified source answered. Unverifiable content returns `502` rather than a guess.
+The verified artwork bytes for a confirmed Feline: `image/svg+xml`. Bytes are served only after hashing against the digest recorded at reservation. Unverifiable content returns `502` rather than a guess.
+
+The response headers carry the proof, so a client never has to trust the body alone:
+
+| Header | Meaning |
+| --- | --- |
+| `x-content-sha256` | SHA-256 of the exact bytes in this response. Hash the body yourself and compare |
+| `etag` | The same digest, so an ordinary HTTP cache is keyed by artwork identity |
+| `x-artwork-source` | Which verified source answered, either the project's own Ordinals index or the pinned release runtime |
+| `cache-control` | `public, max-age=31536000, immutable`. Verified artwork bytes never change, so they are cached forever |
+
+An inscription ID that is not 64 hex characters followed by `i` and an index returns `400`. An inscription that is not a confirmed Feline returns `404`.
+
+See [Verify a Feline](../collection/verify-a-feline.md) for the full independent check.
 
 ## GET /api/v1/block
 
@@ -102,27 +97,17 @@ The house block clock: `{ "available": true, "height": 964451, ... }`. When the 
 
 ## GET /api/v1/fees
 
-The live fee-rate recommendations (sat/vB) the quote flow uses: `economy`, `normal`, `priority`, plus a `source.degraded` flag.
-
-## GET /api/v1/market
-
-The house's current, fail-closed reading of Forked Felines orders from its configured OrDEX authority. The response is never cached.
-
-| Field | Meaning |
-| --- | --- |
-| `freshness`, `ageMs`, `observedAt` | Whether the reading is current and when it was checked |
-| `authorityHeight`, `chainTipHeight`, `blocksBehind` | The exact synchronization evidence behind the reading |
-| `verifiersConfigured` | Whether the backend reports its required verifiers configured |
-| `listed` | Orders tied to confirmed Forked Felines in this release |
-| `orders[].backendActionability` | The backend verdict: `REVIEW_ONLY`, `ACTIONABLE`, or `BLOCKED` |
-| `orders[].actionable` / `refusal` | The house's independent per-request verdict and exact refusal code |
-| `floorSats` | Lowest currently actionable price, or `null` when no safe floor can be proved |
-
-An order is not presented as actionable unless the signed outpoint still matches the current outpoint, its terms were verified, its observation is current, and the backend itself marked it `ACTIONABLE`. The live backend currently returns review-only evidence, so the desk reports facts without offering a buy action or inventing a floor.
+The live fee-rate recommendations (sat/vB) the quote flow uses: `economy`, `normal`, `priority`, plus a `source.degraded` flag. The answering provider is named by rank, never by address.
 
 ## What is intentionally not public
 
 Order creation, quoting, payment, and support endpoints are part of the application's own checkout flow, protected by signed quotes and session controls; they are not a public integration surface. Admin and internal endpoints are not documented and reject outside callers. Detailed per-address holdings are not exposed through any unauthenticated profiling endpoint, by design.
+
+## There is no market endpoint
+
+Forked Felines has no trading surface, so it publishes no order book, no listings, and no floor price. There is nothing to integrate against and nothing planned that this page is holding back. See [What is Forked Felines?](../start-here/what-is-forked-felines.md) for what the product deliberately is not.
+
+If a site shows you a Forked Felines order book, it is a third party's reading of Bitcoin, not a house surface, and none of the checks described here apply to it.
 
 ## Fair use
 

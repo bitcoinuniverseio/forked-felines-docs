@@ -7,11 +7,18 @@ Every cost, what it pays for, and when it can change. All amounts are integer sa
 | Component | Amount | What it pays for |
 | --- | --- | --- |
 | Collection price | 8,888 sats public, 0 sats with a Knot Heads credit | The Feline itself |
-| Bitcoin network fee | live, set by the fee rate you choose | Miners confirming your payment |
-| Inscription delivery | live, shown on the quote | The transaction that inscribes the Feline and delivers it to your address |
+| Bitcoin network fee | live, set by the fee rate you choose | Miners confirming the transactions |
+| Inscription delivery | 546 sats per Feline, plus its share of the network fee | The output that carries the inscription to your address, and the transaction that reveals it |
 | Service fee | 1,500 sats | The house constructing, verifying, and shepherding your inscription |
 
 The signed quote lists each component and one exact total **before your wallet opens**. Nothing is added afterwards.
+
+Two details worth knowing about the parts you do not pay:
+
+- **The 546 sats is not a fee.** It is the smallest amount Bitcoin will let an output carry, and it is the output that holds your Feline. It arrives at your address with the inscription and stays yours.
+- **The commit transaction is on the house.** Inscribing takes two transactions. You are quoted the reveal; the commit is funded by the house and appears on your bill as zero.
+
+You can order 1 to 20 Felines in a single checkout, and hold up to 3 unpaid orders at a time. Cancelled, expired and failed attempts never count against that limit.
 
 ## The signed quote
 

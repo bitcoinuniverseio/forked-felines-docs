@@ -14,6 +14,18 @@ Thank you for improving the documentation. This repository holds the official pu
 - **Security reports.** Use the private process in [SECURITY.md](SECURITY.md), never a public issue.
 - **New product facts.** Prices, supply, snapshots, and policies come from the product contract, not from pull requests. A docs PR cannot change the product.
 
+## What is generated, and must not be hand-edited
+
+Three things in this repository are derived. Retyping any of them is how a documentation site starts lying.
+
+| Thing | Where it comes from |
+| --- | --- |
+| `facts/facts.json` | The live `GET /api/v1/product` contract. Pinned offline by the gate, re-checked against the live endpoint in CI |
+| `facts/collection-observed.json` and `docs/assets/plates/` | `node tools/refresh-collection-snapshot.mjs`, which reads the public collection endpoint, records the trait and rarity vocabulary, and downloads the plate artwork |
+| The gallery, the trait explorer, the rarity table and the digest checker | Built from that snapshot at build time, and dropped into a page wherever that page leaves an HTML comment naming the component. Look at the top of `docs/collection/the-plates.md` for the exact form |
+
+To refresh the collection census and the plates, run the refresh tool and commit what it changes. It rewrites artwork files, so read the diff: a plate's bytes should only ever change if the endpoint served different bytes, which would itself be a finding worth reporting.
+
 ## Making a change
 
 1. Fork, branch, edit the Markdown under `docs/` (or `README.md`).
@@ -31,4 +43,4 @@ Maintainers listed in [CODEOWNERS](CODEOWNERS) review every change. Factual chan
 
 ## License and attribution
 
-By contributing you agree your contribution is licensed under this repository's terms (see the copyright notice in the README).
+By contributing you agree your contribution is licensed under this repository's terms. See [LICENSE.md](LICENSE.md).

@@ -44,8 +44,9 @@ The full walkthrough, including every order state and how to resume after closin
 | New to Forked Felines | [What is Forked Felines?](docs/start-here/what-is-forked-felines.md) |
 | A Knot Heads holder | [Knot Heads holder start](docs/start-here/knot-heads-holder-start.md) |
 | A public minter | [Public minter start](docs/start-here/public-minter-start.md) |
+| Here to look at the art | [The plates](docs/collection/the-plates.md) |
 | Checking a Feline you own | [My Booth](docs/collectors/my-booth.md) |
-| Verifying artwork or provenance | [Provenance](docs/collection/provenance.md) |
+| Verifying artwork yourself | [Verify a Feline](docs/collection/verify-a-feline.md) |
 | Worried about a scam | [What we will never ask](docs/safety/what-we-will-never-ask.md) |
 | Building against the public API | [Public API](docs/reference/public-api.md) |
 
@@ -66,11 +67,17 @@ The house will never DM first, never ask for your seed phrase, and never ask you
 
 - **Start here**: [what it is](docs/start-here/what-is-forked-felines.md) · [30-second explanation](docs/start-here/explain-it-in-30-seconds.md) · [mint in 3 steps](docs/start-here/mint-in-3-steps.md) · [holder start](docs/start-here/knot-heads-holder-start.md) · [public start](docs/start-here/public-minter-start.md)
 - **Collectors**: [wallets](docs/collectors/supported-wallets.md) · [addresses](docs/collectors/receiving-vs-payment-address.md) · [prices and fees](docs/collectors/prices-and-fees.md) · [signing](docs/collectors/wallet-signing.md) · [order status](docs/collectors/order-status.md) · [My Booth](docs/collectors/my-booth.md) · [credits](docs/collectors/community-credits.md) · [remediation](docs/collectors/remediation-and-refunds.md)
-- **The collection**: [how the art is made](docs/collection/how-the-art-is-made.md) · [whole on Bitcoin](docs/collection/whole-on-bitcoin.md) · [verified artwork](docs/collection/verified-artwork.md) · [traits and odds](docs/collection/traits-and-odds.md) · [provenance](docs/collection/provenance.md) · [the wall](docs/collection/collection-wall.md) · [Knot Heads relationship](docs/collection/knot-heads-relationship.md)
+- **The collection**: [the plates](docs/collection/the-plates.md) · [how the art is made](docs/collection/how-the-art-is-made.md) · [whole on Bitcoin](docs/collection/whole-on-bitcoin.md) · [trait catalogue](docs/collection/trait-catalogue.md) · [traits and odds](docs/collection/traits-and-odds.md) · [verified artwork](docs/collection/verified-artwork.md) · [provenance](docs/collection/provenance.md) · [verify a Feline](docs/collection/verify-a-feline.md) · [the wall](docs/collection/collection-wall.md) · [Knot Heads relationship](docs/collection/knot-heads-relationship.md)
 - **Safety**: [stay safe](docs/safety/stay-safe.md) · [what we will never ask](docs/safety/what-we-will-never-ask.md) · [privacy](docs/safety/privacy.md) · [reporting a security problem](docs/safety/reporting-a-security-problem.md)
 - **Help**: [troubleshooting](docs/help/troubleshooting.md) · [payment and confirmation](docs/help/payment-and-confirmation.md) · [getting support](docs/help/getting-support.md)
 - **Reference**: [official product facts](docs/reference/official-product-facts.md) · [public API](docs/reference/public-api.md) · [order states](docs/reference/order-states.md) · [status contract](docs/reference/status-contract.md) · [terminology](docs/reference/terminology.md)
 - **Changes**: [changelog](CHANGELOG.md)
+
+## The plates
+
+Eight confirmed Felines are hung in [the gallery](docs/collection/the-plates.md) at full size, each with a catalogue entry: plate, edition, medium, dimensions, byte length, digest, setting odds, inscription, and the day it was served.
+
+The artwork files under `docs/assets/plates/` are the real thing. They are the exact bytes the product serves for those editions, saved here so the manual can show what it describes, and so that the digest printed under each frame is the digest of a file you can hash yourself. The publication gate re-hashes every one of them on every build. See [Verify a Feline](docs/collection/verify-a-feline.md).
 
 ## Official links
 
@@ -83,8 +90,17 @@ Anything not listed above is not official. Staff will never DM first.
 
 ## About this repository
 
-The Markdown under `docs/` is the single source of truth; the documentation site is built from it without changing a word. Facts are validated in CI against `facts/facts.json`, which is itself checked against the live product API. Corrections are welcome through issues and pull requests; product support belongs in [the app's support desk](https://forkedfelines.art/support), not in the issue tracker.
+The Markdown under `docs/` is the single source of truth; the documentation site is built from it without changing a word. Product facts are pinned in `facts/facts.json` and validated in CI against the live product contract. The collection census and the plate artwork are read from the public collection endpoint by `tools/refresh-collection-snapshot.mjs`, and the gallery, trait catalogue, rarity table and digest checker are generated from that snapshot rather than typed. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Copyright 2026 Bitcoin Universe. Documentation text and images in this repository may be quoted with attribution for the purpose of describing Forked Felines. All other rights reserved.
+Corrections are welcome through issues and pull requests; product support belongs in [the app's support desk](https://forkedfelines.art/support), not in the issue tracker.
+
+| File | What it is |
+| --- | --- |
+| [`docs.manifest.json`](docs.manifest.json) | The Bitcoin Universe documentation manifest for this repository |
+| [`facts/facts.json`](facts/facts.json) | The pinned product facts every page is validated against |
+| [`facts/collection-observed.json`](facts/collection-observed.json) | The trait vocabulary, rarity tiers and plate digests, with the date they were read |
+| [`LICENSE.md`](LICENSE.md) | What may be reused, and what may not |
+
+Copyright 2026 Bitcoin Universe. See [LICENSE.md](LICENSE.md).
 
 *A collectible, not an investment.*
