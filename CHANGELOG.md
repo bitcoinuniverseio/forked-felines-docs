@@ -2,6 +2,18 @@
 
 Notable changes to the Forked Felines public documentation. Product changes are reflected here when they change what a collector should know.
 
+## 2026-09-01
+
+### Added
+
+- [The market desk](docs/collectors/market-desk.md) explains the read-only OrDEX view, its exact actionability checks, fail-closed behavior, and why review-only orders never produce a quoted floor or buy action.
+- [Public API](docs/reference/public-api.md) now documents `GET /api/v1/market`, the full collection manifest, and per-edition Merkle proof endpoints.
+- [Provenance](docs/collection/provenance.md) now includes the independent manifest, proof, and artwork verification workflow supplied with the application repository.
+
+### Product facts
+
+- Supply, pricing, holder snapshot, and settlement facts are unchanged.
+
 ## 2026-08-29
 
 ### Added
