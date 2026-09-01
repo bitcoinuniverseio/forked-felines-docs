@@ -23,7 +23,7 @@ The setting odds are not a scarcity claim. Read [Traits and odds](traits-and-odd
 
 ## Why these eight
 
-They were chosen to show the recipe's range rather than to rank anything: the first plate served, four different coats, three of the four hats, a Deceased expression, a Feast Mode plate, and a table set for a node runner. Each one is a confirmed edition, so nothing here spoils a reveal. Unreleased artwork is not published anywhere, including here.
+They were chosen to show the recipe's range rather than to rank anything: the first plate served, five different coats, every hat in the confirmed catalogue including the bare-headed one, a Deceased expression, a Feast Mode plate, and a table set for a node runner. Each one is a confirmed edition, so nothing here spoils a reveal. Unreleased artwork is not published anywhere, including here.
 
 ## Seeing the rest
 
