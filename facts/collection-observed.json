@@ -1,0 +1,521 @@
+{
+  "note": "A census of confirmed editions read from the public collection endpoint. Observed counts are not the frozen generator weights.",
+  "observedAt": "2026-09-01T03:05:20.603Z",
+  "observedFrom": "https://forkedfelines.art/api/v1/collection",
+  "network": "mainnet",
+  "supply": 3333,
+  "revealedCount": 61,
+  "traitCategories": 10,
+  "traits": [
+    {
+      "category": "Fur",
+      "valuesObserved": 8,
+      "values": [
+        {
+          "value": "Tabby Orange",
+          "observed": 15
+        },
+        {
+          "value": "Black",
+          "observed": 13
+        },
+        {
+          "value": "Tuxedo",
+          "observed": 9
+        },
+        {
+          "value": "White",
+          "observed": 9
+        },
+        {
+          "value": "Grey Tabby",
+          "observed": 6
+        },
+        {
+          "value": "Golden",
+          "observed": 4
+        },
+        {
+          "value": "Siamese",
+          "observed": 3
+        },
+        {
+          "value": "Calico",
+          "observed": 2
+        }
+      ]
+    },
+    {
+      "category": "Hat",
+      "valuesObserved": 4,
+      "values": [
+        {
+          "value": "None",
+          "observed": 50
+        },
+        {
+          "value": "BIP 110 Cap",
+          "observed": 7
+        },
+        {
+          "value": "KNOTS Cap",
+          "observed": 3
+        },
+        {
+          "value": "Pope Hat",
+          "observed": 1
+        }
+      ]
+    },
+    {
+      "category": "Tail",
+      "valuesObserved": 5,
+      "values": [
+        {
+          "value": "Tucked Under",
+          "observed": 24
+        },
+        {
+          "value": "Wrapped Twice",
+          "observed": 13
+        },
+        {
+          "value": "Flicking",
+          "observed": 12
+        },
+        {
+          "value": "Draped Off Table",
+          "observed": 9
+        },
+        {
+          "value": "Chasing Itself",
+          "observed": 3
+        }
+      ]
+    },
+    {
+      "category": "Glass",
+      "valuesObserved": 7,
+      "values": [
+        {
+          "value": "Water Glass",
+          "observed": 15
+        },
+        {
+          "value": "Mason Jar",
+          "observed": 14
+        },
+        {
+          "value": "Wine Glass",
+          "observed": 10
+        },
+        {
+          "value": "Beer Bottle",
+          "observed": 7
+        },
+        {
+          "value": "Highball",
+          "observed": 7
+        },
+        {
+          "value": "Champagne Flute",
+          "observed": 4
+        },
+        {
+          "value": "Coffee Mug",
+          "observed": 4
+        }
+      ]
+    },
+    {
+      "category": "Plate",
+      "valuesObserved": 4,
+      "values": [
+        {
+          "value": "Defined Rim",
+          "observed": 26
+        },
+        {
+          "value": "Speckled Stoneware",
+          "observed": 17
+        },
+        {
+          "value": "Cobalt Band",
+          "observed": 12
+        },
+        {
+          "value": "Scalloped",
+          "observed": 6
+        }
+      ]
+    },
+    {
+      "category": "Sides",
+      "valuesObserved": 9,
+      "values": [
+        {
+          "value": "Mash, Gravy & Roll",
+          "observed": 17
+        },
+        {
+          "value": "Corn, Carrots & Peas",
+          "observed": 8
+        },
+        {
+          "value": "Peas, Mash & Carrots",
+          "observed": 8
+        },
+        {
+          "value": "Cherry Tomato & Greens",
+          "observed": 6
+        },
+        {
+          "value": "Roll, Peas & Butter",
+          "observed": 6
+        },
+        {
+          "value": "Carrots & Greens",
+          "observed": 5
+        },
+        {
+          "value": "Full Plate",
+          "observed": 5
+        },
+        {
+          "value": "Gravy Lake & Roll",
+          "observed": 5
+        },
+        {
+          "value": "Feast Mode",
+          "observed": 1
+        }
+      ]
+    },
+    {
+      "category": "Table",
+      "valuesObserved": 7,
+      "values": [
+        {
+          "value": "Blue Gingham",
+          "observed": 13
+        },
+        {
+          "value": "Red Gingham",
+          "observed": 12
+        },
+        {
+          "value": "Wood Table",
+          "observed": 12
+        },
+        {
+          "value": "Green Gingham",
+          "observed": 9
+        },
+        {
+          "value": "Light Wood",
+          "observed": 7
+        },
+        {
+          "value": "Bitcoin Orange",
+          "observed": 4
+        },
+        {
+          "value": "Whitewashed Pine",
+          "observed": 4
+        }
+      ]
+    },
+    {
+      "category": "Setting",
+      "valuesObserved": 3,
+      "values": [
+        {
+          "value": "Classic Right",
+          "observed": 25
+        },
+        {
+          "value": "Classic Left",
+          "observed": 24
+        },
+        {
+          "value": "Cluttered",
+          "observed": 12
+        }
+      ]
+    },
+    {
+      "category": "Accessory",
+      "valuesObserved": 6,
+      "values": [
+        {
+          "value": "None",
+          "observed": 27
+        },
+        {
+          "value": "Bitcoins",
+          "observed": 8
+        },
+        {
+          "value": "Raspberry Pi Node",
+          "observed": 8
+        },
+        {
+          "value": "Cookbook",
+          "observed": 7
+        },
+        {
+          "value": "Dice & Coldcard",
+          "observed": 6
+        },
+        {
+          "value": "Fishbone",
+          "observed": 5
+        }
+      ]
+    },
+    {
+      "category": "Expression",
+      "valuesObserved": 8,
+      "values": [
+        {
+          "value": "Smug",
+          "observed": 14
+        },
+        {
+          "value": "Sleepy",
+          "observed": 13
+        },
+        {
+          "value": "Innocent",
+          "observed": 11
+        },
+        {
+          "value": "Judgmental",
+          "observed": 8
+        },
+        {
+          "value": "Surprised",
+          "observed": 6
+        },
+        {
+          "value": "Grumpy",
+          "observed": 5
+        },
+        {
+          "value": "Deceased",
+          "observed": 2
+        },
+        {
+          "value": "Derp",
+          "observed": 2
+        }
+      ]
+    }
+  ],
+  "rarityTiers": [
+    {
+      "tier": "Rare",
+      "observed": 29,
+      "lowestOneIn": 531203,
+      "highestOneIn": 111274730
+    },
+    {
+      "tier": "Uncommon",
+      "observed": 21,
+      "lowestOneIn": 624225,
+      "highestOneIn": 37642689
+    },
+    {
+      "tier": "Epic",
+      "observed": 11,
+      "lowestOneIn": 2860552,
+      "highestOneIn": 360577338
+    }
+  ],
+  "plates": [
+    {
+      "edition": 1,
+      "file": "feline-1.svg",
+      "bytes": 16411,
+      "sha256": "a568402e5ec5a84d4a41de111b90fb753d6faceab8ffcbe5f0ea8bba110fb16f",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "52c49931469cb7b60fe3a4b68b59544f6fb56f659fe0e03ca00933f909217344i0",
+      "traits": {
+        "Fur": "Tabby Orange",
+        "Hat": "None",
+        "Tail": "Tucked Under",
+        "Glass": "Mason Jar",
+        "Plate": "Cobalt Band",
+        "Sides": "Peas, Mash & Carrots",
+        "Table": "Blue Gingham",
+        "Setting": "Classic Right",
+        "Accessory": "Bitcoins",
+        "Expression": "Sleepy"
+      },
+      "rarity": "Uncommon",
+      "rarityOneIn": 1653040,
+      "servedAt": "2026-08-24T12:34:10.624Z"
+    },
+    {
+      "edition": 3,
+      "file": "feline-3.svg",
+      "bytes": 16945,
+      "sha256": "d438ec2f48969847309fc65fb0feff82fe6c55f17e1e8daac36c5c4ffa639c5e",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "a6d7f902e2a7b214d42a275ccccb56bf0c8da953c7a70dfcb808379b68a62109i0",
+      "traits": {
+        "Fur": "Tuxedo",
+        "Hat": "None",
+        "Tail": "Tucked Under",
+        "Glass": "Highball",
+        "Plate": "Cobalt Band",
+        "Sides": "Peas, Mash & Carrots",
+        "Table": "Bitcoin Orange",
+        "Setting": "Cluttered",
+        "Accessory": "Bitcoins",
+        "Expression": "Deceased"
+      },
+      "rarity": "Epic",
+      "rarityOneIn": 360577338,
+      "servedAt": "2026-08-23T09:32:47.542Z"
+    },
+    {
+      "edition": 7,
+      "file": "feline-7.svg",
+      "bytes": 20436,
+      "sha256": "b146f4d9307c59a9a22806ac000eeab025f6d1c4da8dc044ff3686af70969574",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "57181458f1478509b475822a0095ad0dacf1640db0f4f7fc2532feb01f5e3278i0",
+      "traits": {
+        "Fur": "Tuxedo",
+        "Hat": "KNOTS Cap",
+        "Tail": "Tucked Under",
+        "Glass": "Beer Bottle",
+        "Plate": "Defined Rim",
+        "Sides": "Corn, Carrots & Peas",
+        "Table": "Blue Gingham",
+        "Setting": "Classic Left",
+        "Accessory": "Dice & Coldcard",
+        "Expression": "Smug"
+      },
+      "rarity": "Rare",
+      "rarityOneIn": 38521887,
+      "servedAt": "2026-08-24T15:44:42.710Z"
+    },
+    {
+      "edition": 8,
+      "file": "feline-8.svg",
+      "bytes": 15067,
+      "sha256": "e16b5a096393ce418f11f49cbd5034f77aab8d38bc06370f63b8886eee8a5c87",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "ae991729033a64057661ce53853727a5b4b14bdeda0fbe4a1d963c2b1714afefi0",
+      "traits": {
+        "Fur": "Golden",
+        "Hat": "None",
+        "Tail": "Draped Off Table",
+        "Glass": "Beer Bottle",
+        "Plate": "Cobalt Band",
+        "Sides": "Mash, Gravy & Roll",
+        "Table": "Bitcoin Orange",
+        "Setting": "Classic Left",
+        "Accessory": "Raspberry Pi Node",
+        "Expression": "Sleepy"
+      },
+      "rarity": "Epic",
+      "rarityOneIn": 247896920,
+      "servedAt": "2026-08-24T23:53:53.143Z"
+    },
+    {
+      "edition": 10,
+      "file": "feline-10.svg",
+      "bytes": 16566,
+      "sha256": "f947360fad01c6fbeecf65f31e59df9eb450b54fa906cedd17dd95aad28828bc",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "a826c82cd119f0535cb8ca044b13433abeaa2c2894a926d2c7e78681faadf6d0i0",
+      "traits": {
+        "Fur": "Calico",
+        "Hat": "BIP 110 Cap",
+        "Tail": "Flicking",
+        "Glass": "Wine Glass",
+        "Plate": "Cobalt Band",
+        "Sides": "Corn, Carrots & Peas",
+        "Table": "Wood Table",
+        "Setting": "Classic Left",
+        "Accessory": "None",
+        "Expression": "Sleepy"
+      },
+      "rarity": "Rare",
+      "rarityOneIn": 31802565,
+      "servedAt": "2026-08-25T04:16:05.145Z"
+    },
+    {
+      "edition": 20,
+      "file": "feline-20.svg",
+      "bytes": 11380,
+      "sha256": "5b425f225e21797c2d4beb7ee369051482af72e7e2b4a87d303dcbc44bba0a87",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "3ce06dba208728a6e08e6a167c9e27e590d1fa6a21ebd3b01871c0e3ac403439i0",
+      "traits": {
+        "Fur": "Siamese",
+        "Hat": "None",
+        "Tail": "Tucked Under",
+        "Glass": "Champagne Flute",
+        "Plate": "Cobalt Band",
+        "Sides": "Mash, Gravy & Roll",
+        "Table": "Wood Table",
+        "Setting": "Classic Right",
+        "Accessory": "None",
+        "Expression": "Sleepy"
+      },
+      "rarity": "Epic",
+      "rarityOneIn": 7848710,
+      "servedAt": "2026-08-25T04:12:13.962Z"
+    },
+    {
+      "edition": 36,
+      "file": "feline-36.svg",
+      "bytes": 18082,
+      "sha256": "52cb811fb6566be98cd50463502970465cfe408edbfd5d9e7cb5610002202f58",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "f5a853d2452a310d9bc1f9e8da73c6797f3dbf42974dedf9bcb9ad275848c591i0",
+      "traits": {
+        "Fur": "Siamese",
+        "Hat": "None",
+        "Tail": "Tucked Under",
+        "Glass": "Coffee Mug",
+        "Plate": "Speckled Stoneware",
+        "Sides": "Feast Mode",
+        "Table": "Blue Gingham",
+        "Setting": "Classic Right",
+        "Accessory": "None",
+        "Expression": "Grumpy"
+      },
+      "rarity": "Epic",
+      "rarityOneIn": 14101441,
+      "servedAt": "2026-08-25T04:54:10.492Z"
+    },
+    {
+      "edition": 57,
+      "file": "feline-57.svg",
+      "bytes": 13963,
+      "sha256": "ee81e7c72fdd954aade81f04386b69bb2dfdd853aef5159542beee7907ae548a",
+      "artworkSource": "release-runtime",
+      "inscriptionId": "f695e70069c80ab830500fa631fbf61e118f258c9524164d60da699aa8436447i0",
+      "traits": {
+        "Fur": "Tuxedo",
+        "Hat": "Pope Hat",
+        "Tail": "Flicking",
+        "Glass": "Beer Bottle",
+        "Plate": "Defined Rim",
+        "Sides": "Peas, Mash & Carrots",
+        "Table": "Wood Table",
+        "Setting": "Classic Right",
+        "Accessory": "None",
+        "Expression": "Smug"
+      },
+      "rarity": "Epic",
+      "rarityOneIn": 50793402,
+      "servedAt": "2026-08-25T14:09:51.222Z"
+    }
+  ]
+}

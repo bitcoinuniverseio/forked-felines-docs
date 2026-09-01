@@ -17,6 +17,12 @@ Open [forkedfelines.art/my-booth](https://forkedfelines.art/my-booth) and enter 
 
 A Feline delivered to an address that also holds Knot Heads can be shown side by side with its Knot Head on a pairing card, a shareable image drawn from real ownership. Nothing on the card claims value; it records the pairing and the editions.
 
+## Looking at a booth is not the same as acting on one
+
+A booth lookup is public: anyone can type any address and read what that address's orders are doing, in the same way anyone can read that address on a block explorer. Seeing an order is therefore never evidence of owning it.
+
+Acting on an order is a separate thing. Cancelling one is authorized by a token held only by the browser that created the order, so a stranger reading your booth can watch and nothing else. If you cancel from a different device, that authority is not there, and the correct answer is to let the reservation expire on its own or to open [support](../help/getting-support.md).
+
 ## Privacy, plainly
 
 - Lookups are by address. The house does not know, and does not try to guess, which addresses belong to the same person.

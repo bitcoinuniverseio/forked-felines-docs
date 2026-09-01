@@ -2,6 +2,40 @@
 
 Notable changes to the Forked Felines public documentation. Product changes are reflected here when they change what a collector should know.
 
+## 2026-09-01
+
+### Removed, because it described something that does not exist
+
+Three endpoints and one whole page were written against a design rather than against the product. None of them had ever been published to the live manual, and all of them are gone.
+
+- **A market desk page**, describing a read-only order book, its actionability checks and its floor logic. Forked Felines has no trading surface. The application serves no market endpoint, and `GET /api/v1/market` does not answer on the live product. [Public API](docs/reference/public-api.md) now says plainly that there is no market endpoint and nothing being held back, which is the useful sentence.
+- **`GET /api/v1/collection/manifest` and `GET /api/v1/collection/proof/{edition}`**, documented in [Public API](docs/reference/public-api.md) and used as a verification workflow in [Provenance](docs/collection/provenance.md). Both return `404` on the live product. Provenance now describes the membership evidence that does exist, which is the published collection listing, and says outright that no manifest document and no inclusion proof endpoint exist yet.
+- **A verifier command** in [Provenance](docs/collection/provenance.md) referring to a tool in the application repository. There is no such tool.
+
+A reader who follows a documented endpoint into a `404` has lost more than the time: they have lost the reason to believe the next page. Every endpoint on the Public API page now answered when it was checked, and the page says so at the top.
+
+### Added
+
+- **[The plates](docs/collection/the-plates.md)**: eight confirmed Felines hung at full size with a museum catalogue entry each, showing plate, edition, medium, dimensions, byte length, digest, setting odds and inscription. The artwork is the real thing, saved from the public artwork endpoint into this repository, so the digest printed under each frame is the digest of the file the page just served you.
+- **[Trait catalogue](docs/collection/trait-catalogue.md)**: what the ten traits decide, and every value that has appeared on a confirmed Feline, with a filter. It states its own two limits on the page: the list is a floor rather than the whole recipe, because unreleased values are deliberately not published, and the tallies are mint progress rather than odds.
+- **[Verify a Feline](docs/collection/verify-a-feline.md)**: a task guide for checking artwork against its committed digest, with the command line steps, the failure states, and a checker that computes SHA-256 inside your own browser. Nothing is uploaded, because this site has no server to upload it to.
+- **[Traits and odds](docs/collection/traits-and-odds.md)** now explains what a one-in figure means against a maximum supply of 3,333, and records that the tier words overlap in the confirmed Felines published so far, so a tier word cannot be read as a ranking of the figure.
+- **[Order states](docs/reference/order-states.md)** now publishes the complete transition table. Two rows explain most of the surprises: an expired reservation can still see a late payment and refund it, and a recoverable failure leads back into the flow rather than out of it.
+- **[Whole on Bitcoin](docs/collection/whole-on-bitcoin.md)** now describes the actual inscription envelope, including that the SVG is carried Brotli compressed and that the published digest is of the decompressed drawing. A holder hashing raw witness bytes would otherwise get a digest that correctly fails to match.
+- **`docs.manifest.json`**, `llms.txt`, a documentation manifest link and machine-readable copies of the pinned facts, so the central platform and other readers can ingest this repository without scraping it.
+
+### Changed
+
+- **The manual is now a gallery.** New homepage, new typography, artwork plates with proper mattes, catalogue entries set as catalogue entries, and a daylight and after-hours theme that both meet WCAG 2.2 AA. Every page carries a provenance block naming its owning repository, source path, chain, network, lifecycle, product contract and verification date.
+- **[Supported wallets](docs/collectors/supported-wallets.md)** stops implying that every listed wallet can pay. The site asks the connected provider what it exposes and labels it from the answer, so the same wallet can be ready for checkout on one machine and address only on another. The page also states which recipient script types are accepted: Taproot and native SegWit yes, legacy and nested SegWit no.
+- **[Prices and fees](docs/collectors/prices-and-fees.md)** names the 546 sats of inscription postage as postage rather than fee, since it arrives at your address with the Feline, and records that the commit transaction is funded by the house. Order quantity is 1 to 20, and up to 3 unpaid orders may be held at once.
+- **[Status contract](docs/reference/status-contract.md)** lists all five values of `mintState`. `FINISHED` was missing.
+- **[My Booth](docs/collectors/my-booth.md)** separates reading a booth from acting on one. Anyone can look up any address; cancelling is authorized by a token held only by the browser that created the order.
+
+### Product facts
+
+- Supply, pricing, holder snapshot, and settlement facts are unchanged.
+
 ## 2026-08-29
 
 ### Added

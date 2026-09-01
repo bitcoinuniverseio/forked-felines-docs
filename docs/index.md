@@ -29,11 +29,14 @@ New here? Three pages answer almost everything:
 
 ## The collection
 
+- [The plates](collection/the-plates.md)
 - [How the art is made](collection/how-the-art-is-made.md)
 - [Whole on Bitcoin](collection/whole-on-bitcoin.md)
-- [Verified artwork](collection/verified-artwork.md)
+- [Trait catalogue](collection/trait-catalogue.md)
 - [Traits and odds](collection/traits-and-odds.md)
+- [Verified artwork](collection/verified-artwork.md)
 - [Provenance](collection/provenance.md)
+- [Verify a Feline](collection/verify-a-feline.md)
 - [The collection wall](collection/collection-wall.md)
 - [The Knot Heads relationship](collection/knot-heads-relationship.md)
 
@@ -57,6 +60,10 @@ New here? Three pages answer almost everything:
 - [Order states](reference/order-states.md)
 - [Status contract](reference/status-contract.md)
 - [Terminology](reference/terminology.md)
+
+## Changes
+
+- [Changelog](../CHANGELOG.md)
 
 ---
 
