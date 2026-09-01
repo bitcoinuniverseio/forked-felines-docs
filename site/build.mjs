@@ -38,6 +38,7 @@ const NAV = [
     ["docs/collectors/wallet-signing.md", "Wallet signing"],
     ["docs/collectors/order-status.md", "Order status"],
     ["docs/collectors/my-booth.md", "My Booth"],
+    ["docs/collectors/market-desk.md", "The market desk"],
     ["docs/collectors/community-credits.md", "Community credits"],
     ["docs/collectors/remediation-and-refunds.md", "Remediation and refunds"],
   ]},
