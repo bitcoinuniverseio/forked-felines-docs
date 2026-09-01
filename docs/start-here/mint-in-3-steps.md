@@ -1,6 +1,16 @@
 # Mint in 3 steps
 
+**For**: anyone buying a Forked Feline, with or without Knot Heads.
 **Goal**: reserve, pay for, and receive one Forked Feline.
+
+| | |
+| --- | --- |
+| Chain and network | Bitcoin mainnet |
+| Pricing contract | `forked-felines.community-remediation/v4` |
+| Product contract | `forked-felines.public-product/v5` |
+| What you will approve | One Bitcoin payment, for one printed total. Nothing else |
+| What it costs | 8,888 sats collection price (0 sats with a credit), plus the live network fee, 546 sats of delivery postage per Feline, and a 1,500-sat service fee |
+| Before minting is possible | The house must be accepting orders. The mint page says so in plain words, and no wallet action is requested when it is not |
 
 ![The mint, station by station: read the offer, name the recipient, review one signed total, approve in your wallet (the only moment money moves), the kitchen tracks real Bitcoin states, and the Feline is served to your address.](../assets/mint-flow.svg)
 
