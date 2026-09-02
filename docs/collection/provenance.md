@@ -30,16 +30,19 @@ If they match, the artwork at that inscription is exactly what the house committ
 shasum -a 256 feline.svg
 ```
 
-## What membership evidence exists today
+## Prove collection membership
 
-Proving the artwork is right is one question. Proving that an edition belongs to the collection is a different one, and today the product answers it with a list rather than a compact proof.
+Proving the artwork is right is one question. Proving that an edition belongs to the declared collection is another. Forked Felines publishes both the complete manifest and one compact Merkle proof per edition.
 
-What you can do now:
+1. Fetch `GET /api/public/v1/collection/manifest` and record its manifest hash and Merkle root.
+2. Fetch `GET /api/public/v1/felines/<edition>/proof`.
+3. Recompute the leaf from the returned edition record, then fold the proof path into a root. The result must equal the manifest root.
+4. When a Collection Seal is confirmed, fetch `GET /api/public/v1/collection/seal` and verify that the seal names the same manifest hash and root.
+5. Verify the artwork bytes against the digest on the edition page using the check above.
 
-- Read [`GET /api/v1/collection`](../reference/public-api.md#get-apiv1collection) and check that the inscription ID you are looking at appears there against the edition it claims. Unreleased editions never appear, so an ID absent from that list is not a confirmed Feline.
-- Verify that ID's artwork bytes against the digest on the edition's page, which is the check above.
+The `@forked-felines/sdk` verifier and the `ff` command-line client perform the same proof calculation offline. A proof that names another edition, inscription, manifest, or root is refused rather than repaired.
 
-What does not exist: there is no published collection manifest document and no per-edition inclusion proof endpoint on the live product. If either appears later, it will be documented on the [Public API](../reference/public-api.md) page only once it answers.
+`GET /api/v1/collection` remains the simple confirmed collection listing. Unreleased editions never appear there, while the manifest and proof routes provide the portable membership evidence.
 
 ## Why a bare list of IDs is not enough
 
