@@ -12,9 +12,9 @@ General behavior:
 - Public endpoints never require, accept, or reveal wallet credentials.
 - Stability: fields are added over time; existing fields are not repurposed. Each payload names its own `schemaVersion` where versioned.
 
-## Every endpoint on this page answers
+## Release contract
 
-This page lists what the live product actually serves, and nothing else. Each endpoint below was requested against the live product on **2026-08-29** and returned a real response. An endpoint that is planned, designed, or half-built does not appear here at all, because a reference that mixes the two is worse than no reference.
+This page lists the public routes shipped by the product. The legacy `/api/v1` reads and the versioned `/api/public/v1` data platform are separate contracts; callers should not translate paths between them. Planned or private routes do not appear here.
 
 ## GET /api/v1/product
 
@@ -103,11 +103,11 @@ The live fee-rate recommendations (sat/vB) the quote flow uses: `economy`, `norm
 
 Order creation, quoting, payment, and support endpoints are part of the application's own checkout flow, protected by signed quotes and session controls; they are not a public integration surface. Admin and internal endpoints are not documented and reject outside callers. Detailed per-address holdings are not exposed through any unauthenticated profiling endpoint, by design.
 
-## There is no market endpoint
+## Market reads
 
-Forked Felines has no trading surface, so it publishes no order book, no listings, and no floor price. There is nothing to integrate against and nothing planned that this page is holding back. See [What is Forked Felines?](../start-here/what-is-forked-felines.md) for what the product deliberately is not.
+The public data platform exposes verified listings, confirmed sales, funded offers, and bounded market statistics under `/api/public/v1/market`. Each answer states its checkpoint, freshness, and coverage. A stale listing is not presented as live, and incomplete coverage is never presented as a floor.
 
-If a site shows you a Forked Felines order book, it is a third party's reading of Bitcoin, not a house surface, and none of the checks described here apply to it.
+Trading mutations remain inside the application. They require the product's ownership proofs, reviewed economics, Wallet Bridge session, Ordex protocol checks, and Bitcoin node preflight; the public namespace is read-only.
 
 ## Fair use
 

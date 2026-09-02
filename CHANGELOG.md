@@ -2,14 +2,26 @@
 
 Notable changes to the Forked Felines public documentation. Product changes are reflected here when they change what a collector should know.
 
+## 2026-09-02
+
+### Added
+
+- The Wallet Bridge, current owner and chain history, collector ledger, Transfer Desk, Trading House, Airdrop Desk, Collection Seal, holder rights, and portable proof guides.
+- The versioned `/api/public/v1` data platform, including collection manifests, per-edition inclusion proofs, confirmed history, market reads, airdrop status, event replay, the typed SDK, and the `ff` command-line client.
+
+### Changed
+
+- Provenance now explains the collection manifest, per-edition Merkle proof, and seal verification path that replaced the earlier list-only membership check.
+- Market documentation now separates verified house reads from third-party claims and never infers a floor from stale or incomplete data.
+
 ## 2026-09-01
 
-### Removed, because it described something that does not exist
+### Removed from the 2026-09-01 live manual
 
-Three endpoints and one whole page were written against a design rather than against the product. None of them had ever been published to the live manual, and all of them are gone.
+Three endpoints and one whole page were written against a design rather than the product that was live that day. None had been published to the live manual, so they were removed until the product shipped them. The 2026-09-02 release above supersedes those availability statements.
 
-- **A market desk page**, describing a read-only order book, its actionability checks and its floor logic. Forked Felines has no trading surface. The application serves no market endpoint, and `GET /api/v1/market` does not answer on the live product. [Public API](docs/reference/public-api.md) now says plainly that there is no market endpoint and nothing being held back, which is the useful sentence.
-- **`GET /api/v1/collection/manifest` and `GET /api/v1/collection/proof/{edition}`**, documented in [Public API](docs/reference/public-api.md) and used as a verification workflow in [Provenance](docs/collection/provenance.md). Both return `404` on the live product. Provenance now describes the membership evidence that does exist, which is the published collection listing, and says outright that no manifest document and no inclusion proof endpoint exist yet.
+- **A market desk page**, describing a read-only order book, its actionability checks and its floor logic. On 2026-09-01 the application had no trading surface, served no market endpoint, and returned no answer at `GET /api/v1/market`.
+- **`GET /api/v1/collection/manifest` and `GET /api/v1/collection/proof/{edition}`**, documented in [Public API](docs/reference/public-api.md) and used as a verification workflow in [Provenance](docs/collection/provenance.md). Both returned `404` on 2026-09-01, so the manual reverted to the collection listing until the replacement `/api/public/v1` manifest and proof contracts shipped.
 - **A verifier command** in [Provenance](docs/collection/provenance.md) referring to a tool in the application repository. There is no such tool.
 
 A reader who follows a documented endpoint into a `404` has lost more than the time: they have lost the reason to believe the next page. Every endpoint on the Public API page now answered when it was checked, and the page says so at the top.
