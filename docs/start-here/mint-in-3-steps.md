@@ -22,6 +22,8 @@
 
 ## Step 1: open the bar and read the offer
 
+If you arrive at the front door, [forkedfelines.art](https://forkedfelines.art), you may be met by the house doors once per visit: a plaque that reads THE HOUSE IS OPEN and one button, OPEN THE DOOR. Press it, press Enter, or choose ENTER WITHOUT ANIMATION to walk straight in. The doors are decoration: they ask for nothing, they never open a wallet, and every direct link, including the mint page below, skips them entirely. If your device asks for reduced motion, or your browser runs no scripts, you will not see them at all.
+
 Open [forkedfelines.art/mint](https://forkedfelines.art/mint). The page states whether the house is currently serving, the posted rates, and how many felines remain. If minting is unavailable, the page says so in plain words and no wallet action will be requested from you.
 
 ## Step 2: say where the Feline should go
