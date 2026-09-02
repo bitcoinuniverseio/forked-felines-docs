@@ -112,3 +112,31 @@ If a site shows you a Forked Felines order book, it is a third party's reading o
 ## Fair use
 
 Cache what you can, poll gently, and never present these data as your own mint. If you build something collectors love with this API, tell the house through [support](../help/getting-support.md); we link to good work.
+
+## The public data platform: /api/public/v1
+
+A separate, versioned, read-only namespace for wallets, explorers, markets, researchers, and agents. It is a contract, not a courtesy copy of internal routes.
+
+General behavior:
+
+- Every answer carries a schema version, the network, the authorities behind its facts, the observation time, the checkpoint height and block hash, a freshness verdict, and a request id.
+- Lists are keyset paged: `limit` and `cursor` in, `nextCursor` out, empty on the last page. A cursor the server never issued is a `400`, never a silent first page.
+- Final facts (manifests, proofs, seals, confirmed history) are immutable and ETagged by their own digest. Summaries cache for thirty seconds. Answers that echo a caller-supplied address are never cached.
+- No mutation route exists in this namespace.
+
+Endpoints: `collection`, `collection/manifest`, `collection/seal`, `felines`, `felines/{edition}`, `felines/{edition}/proof`, `felines/{edition}/history`, `search`, `activity`, `market/listings`, `market/sales`, `market/offers`, `market/stats`, `airdrop`, `airdrop/eligibility`, and the `events` server-sent stream with `Last-Event-ID` replay.
+
+The machine contract lives in the repository at `docs/public-api.openapi.json` (OpenAPI 3.1). The typed client is `@forked-felines/sdk`, and the `ff` CLI (in the same package) answers from a terminal:
+
+```bash
+ff collection
+ff feline 1234
+ff proof 1234          # fetch the inclusion proof
+ff verify-seal seal.json
+ff history 1234
+ff search <edition-or-inscription>
+ff market listings
+ff airdrop status
+```
+
+Proof and seal verification work offline: `verifyInclusionProofOffline` and `verifySealBytesOffline` recompute everything from public bytes, so nothing depends on trusting the server that answered.
