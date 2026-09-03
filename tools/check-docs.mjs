@@ -162,6 +162,8 @@ const privateTerms = [
 const dottedQuad = /\b(?:\d{1,3}\.){3}\d{1,3}\b/;
 for (const file of files) {
   if (file.includes("tools") && file.endsWith("check-docs.mjs")) continue;
+  // Workflow files never publish; they name the private runner pool by design.
+  if (relative(root, file).replaceAll("\\", "/").startsWith(".github/")) continue;
   const isPlate = relative(root, file).replaceAll("\\", "/").startsWith("docs/assets/plates/");
   const content = readFileSync(file, "utf8");
   for (const pattern of privateTerms) {
