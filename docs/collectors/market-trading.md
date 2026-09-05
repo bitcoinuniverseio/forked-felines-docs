@@ -1,39 +1,53 @@
 # The Market: listing, buying, and offers
 
-The house desk is a complete trading product built on the Ordex protocol. Every order is a signed seller half, verified against Bitcoin before it is offered, and settled only by the chain.
+The house desk uses the Ordex protocol. A listing is a signed seller half; a Bitcoin purchase requires its own verified transaction and chain evidence. Publishing a listing is not a Bitcoin confirmation.
+
+This guide describes the repaired application flow prepared for validation. It is not a production release announcement. Use only actions the live desk makes available; a closed or unavailable action is not an invitation to sign elsewhere.
 
 ## Listing a Feline
 
-1. Open the Market and choose List, or start from My Booth.
-2. The desk proves you currently own the Feline and reads its exact outpoint.
-3. Enter an exact price and an expiry. Seller proceeds, the marketplace fee, the creator royalty, and network assumptions are shown before anything is signed.
-4. Sign the seller half through the Wallet Bridge. The half commits your input and your payment output and nothing else.
-5. The desk publishes through Ordex, re-reads the live order, and shows it on the Market, the item page, and My Booth.
+1. Open the Market and choose List Feline. Connect the wallet that controls the Feline.
+2. Select the inscription from your current portfolio. Its owner address is separate from your sale-proceeds address; a payment account is not assumed to own the inscription.
+3. Prove the owner address with the short address-control message, then enter the price and proceeds address. Connecting a wallet alone does not prove ownership.
+4. Choose Review listing. Keep the saved operation reference and review the exact terms on its continuation page.
+5. Sign the seller's required inputs through Wallet Bridge. The gateway result reports publication; current order status must still be read from the market.
 
 ## Repricing
 
-Repricing is a protocol operation, not a database edit. The old ask leaves the book as REPLACED and the freshly signed one goes live in a single step. Two live asks for one Feline and one seller cannot exist.
+Repricing requires the protocol's replacement operation, a proof for the original order and a newly signed listing. The present collector desk does not provide a complete repricing flow. Do not treat editing a local price or withdrawing an old ask as proof that a replacement went live.
 
 ## Withdrawing
 
 Withdrawal is discovery, not cancellation. Removing a listing stops the house showing it; it cannot unpublish a signed artifact that already left the building. Only spending the output makes such an artifact unusable.
 
+The desk requests one authoritative challenge for the selected order and owner. If that service cannot answer, no wallet prompt should open. Sign only the challenge shown by the desk, then check the recorded order state. A lost response is an unknown result until the same operation is checked.
+
 ## Buying
 
 Buying keeps Ordex's four named steps, in order: Review, Approve, Node verdict, Send.
 
-The desk fetches the live artifact, re-proves the seller's ownership, classifies every one of your funding and padding outputs, and shows the exact economics: seller proceeds, marketplace fee, royalty, network fee, padding, your total. Your wallet signs; the node answers about the exact bytes; then an explicit Send exists. Only the preflighted bytes are ever broadcast.
+Keep your payment account and Feline delivery address separate. Find verified plain-Bitcoin outputs through the desk or supply outpoints for the authority to check. Output value alone cannot prove an output is safe to spend.
+
+Review exact purchase saves the operation before requesting its plan. Wallet Bridge asks the appropriate account to sign the required inputs; the node checks the exact transaction; only then does Broadcast become available. No purchase is confirmed merely because a wallet signed or a gateway answered.
+
+## Returning to an operation
+
+Use the saved operation link to resume after a reload, reconnection or signer return. If preparation lost its response, use Retry saved request. An identical retry continues the original operation rather than creating another payment.
+
+A pending broadcast keeps the same transaction identity while the house checks acceptance. Refresh that operation; do not prepare a second purchase while acceptance is uncertain. A node acknowledgement means sent, and independent chain evidence is needed for confirmed. If a wallet or signing transport is unsupported, the flow must stop with a refusal rather than report success.
 
 ## Offers
 
-Offers come in three scopes: one exact item, the whole collection, or one trait value. A collection or trait offer binds to a confirmed collection root, so acceptance is provable against a fixed manifest.
+Funded offers are not available in this implementation. The missing construction contract must provide an exact item, collection or trait criterion and verified funding evidence. The desk refuses construction rather than substituting a collection root for that criterion.
 
-A posted offer is one Taproot output you funded whose address commits to the exact terms:
+The intended acceptance policy requires two independent signers and an approved expiry-recovery path. Those requirements are not proof of a completed customer workflow:
 
-- **Acceptance** requires two independent policy signers, each proving the terms, the ownership, the scope, the fee bound, and the node verdict on its own authority. Neither signer can spend alone.
-- **Recovery** is yours alone after the expiry height: one signature returns the whole output.
+- **Acceptance** must verify the terms, current ownership, scope, fee bound and node verdict. One policy signer is insufficient.
+- **Recovery** must reach an independently verified result through the approved expiry path. Removing offer evidence does not recover locked funds.
 
-The honest trust statement: before expiry, the two signers together could spend the offer outside these rules, so an offer is not trustless. Forked Felines never holds your private key, and after expiry you recover alone.
+Policy signers are part of this design, so it must not be described as trustless. Do not fund an offer until the complete supported flow is available.
+
+The planned batch limit is eight asks in one atomic transaction. A complete collector batch flow remains unavailable; buying items separately does not demonstrate atomic batch settlement.
 
 ## Market data you can trust
 
