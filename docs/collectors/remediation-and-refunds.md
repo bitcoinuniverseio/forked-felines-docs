@@ -29,6 +29,16 @@ Outside remediation, one situation produces an automatic refund: your payment co
 
 Choosing credits or the refund settles that Feline's remediation permanently. Take your time; there is no deadline pressure and the desk says nothing you cannot re-read.
 
+## If the connection drops
+
+The repaired election flow is prepared for validation; this note does not announce a production rollout. One signed election set has one saved result. An identical authorized retry returns that result, including after the original signing window expires, if the election already committed. A failed transaction leaves the original proof usable until its initial expiry; after expiry, an uncommitted choice needs a fresh signature.
+
+The requested set is all-or-nothing. A conflicting choice or unqualified item must not leave some new elections accepted and others missing. Exactly five credits are created for a qualifying credit election, or one original-price refund obligation. No additional credits or payouts are created to repair a display problem.
+
+After a lost response, reload the ledger before acting again. Read available, reserved and redeemed credits separately. A refund choice means a refund is owed; sent and confirmed are later states. New quotes use the ledger's available credits and still disclose network, delivery and service costs.
+
+If the original payer cannot be attributed unambiguously, the desk must surface that condition. It cannot guess another destination or accept a replacement address.
+
 ## Next
 
 - [Community credits](community-credits.md)
