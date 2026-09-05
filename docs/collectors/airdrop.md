@@ -17,16 +17,18 @@ For one exact Bitcoin address holding K Knot Heads and F Forked Felines at the a
 
 Addresses are never merged by wallet identity. The snapshot keys on the exact scriptPubKey.
 
-## Claiming
+## Claim construction is unavailable
 
-Claims open only after the full gate sequence: all 3,333 Felines minted, the snapshot announced and confirmed, the manifest built and independently rebuilt byte for byte, the deployment manifest signed, and signet claims proven end to end. When the window is live:
+The repaired implementation does not yet have an approved inscription executor. It therefore refuses claim construction before opening a signing wallet. A connected wallet, a claim record or a proof digest is not a spendable claim transaction, and no token deployment or claim success is implied by this guide.
 
-1. Enter the exact address that held the allocation.
-2. The desk locates your leaf in the manifest, verifies the Merkle proof, and shows your exact allocation, the snapshot, and the proof, downloadable.
-3. Start the claim: one transaction, inscribed from the snapshot address itself, authorized by the module deriving the sender from that exact script.
-4. Sign through the Wallet Bridge, read the node verdict, send.
+Claims also remain subject to the full gate sequence: all 3,333 Felines minted, the snapshot announced and confirmed, the manifest built and independently rebuilt byte for byte, the deployment manifest signed, and signet claims proven end to end. A future supported claim flow must:
 
-One live claim per leaf. A replayed claim fails. A claim that reorgs releases the leaf to try again.
+1. Resolve the exact snapshot address and its current release.
+2. Verify the leaf, allocation and Merkle proof against that release's verified manifest.
+3. Build a real inscription transaction with verified funding, sender script, fees and return outputs.
+4. Verify the returned signature against the persisted plan, obtain the node verdict, and require an explicit send.
+
+The one-live-claim-per-leaf rule remains. An existing allocation or claim row does not prove that execution or reorg recovery has been completed. Do not retry by funding a separate transaction while an earlier outcome is uncertain.
 
 ## No market copy, ever
 

@@ -2,6 +2,15 @@
 
 Notable changes to the Forked Felines public documentation. Product changes are reflected here when they change what a collector should know.
 
+## Unreleased documentation corrections
+
+- Market guidance now distinguishes listing publication, signed transactions, node preflight, uncertain broadcast and chain confirmation. Saved-operation recovery, separate wallet roles and address proofs are described without claiming a production rollout.
+- Remediation guidance explains atomic election retries, credit refresh from the ledger and the distinction between a refund obligation, a sent refund and confirmation.
+- Funded offers, the collector batch flow and airdrop inscription execution are identified as unavailable where their complete contracts are not implemented. Future snapshot and claim gates remain in force.
+- Public API caching guidance now treats growing manifests, ownership and reorg-sensitive history as changing representations, and separates unknown data from empty results.
+
+These notes accompany application validation. They are not a release announcement or evidence of deployed wallet or transaction success.
+
 ## 2026-09-02
 
 ### Added

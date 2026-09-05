@@ -16,6 +16,8 @@ General behavior:
 
 This page lists the public routes shipped by the product. The legacy `/api/v1` reads and the versioned `/api/public/v1` data platform are separate contracts; callers should not translate paths between them. Planned or private routes do not appear here.
 
+The cache and availability corrections described below are prepared for application validation. This documentation update does not certify which build is deployed. Follow the response's actual status, freshness and cache headers; do not assume an unavailable authority has an empty result.
+
 ## GET /api/v1/product
 
 The product facts contract. Schema `forked-felines.public-product/v5`.
@@ -101,11 +103,13 @@ The live fee-rate recommendations (sat/vB) the quote flow uses: `economy`, `norm
 
 ## What is intentionally not public
 
-Order creation, quoting, payment, and support endpoints are part of the application's own checkout flow, protected by signed quotes and session controls; they are not a public integration surface. Admin and internal endpoints are not documented and reject outside callers. Detailed per-address holdings are not exposed through any unauthenticated profiling endpoint, by design.
+Order creation, quoting, payment, and support endpoints are part of the application's own checkout flow, protected by signed quotes and session controls; they are not a public integration surface. Admin and internal endpoints are not documented and reject outside callers. Public blockchain observations can include an owner address; reading an address or a holding grants no authority to mutate it.
 
 ## Market reads
 
-The public data platform exposes verified listings, confirmed sales, funded offers, and bounded market statistics under `/api/public/v1/market`. Each answer states its checkpoint, freshness, and coverage. A stale listing is not presented as live, and incomplete coverage is never presented as a floor.
+The public data platform has listing, sale, offer and statistics reads under `/api/public/v1/market`. Read each answer's checkpoint, freshness and coverage. The existence of an offer endpoint does not prove that funded-offer construction or recovery is supported. Unknown offer counts must not be displayed as zero, and incomplete listing coverage must not be presented as a verified floor.
+
+Sale statistics must come from confirmed settlement on the stated network and range, excluding reorged observations. Volume is an integer sum of sale prices, independent of the number of sales. For example, two sales at 9 and 100 sats have volume 109 sats and highest price 100 sats. A returned empty dataset is distinct from an unavailable authority.
 
 Trading mutations remain inside the application. They require the product's ownership proofs, reviewed economics, Wallet Bridge session, Ordex protocol checks, and Bitcoin node preflight; the public namespace is read-only.
 
@@ -121,10 +125,14 @@ General behavior:
 
 - Every answer carries a schema version, the network, the authorities behind its facts, the observation time, the checkpoint height and block hash, a freshness verdict, and a request id.
 - Lists are keyset paged: `limit` and `cursor` in, `nextCursor` out, empty on the last page. A cursor the server never issued is a `400`, never a silent first page.
-- Final facts (manifests, proofs, seals, confirmed history) are immutable and ETagged by their own digest. Summaries cache for thirty seconds. Answers that echo a caller-supplied address are never cached.
+- Ownership, history and growing collection manifests can change. These endpoints use bounded caching and revalidation rather than year-long immutable caching. An offline inclusion proof still proves membership in its exact root; it does not prove that root is the latest collection view.
+- ETags cover the exact response representation, including its metadata. Send the returned tag in `If-None-Match`; an unchanged representation may return `304`. A changed ownership observation, reorg or manifest must not reuse a validator for different response bytes.
+- Summary responses use a thirty-second cache lifetime with revalidation. Address-dependent searches and eligibility answers use `no-store`. Verified immutable artwork bytes remain a separate content-addressed contract.
 - No mutation route exists in this namespace.
 
 Endpoints: `collection`, `collection/manifest`, `collection/seal`, `felines`, `felines/{edition}`, `felines/{edition}/proof`, `felines/{edition}/history`, `search`, `activity`, `market/listings`, `market/sales`, `market/offers`, `market/stats`, `airdrop`, `airdrop/eligibility`, and the `events` server-sent stream with `Last-Event-ID` replay.
+
+Use only query parameters documented in the machine contract. The Felines list does not currently provide a trait-filter contract; adding an arbitrary trait parameter does not establish that the response was filtered. Airdrop eligibility uses an uncached POST read and does not create a claim or authorize a transaction.
 
 The machine contract lives in the repository at `docs/public-api.openapi.json` (OpenAPI 3.1). The typed client is `@forked-felines/sdk`, and the `ff` CLI (in the same package) answers from a terminal:
 
