@@ -56,6 +56,13 @@ const NAV = [
     ["docs/collectors/my-booth.md", "My Booth"],
     ["docs/collectors/community-credits.md", "Community credits"],
     ["docs/collectors/remediation-and-refunds.md", "Remediation and refunds"],
+    ["docs/collectors/current-owner-and-history.md", "Current owner and chain history"],
+    ["docs/collectors/transfer-desk.md", "The Transfer Desk"],
+    ["docs/collectors/market-trading.md", "The Market: listing, buying, and offers"],
+    ["docs/collectors/cross-device-signing.md", "Cross-device signing"],
+    ["docs/collectors/sharing-and-proofs.md", "Sharing and proofs"],
+    ["docs/collectors/rights.md", "Rights"],
+    ["docs/collectors/airdrop.md", "The Airdrop Desk"],
   ]},
   { title: "The collection", kind: "Concept", pages: [
     ["docs/collection/the-plates.md", "The plates", "Gallery"],
@@ -68,6 +75,7 @@ const NAV = [
     ["docs/collection/verify-a-feline.md", "Verify a Feline", "Task guide"],
     ["docs/collection/collection-wall.md", "The collection wall"],
     ["docs/collection/knot-heads-relationship.md", "The Knot Heads relationship"],
+    ["docs/collection/collection-seal.md", "The Collection Seal"],
   ]},
   { title: "Safety", kind: "Safety", pages: [
     ["docs/safety/stay-safe.md", "Stay safe"],
