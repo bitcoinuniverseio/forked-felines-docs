@@ -7,17 +7,17 @@ This guide describes the repaired application flow prepared for validation. It i
 ## Listing a Feline
 
 1. Open the Market and choose List Feline. Connect the wallet that controls the Feline.
-2. Select the inscription from your current portfolio. Its owner address is separate from your sale-proceeds address; a payment account is not assumed to own the inscription.
-3. Prove the owner address with the short address-control message, then enter the price and proceeds address. Connecting a wallet alone does not prove ownership.
-4. Choose Review listing. Keep the saved operation reference and review the exact terms on its continuation page.
+2. Select your Feline from the visual holding picker. All seller sale proceeds go automatically to the address that verifiably owns the inscription being sold. There is no alternative payout address, no editable proceeds address, and no option to redirect proceeds to another account.
+3. Enter your asking price in satoshis. If an address-control proof is required by the house, the signing prompt opens seamlessly in-flow when you proceed with the listing.
+4. Choose List Feline for sale. Keep the saved operation reference and review the exact terms on its continuation page.
 5. Sign the seller's required inputs through Wallet Bridge. The gateway result reports publication; current order status must still be read from the market.
 
 ## Repricing
 
 Repricing is one protocol operation, not a withdrawal followed by a new listing.
 
-1. Open Manage Listing, select your listed order and choose Change price. The desk shows the current price it read from the market.
-2. Enter the new price and the proceeds address, then choose Review new price. The desk requests one authoritative ownership challenge for that order and asks your wallet to sign that message. Connecting alone proves nothing.
+1. Open Manage Listings to view your active Feline listings with artwork and current price. Choose Change price on the listing you want to reprice. The application resolves order IDs internally.
+2. Enter the new price in satoshis. Sale proceeds go automatically to the address that verifiably owns the inscription. Choose Update price. The desk requests one authoritative ownership challenge for that order and asks your wallet to sign that message.
 3. The house builds the replacement ask server-side from the Feline's current confirmed location and opens its continuation page. Sign the replacement's single seller input through Wallet Bridge.
 4. Choose Replace the old ask with this one. The gateway retires the old order as replaced and makes the new ask live in one step, under one operation id. The same operation retried returns the same receipt; it never publishes twice.
 
@@ -27,7 +27,8 @@ The old signed ask leaves discovery, but its bytes stay technically spendable un
 
 Withdrawal is discovery, not cancellation. Removing a listing stops the house showing it; it cannot unpublish a signed artifact that already left the building. Only spending the output makes such an artifact unusable.
 
-The desk requests one authoritative challenge for the selected order and owner. If that service cannot answer, no wallet prompt should open. Sign only the challenge shown by the desk, then check the recorded order state. A lost response is an unknown result until the same operation is checked.
+1. Open Manage Listings and choose Remove listing on the Feline you want to unlist.
+2. Confirm the standard confirmation prompt. The application resolves order IDs internally, requests an authoritative ownership challenge for that order, and asks your wallet to sign the withdrawal. Sign only the challenge shown by the desk, then check the recorded order state. A lost response is an unknown result until the same operation is checked.
 
 ## Buying
 
