@@ -134,17 +134,22 @@ Endpoints: `collection`, `collection/manifest`, `collection/seal`, `felines`, `f
 
 Use only query parameters documented in the machine contract. The Felines list does not currently provide a trait-filter contract; adding an arbitrary trait parameter does not establish that the response was filtered. Airdrop eligibility uses an uncached POST read and does not create a claim or authorize a transaction.
 
-The machine contract lives in the repository at `docs/public-api.openapi.json` (OpenAPI 3.1). The typed client is `@forked-felines/sdk`, and the `ff` CLI (in the same package) answers from a terminal:
+The machine contract lives in the repository at `docs/public-api.openapi.json` (OpenAPI 3.1). Its server is `https://forkedfelines.art`, the same origin the site is served from. The typed client is `@forked-felines/sdk`; it defaults to that origin, honours an explicit local or test `baseUrl`, and refuses any answer that does not satisfy the contract exactly: a wrong schema version, an unknown network, a malformed authority record, an impossible checkpoint, a freshness that contradicts the observation, a payload field of the wrong type, or a page whose `hasMore` disagrees with its `nextCursor`. Nothing is coerced into plausible data; sat amounts stay decimal strings. Pass `expectedNetwork` to refuse answers from another network. The `ff` CLI (in the same package) answers from a terminal:
 
 ```bash
 ff collection
+ff manifest                          # recomputes the Merkle root locally
 ff feline 1234
-ff proof 1234          # fetch the inclusion proof
+ff proof 1234 <expected-root>        # verifies the path against a root you supply
+ff verify-proof proof.json <root>    # offline, from a saved proof
 ff verify-seal seal.json
 ff history 1234
 ff search <edition-or-inscription>
-ff market listings
+ff market listings|sales|offers|stats
+ff activity
 ff airdrop status
+ff airdrop eligibility <address>
+ff events 10                         # ten events from the stream, then stop
 ```
 
-Proof and seal verification work offline: `verifyInclusionProofOffline` and `verifySealBytesOffline` recompute everything from public bytes, so nothing depends on trusting the server that answered.
+Proof and seal verification work offline: `verifyInclusionProofOffline`, `verifyManifestRootOffline` and `verifySealBytesOffline` recompute everything from public bytes with the reviewed collection-proof rules (domain-separated leaves and interior nodes, sides as the proof states them, odd nodes promoted), so nothing depends on trusting the server that answered. The CLI prints only verdicts it computed.
