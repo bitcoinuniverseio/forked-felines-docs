@@ -35,6 +35,7 @@ Key fields:
 | `pricing.communityMintPriceSats` | `"0"` |
 | `pricing.baseServiceFeeSats` | `"1500"` |
 | `pricing.rbfServiceFeeIncrementSats` | `"1500"` |
+| `pricing.freeMintServiceFeeSats` | `"0"`: the service fee on an order made entirely of free-mint credits |
 | `holderSnapshot.blockHeight` | `963238`, with `permanence: "FIXED"` |
 | `settlement.*` | The house's posted mainnet proceeds and service-fee addresses |
 | `timing.quoteTtlSeconds` / `orderTtlSeconds` | `900` / `3600` |
@@ -47,14 +48,22 @@ Cache: fine to cache briefly; the document changes only when the product genuine
 
 The public, cacheable mint status document. Schema `forked-felines.mint-capacity/v2`. This is the endpoint to poll if you want to know whether the house is accepting orders.
 
+The document is a fixed public schema: the network, the mint state, coarse reason codes, freshness timestamps, build identity (`sourceCommitSha`, `buildTimestamp`), the block height, and coarse `worker` and `financial` readiness (a `ready` boolean and a queue level or a short detail). Detailed worker, queue, and provider diagnostics are not in it; they are available only to authenticated administrators. Fields outside the public schema never appear, so nothing can be inferred from their absence.
+
 | Field | Meaning |
 | --- | --- |
 | `mintState` | `OPEN`, `SOLD_OUT`, `FINISHED`, `PAUSED`, or `UNAVAILABLE` |
 | `safeToAcceptOrders` | The fail-closed boolean the UI obeys |
-| `reasonCodes` | Exact, technical reasons when intake is closed |
+| `reasonCodes` | Coarse, technical reasons when intake is closed, for example `BACKUP_RESTORE_VERIFICATION_STALE` |
 | `maximumSupply`, `finalSupply` | Supply invariants |
 | `intakeChecks`, `processingChecks` | Named dependency checks with `ready` booleans |
 | `serverNow` | Server time for interpreting timestamps |
+| `blockHeight` | The block height the house currently sees, or `null` |
+| `worker`, `financial` | Coarse readiness summaries: `ready`, plus a queue level or a short detail |
+| `network`, `sourceCommitSha`, `buildTimestamp` | Which network and which build answered |
+| `generatedAt`, `cacheAgeMs` | How fresh the cached document is |
+
+`GET /api/health/ready` is the load-balancer readiness document and follows the same rule: per-check verdicts, reason codes, release mode, deployment and build identity, and the network are public; raw dependency probes, provider addresses, worker instances, and ledger totals are not.
 
 Polling etiquette: no overlapping requests, honor `Retry-After`, use bounded backoff. The official UI does exactly this.
 
@@ -103,7 +112,7 @@ The live fee-rate recommendations (sat/vB) the quote flow uses: `economy`, `norm
 
 ## What is intentionally not public
 
-Order creation, quoting, payment, and support endpoints are part of the application's own checkout flow, protected by signed quotes and session controls; they are not a public integration surface. Admin and internal endpoints are not documented and reject outside callers. Public blockchain observations can include an owner address; reading an address or a holding grants no authority to mutate it.
+Order creation, quoting, payment, and support endpoints are part of the application's own checkout flow, protected by signed quotes and session controls; they are not a public integration surface. Admin and internal endpoints are not documented and reject outside callers; the detailed worker and provider diagnostics behind the public status documents live there. Public blockchain observations can include an owner address; reading an address or a holding grants no authority to mutate it.
 
 ## Market reads
 

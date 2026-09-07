@@ -12,7 +12,7 @@ The words this documentation and the app use, defined once.
 | **Payment address** | The house address printed on a signed quote where the exact total is paid |
 | **Signed quote** | A server-signed, 15-minute price document itemizing every cost of a mint into one exact total |
 | **Collection price** | The price of the Feline itself: 8,888 sats public, 0 sats with a credit |
-| **Service fee** | The house's flat 1,500-sat fee per mint, plus 1,500 sats per accepted RBF bump |
+| **Service fee** | The house's flat 1,500-sat fee on a paid mint, plus 1,500 sats per accepted RBF bump; an order made only of free-mint credits pays 0 sats |
 | **Free-mint credit** | The right to one 0-sat collection price mint, from the Knot Heads snapshot or remediation |
 | **Snapshot** | The fixed record of Knot Heads ownership at Bitcoin block 963,238 |
 | **Kitchen ticket** | The live order tracker; each state reflects verified reality |
