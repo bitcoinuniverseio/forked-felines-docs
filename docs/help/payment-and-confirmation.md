@@ -16,7 +16,7 @@ Only step 2. A higher fee rate buys a better place in line for your payment; it 
 
 If the fee market rose after you paid, your payment can sit in the mempool below the going rate. The app detects this and can offer a replacement at a higher rate:
 
-- The offer shows the new network cost and the exact 1,500-sat service increment **before** you approve.
+- The offer shows the new network cost and, on a paid order, the exact 1,500-sat service increment **before** you approve. An order made entirely of free-mint credits carries no service fee, so a bump on it adds only the network cost.
 - Only an accepted, broadcast replacement costs anything; rejections and failures add nothing.
 - Either the original or the replacement confirms, never both, and the mint output is preserved in both.
 

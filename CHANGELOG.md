@@ -11,6 +11,17 @@ Notable changes to the Forked Felines public documentation. Product changes are 
 
 These notes accompany application validation. They are not a release announcement or evidence of deployed wallet or transaction success.
 
+## 2026-09-07
+
+### Changed
+
+- **Zero service fee on all-credit mints.** An order made entirely of free-mint credits now carries a 0-sat service fee, initial and per accepted fee bump (fee policy `FREE_MINT_WAIVER_V1`). Paid and mixed orders keep the 1,500-sat initial service fee and 1,500 sats per accepted RBF bump. Signed quotes issued before the change keep the fee terms of their own pricing version. The product contract now publishes `pricing.freeMintServiceFeeSats: "0"`; every price page, the product facts, the terminology and the README say where the fee applies.
+- **How remediation refunds are paid.** A refund is paid manually by an authenticated administrator from the administrator's own connected wallet, one refund at a time, to the immutable original payment address; there is no treasury wallet. The signed transaction is kept as a durable record and relayed again automatically until a node accepts it.
+- **Transaction links.** A mainnet transaction id on the kitchen ticket links to the public Ordinals explorer at `https://ordinals.com/tx/<txid>`, never to a raw IP address or an internal host.
+- **Smaller public status documents.** `/api/v1/mint/capacity` and `/api/health/ready` publish a fixed public schema: network, mint state, coarse reason codes such as `BACKUP_RESTORE_VERIFICATION_STALE`, freshness, build identity, block height, and coarse worker and financial readiness. Detailed worker and provider diagnostics are shown only to administrators.
+
+The 2026-08-28 entry below records the initial service fee of 1,500 sats as it applied to every mint at first publication; that was accurate then and is superseded by this entry.
+
 ## 2026-09-02
 
 ### Added
