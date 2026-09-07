@@ -7,7 +7,7 @@ The full rules of free-mint credits: where they come from, how they are counted,
 1. **The Knot Heads snapshot.** Each Knot Head recorded for an address at Bitcoin block 963,238 carries one free-mint credit. The snapshot is fixed: later transfers change nothing, in either direction.
 2. **The remediation program.** Eligible early minters who chose credits over a refund hold five credits per qualifying Feline. See [Remediation and refunds](remediation-and-refunds.md).
 
-A credit sets the collection price of one mint to **0 sats**. Network, delivery, and service costs remain payable on every mint.
+A credit sets the collection price of one mint to **0 sats**. Network and delivery costs remain payable on every mint. The service fee follows the whole order: an order made only of credited Felines pays **0 sats** service fee, and an order that mixes in a Feline at the public price pays the flat 1,500 sats once.
 
 ## How the count is checked
 

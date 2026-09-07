@@ -19,8 +19,9 @@ The exact facts of Forked Felines, as published by the live product contract. If
 | --- | --- |
 | Public collection price | 8,888 sats |
 | Community (credited) collection price | 0 sats |
-| Initial service fee | 1,500 sats |
-| Service fee per accepted RBF bump | 1,500 sats |
+| Initial service fee | 1,500 sats, paid mints only |
+| Service fee per accepted RBF bump | 1,500 sats, paid mints only |
+| Service fee on an all-credit mint | 0 sats, initial and per bump (fee policy `FREE_MINT_WAIVER_V1`) |
 | Network and delivery costs | live, itemized separately, payable on every mint |
 | Quote validity | 900 seconds (15 minutes) |
 | Order reservation window | 3,600 seconds (1 hour) |
@@ -42,6 +43,7 @@ The exact facts of Forked Felines, as published by the live product contract. If
 | Eligible | pre-v4 paid, delivered Felines still held by their original order recipient at the fixed remediation snapshot |
 | Choice, once per qualifying Feline | five free-mint credits, or a refund of that Feline's original mint price |
 | Refund destination | the original payment address, only |
+| Refund payment | made by an authenticated administrator from the administrator's own wallet, one refund at a time; there is no treasury wallet |
 | Excluded from refunds | network, postage, service, and RBF costs |
 
 ## Future airdrop
