@@ -15,7 +15,7 @@ Use this when someone asks what you just minted.
 | Question | Answer |
 | --- | --- |
 | How many? | 3,333 maximum. The site counts real confirmed inscriptions. |
-| What does it cost? | 8,888 sats collection price, or 0 sats with a Knot Heads credit. Network, delivery, and a 1,500-sat service fee are itemized separately. |
+| What does it cost? | 8,888 sats collection price, or 0 sats with a Knot Heads credit. Network and delivery costs are itemized separately, plus a 1,500-sat service fee on paid mints; an all-credit mint pays no service fee. |
 | Where is the art? | On Bitcoin, whole. The SVG bytes are the inscription. |
 
 ## Next

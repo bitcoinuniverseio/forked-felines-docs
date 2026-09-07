@@ -11,7 +11,7 @@
 | Inscription delivery | live, shown on the quote |
 | Service fee | 1,500 sats |
 
-The site sums these into **one exact total** on a signed quote before your wallet opens. There are no hidden costs, no percentage fees, and nothing added after you approve. If your payment later needs a fee bump to confirm, each accepted bump adds exactly 1,500 sats of service fee and is shown to you first; a rejected or failed bump adds nothing.
+The service fee applies because this is a paid mint; an order made entirely of Knot Heads credits pays no service fee at all. The site sums these into **one exact total** on a signed quote before your wallet opens. There are no hidden costs, no percentage fees, and nothing added after you approve. If your payment later needs a fee bump to confirm, each accepted bump adds exactly 1,500 sats of service fee and is shown to you first; a rejected or failed bump adds nothing.
 
 ## Steps
 

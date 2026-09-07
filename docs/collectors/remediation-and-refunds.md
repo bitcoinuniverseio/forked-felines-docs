@@ -21,6 +21,12 @@ The refund returns the **collection price you paid at mint time** for that Felin
 
 Remediation refunds, and every other refund the house issues, are paid **only to the original payment address**. This is a fraud control: nobody can redirect your refund by asking nicely, including you. If you no longer control the original payment address, contact support before choosing the refund option.
 
+## How a refund is paid
+
+A remediation refund is paid by hand, one refund at a time. An authenticated house administrator connects their own supported wallet; the server prepares the single transaction from the refund record, whose destination and amount can never change; and the administrator approves it in that wallet. There is no treasury wallet paying refunds in the background. The transaction fee comes out of the administrator's wallet and never reduces your refund.
+
+Once signed, the exact transaction bytes are kept as a durable record. If no Bitcoin node accepts the transaction straight away, the house keeps relaying those same bytes automatically until one does; the refund is never rebuilt or redirected. A refund left unpaid for more than 24 hours raises an alert for the operators.
+
 ## Ordinary refunds
 
 Outside remediation, one situation produces an automatic refund: your payment confirms **after** the order's reservation already expired. The payment is returned to its source address, and the ticket shows MANAGER AT THE TILL until the refund settles as SETTLED BACK.
@@ -35,7 +41,7 @@ The repaired election flow is prepared for validation; this note does not announ
 
 The requested set is all-or-nothing. A conflicting choice or unqualified item must not leave some new elections accepted and others missing. Exactly five credits are created for a qualifying credit election, or one original-price refund obligation. No additional credits or payouts are created to repair a display problem.
 
-After a lost response, reload the ledger before acting again. Read available, reserved and redeemed credits separately. A refund choice means a refund is owed; sent and confirmed are later states. New quotes use the ledger's available credits and still disclose network, delivery and service costs.
+After a lost response, reload the ledger before acting again. Read available, reserved and redeemed credits separately. A refund choice means a refund is owed; sent and confirmed are later states. New quotes use the ledger's available credits and still disclose network and delivery costs, plus the service fee whenever the order includes a Feline at the public price; an order made only of credits pays 0 sats service fee.
 
 If the original payer cannot be attributed unambiguously, the desk must surface that condition. It cannot guess another destination or accept a replacement address.
 
