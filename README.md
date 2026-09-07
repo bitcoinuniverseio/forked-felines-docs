@@ -24,8 +24,8 @@ Every number below is validated against the live product contract at [`/api/v1/p
 | Public collection price | 8,888 sats |
 | Knot Heads holder credit | one free mint (0-sat collection price) per eligible head |
 | Holder eligibility snapshot | Bitcoin block 963,238, fixed forever |
-| Initial service fee | 1,500 sats |
-| Network, delivery, and service costs | calculated live, shown separately, payable on every mint |
+| Initial service fee | 1,500 sats on paid mints; 0 sats when every Feline in the order uses a credit |
+| Network and delivery costs | calculated live, shown separately, payable on every mint |
 | Artwork | deterministic SVG, hash-verified, inscribed whole on Bitcoin |
 | Pricing contract | `forked-felines.community-remediation/v4` |
 
@@ -33,7 +33,7 @@ Every number below is validated against the live product contract at [`/api/v1/p
 
 1. **Open [forkedfelines.art/mint](https://forkedfelines.art/mint)** and read the posted rates. No wallet is needed to see the full offer.
 2. **Enter the Bitcoin address that should receive the Feline.** Connecting a wallet just fills this field for you; it never authorizes a payment. The house checks that address against the block 963,238 guest list and applies any free-mint credits automatically.
-3. **Review one exact total, then pay.** The signed quote itemizes the collection price, network fee, delivery, and the 1,500-sat service fee before your wallet opens. Approve exactly what you read, then watch the kitchen ticket track each real Bitcoin state until your Feline is served.
+3. **Review one exact total, then pay.** The signed quote itemizes the collection price, network fee, delivery, and the 1,500-sat service fee (0 sats on an all-credit order) before your wallet opens. Approve exactly what you read, then watch the kitchen ticket track each real Bitcoin state until your Feline is served.
 
 The full walkthrough, including every order state and how to resume after closing your browser, is in [Mint in 3 steps](docs/start-here/mint-in-3-steps.md).
 
