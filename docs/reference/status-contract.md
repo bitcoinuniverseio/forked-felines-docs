@@ -32,7 +32,11 @@ Read `safeToAcceptOrders` rather than inferring from the word: it is the single 
 
 ## Reading `reasonCodes`
 
-When `mintState` is not `OPEN`, `reasonCodes` lists exact causes, for example `RELEASE_MODE_READ_ONLY` (the site is deliberately running read-only) or dependency codes naming an unhealthy authority. They are technical strings meant to be precise rather than pretty, and they are the same codes the operators read.
+When `mintState` is not `OPEN`, `reasonCodes` lists the causes as coarse machine codes, for example `RELEASE_MODE_READ_ONLY` (the site is deliberately running read-only) or `BACKUP_RESTORE_VERIFICATION_STALE` (the financial backup has not been verified recently enough to accept new orders). They are technical strings meant to be precise rather than pretty, and they are the same codes the operators read.
+
+## What the public documents contain
+
+`/api/v1/mint/capacity` and `/api/health/ready` answer with a fixed public schema: the network, the mint state, coarse reason codes, freshness timestamps, build identity, the block height, and coarse worker and financial readiness. Detailed worker, queue, and provider diagnostics are shown only to authenticated administrators. A public document that says less is not hiding a fault: everything that closes intake still surfaces as a reason code.
 
 ## What UNAVAILABLE means for you
 

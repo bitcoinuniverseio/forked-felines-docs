@@ -9,7 +9,7 @@
 | Pricing contract | `forked-felines.community-remediation/v4` |
 | Product contract | `forked-felines.public-product/v5` |
 | What you will approve | One Bitcoin payment, for one printed total. Nothing else |
-| What it costs | 8,888 sats collection price (0 sats with a credit), plus the live network fee, 546 sats of delivery postage per Feline, and a 1,500-sat service fee |
+| What it costs | 8,888 sats collection price (0 sats with a credit), plus the live network fee, 546 sats of delivery postage per Feline, and a 1,500-sat service fee on paid mints (0 sats when every Feline in the order uses a credit) |
 | Before minting is possible | The house must be accepting orders. The mint page says so in plain words, and no wallet action is requested when it is not |
 
 ![The mint, station by station: read the offer, name the recipient, review one signed total, approve in your wallet (the only moment money moves), the kitchen tracks real Bitcoin states, and the Feline is served to your address.](../assets/mint-flow.svg)
@@ -17,7 +17,7 @@
 **Before you start**
 
 - A Bitcoin address that can receive an inscription. A Taproot address from a wallet that understands Ordinals is the usual choice. See [Supported wallets](../collectors/supported-wallets.md).
-- Enough sats to cover the total the site will quote you: the collection price (8,888 sats public, 0 sats with a Knot Heads credit), the live Bitcoin network fee, inscription delivery, and the 1,500-sat service fee.
+- Enough sats to cover the total the site will quote you: the collection price (8,888 sats public, 0 sats with a Knot Heads credit), the live Bitcoin network fee, inscription delivery, and the 1,500-sat service fee on a paid mint. An order made only of credits pays no service fee.
 - You do not need to connect a wallet to see any of this. The full offer, both posted rates, and the live mint status are on the page before any wallet prompt.
 
 ## Step 1: open the bar and read the offer
@@ -37,7 +37,7 @@ Connecting a wallet only fills the recipient field and offers an address chooser
 
 ## Step 3: review one exact total, then pay
 
-Choose your quantity and a network fee rate. The house prints a signed quote: collection price, Bitcoin network fee, inscription delivery, and service fee, summed into one exact total. That quote is signed by the server and valid for 15 minutes.
+Choose your quantity and a network fee rate. The house prints a signed quote: collection price, Bitcoin network fee, inscription delivery, and service fee (0 sats when the whole order is credited), summed into one exact total. That quote is signed by the server and valid for 15 minutes.
 
 Choose **Pay with Wallet**. Your wallet shows a payment for exactly the quoted total to the address printed on the bill. Approve it if it matches. Nothing else is requested: no message signing, no token approvals, no second transaction.
 

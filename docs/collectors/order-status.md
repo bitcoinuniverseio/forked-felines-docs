@@ -6,6 +6,8 @@ After you pay, the kitchen ticket tracks your order through real, verified state
 
 The ticket reads state from the server, which reads it from Bitcoin. Nothing on the ticket is animated, estimated, or invented: a state advances only when the chain, or the kitchen, actually advanced. That is why the ticket sometimes sits still. Stillness means Bitcoin is doing what Bitcoin does, not that something is lost.
 
+When the ticket shows a mainnet transaction id, its link opens the public Ordinals explorer at `https://ordinals.com/tx/<txid>`. The house never links you to a raw IP address or an internal host; if a link claiming to be ours does, it is not ours.
+
 ## The happy path
 
 | Ticket says | What actually happened | What you do |
