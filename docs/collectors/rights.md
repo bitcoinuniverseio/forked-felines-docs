@@ -1,6 +1,6 @@
 # Rights
 
-What owning a Forked Felines inscription means, stated exactly, versioned and hashed at [/rights](https://forkedfelines.art/rights).
+What owning a Forked Felines inscription means, stated exactly, versioned and hashed through the policy API at [/api/v1/rights](https://forkedfelines.art/api/v1/rights).
 
 ## The short version
 
