@@ -87,7 +87,7 @@ for (const [key, value] of Object.entries(pinned)) {
   if (!/contractMissingStatus/.test(live)) {
     errors.push("tools/check-facts-live.mjs: a 4xx must be sticky across retries, not overwritten by a later dropped connection");
   }
-  for (const workflow of [".github/workflows/deploy-pages.yml", ".github/workflows/docs-ci.yml"]) {
+  for (const workflow of [".github/workflows/docs-ci.yml"]) {
     const content = readFileSync(join(root, workflow), "utf8");
     if (content.includes("run: node tools/check-facts-live.mjs")) {
       errors.push(`${workflow}: runs the live check bare, so an unreachable endpoint fails the build`);
@@ -95,6 +95,10 @@ for (const [key, value] of Object.entries(pinned)) {
     if (!content.includes('status" -eq 75')) {
       errors.push(`${workflow}: must treat exit 75 from the live check as a warning that still publishes`);
     }
+  }
+  const publisher = readFileSync(join(root, ".github/workflows/deploy-pages.yml"), "utf8");
+  if (!publisher.includes("node tools/deploy-verified-pages.mjs") || publisher.includes("node site/build.mjs")) {
+    errors.push("Pages publication must reuse the exact-SHA artifact that passed Docs CI and its live-facts gate");
   }
 }
 

@@ -37,6 +37,8 @@ To refresh the collection census and the plates, run the refresh tool and commit
 3. Run the checks locally if you can: `node site/build.mjs && node tools/check-docs.mjs`.
 4. Open a pull request using the template. CI must pass: build, facts, links, no em dashes, no private terms.
 
+Docs CI builds trusted `develop` pushes once and retains the verified Pages artifact for seven days. Promote that exact commit to `main` after CI succeeds. The publisher checks the commit, both CI jobs, and artifact provenance, then deploys the existing artifact through GitHub Pages. It does not rebuild or upload it again. If the artifact has expired, run Docs CI on `develop` before publishing.
+
 ## Review
 
 Maintainers listed in [CODEOWNERS](CODEOWNERS) review every change. Factual changes are verified against the live product contract before merge. The documentation site republishes automatically from `main`.
