@@ -17,6 +17,7 @@ The most common situations, what they actually mean, and what to do. Every failu
 | Situation | What it means | What to do |
 | --- | --- | --- |
 | THE BILL WENT COLD (quote expired) | Signed quotes last 15 minutes and this one lapsed | Request a fresh quote. Every component is recalculated and re-signed. Nothing was charged |
+| THE KITCHEN IS SLAMMED RIGHT NOW | Another guest claimed the same Feline in the same instant. The house already retried your bill on its own and the table is still contested | Print the bill again in a moment. No order was created, no credit was spent, and nothing was charged. Your credits and your place are untouched |
 | The reservation expired before I paid | The order window closed unpaid | Nothing was consumed and no credit was burned. Order again |
 | I paid, but the order had already expired | Your payment confirmed after the window | The payment is refunded to its source automatically. The ticket shows MANAGER AT THE TILL, then SETTLED BACK |
 | I clicked pay twice | The app prevents duplicate submissions | Only one payment request exists; check your wallet's pending queue and approve at most one |
