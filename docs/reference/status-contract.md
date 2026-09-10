@@ -7,32 +7,38 @@ How to read the house's health and status surfaces, and what each one does and d
 | Surface | Question it answers |
 | --- | --- |
 | [forkedfelines.art/status](https://forkedfelines.art/status) | The human status page: what is healthy, in words |
-| `GET /api/v1/mint/capacity` | Is the house safe to accept new orders, and if not, exactly why |
+| `GET /api/v1/mint/capacity` | Which mint and payment actions are available, with health and supply facts |
 | `GET /api/v1/block` | What block the house clock sees, or an honest OUT OF ORDER |
 
 ## Fail-closed, always
 
-The design principle across all of them: **degradation closes intake rather than degrading truth**.
+Each action requires the evidence needed to perform it safely. A missing or failed safety check closes that action.
 
-- If the Bitcoin, Ordinals, inscription, refund, relay, worker, reconciler, watchdog, or backup layer is unhealthy, `mintState` reports it and new orders stop.
+- The global health summary includes processing, recovery, and maintenance warnings. The `operations` object says whether quoting, creating an order, preparing payment, broadcasting payment, and cancellation are available individually.
 - Existing paid orders continue independently: payment observation and financial recovery run on durable state and an independent reconciler, so a closed front door never strands a paid order.
-- A healthy background worker never overrides an unsafe dependency. There is no "mostly ready".
+- A healthy background worker never overrides invalid financial evidence, unexplained funds, or a critical financial watchdog condition.
 
 ## The five states of `mintState`
 
 | State | What it means |
 | --- | --- |
-| `OPEN` | New orders are being accepted |
+| `OPEN` | The global mint summary is open; the requested operation must also be ready |
 | `PAUSED` | An operator has paused intake, or an emergency stop is engaged. Nothing is wrong with your funds |
 | `SOLD_OUT` | Every Feline that can be inscribed has been |
 | `FINISHED` | An operator has closed the mint |
-| `UNAVAILABLE` | A dependency is unhealthy, so the house stopped intake rather than guess |
+| `UNAVAILABLE` | The global summary has an unavailable dependency; check the operation verdict for the action you need |
 
-Read `safeToAcceptOrders` rather than inferring from the word: it is the single boolean the interface itself obeys, and it fails closed.
+`safeToAcceptOrders` is a conservative global health flag. The interface follows `operations.QUOTE`, `operations.ORDER`, `operations.PAYMENT_PREPARATION`, `operations.PAYMENT_BROADCAST`, and `operations.CANCEL`. Each has a `ready` verdict and public-safe `reasonCodes`. The server checks the same policy again when an action is submitted. Old browser state cannot authorize a mutation.
+
+An existing reservation does not need new inventory, a new quote, or a newly derived payment address to continue its otherwise safe payment actions. An unrelated maintenance warning can therefore coexist with an available action.
+
+## Reading PAYMENTS
+
+PAYMENTS reports the actual payment preparation and broadcast paths. Both ready is GOOD; one ready is DEGRADED; neither ready is DOWN. Without current operation evidence it is CHECKING. A stale backup verification alone does not change this verdict. A stale reconciler scan still blocks broadcast under the payment safety policy, even when preparation remains available.
 
 ## Reading `reasonCodes`
 
-When `mintState` is not `OPEN`, `reasonCodes` lists the causes as coarse machine codes, for example `RELEASE_MODE_READ_ONLY` (the site is deliberately running read-only) or `BACKUP_RESTORE_VERIFICATION_STALE` (the financial backup has not been verified recently enough to accept new orders). They are technical strings meant to be precise rather than pretty, and they are the same codes the operators read.
+Global `reasonCodes` lists coarse health causes, for example `RELEASE_MODE_READ_ONLY` (the site is deliberately running read-only) or `BACKUP_RESTORE_VERIFICATION_STALE` (the financial backup has not been verified recently enough). Read an operation's own codes to understand why that action is unavailable. Public codes exclude private provider addresses and detailed operator diagnostics.
 
 ## What the public documents contain
 
@@ -42,7 +48,11 @@ When `mintState` is not `OPEN`, `reasonCodes` lists the causes as coarse machine
 
 - Nothing about your wallet or funds is implicated. It is the house's dependencies being held to a safety bar.
 - Anything already paid continues to be tracked and recovered; see [Order states](order-states.md).
-- No wallet action will be requested from you while the kitchen is closed.
+- Your checkout enables only the payment actions whose operation verdict is ready. It checks them again on the server before proceeding.
+
+## Temporary connection failures
+
+The interface honors `Retry-After` on 429 and 503 responses and keeps the safe reason code and request ID for diagnostics. It makes one capacity request at a time. After eight failures, fast retries stop and checks continue at the normal one-minute cadence, respecting a longer server retry delay. A recently verified state can survive a connection failure for at most 45 seconds; an explicit operation denial applies immediately. A connection failure is never shown as sold out.
 
 ## The block clock
 
