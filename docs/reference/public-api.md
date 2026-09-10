@@ -53,8 +53,9 @@ The document is a fixed public schema: the network, the mint state, coarse reaso
 | Field | Meaning |
 | --- | --- |
 | `mintState` | `OPEN`, `SOLD_OUT`, `FINISHED`, `PAUSED`, or `UNAVAILABLE` |
-| `safeToAcceptOrders` | The fail-closed boolean the UI obeys |
-| `reasonCodes` | Coarse, technical reasons when intake is closed, for example `BACKUP_RESTORE_VERIFICATION_STALE` |
+| `safeToAcceptOrders` | Conservative global health summary; individual actions use `operations` |
+| `operations` | Server-derived readiness and safe reason codes for QUOTE, ORDER, PAYMENT_PREPARATION, PAYMENT_BROADCAST, and CANCEL |
+| `reasonCodes` | Coarse global health reasons, for example `BACKUP_RESTORE_VERIFICATION_STALE` |
 | `maximumSupply`, `finalSupply` | Supply invariants |
 | `intakeChecks`, `processingChecks` | Named dependency checks with `ready` booleans |
 | `serverNow` | Server time for interpreting timestamps |
@@ -65,7 +66,7 @@ The document is a fixed public schema: the network, the mint state, coarse reaso
 
 `GET /api/health/ready` is the load-balancer readiness document and follows the same rule: per-check verdicts, reason codes, release mode, deployment and build identity, and the network are public; raw dependency probes, provider addresses, worker instances, and ledger totals are not.
 
-Polling etiquette: no overlapping requests, honor `Retry-After`, use bounded backoff. The official UI does exactly this.
+Polling etiquette: no overlapping requests, honor `Retry-After` on 429 and 503, and use bounded backoff. Structured failures preserve safe reason codes and a request ID. After eight consecutive failures, the official UI returns to its one-minute polling cadence; a longer server retry delay still applies. Every mutation revalidates its operation on the server. See [Status contract](status-contract.md) for payment status and temporary connection failures.
 
 ## GET /api/v1/collection
 
