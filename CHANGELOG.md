@@ -4,6 +4,8 @@ Notable changes to the Forked Felines public documentation. Product changes are 
 
 ## Unreleased documentation corrections
 
+- The capacity document now keeps answering from its last snapshot for up to 60 seconds while dependency evidence is being refreshed, and the house holds a healthy dependency observation for 45 seconds through a momentary stall before reporting it unavailable. `cacheAgeMs` tells you how old the answer is.
+
 - Market guidance now distinguishes listing publication, signed transactions, node preflight, uncertain broadcast and chain confirmation. Saved-operation recovery, separate wallet roles and address proofs are described without claiming a production rollout.
 - Remediation guidance explains atomic election retries, credit refresh from the ledger and the distinction between a refund obligation, a sent refund and confirmation.
 - Funded offers, the collector batch flow and airdrop inscription execution are identified as unavailable where their complete contracts are not implemented. Future snapshot and claim gates remain in force.

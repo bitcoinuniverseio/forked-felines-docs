@@ -62,7 +62,7 @@ The document is a fixed public schema: the network, the mint state, coarse reaso
 | `blockHeight` | The block height the house currently sees, or `null` |
 | `worker`, `financial` | Coarse readiness summaries: `ready`, plus a queue level or a short detail |
 | `network`, `sourceCommitSha`, `buildTimestamp` | Which network and which build answered |
-| `generatedAt`, `cacheAgeMs` | How fresh the cached document is |
+| `generatedAt`, `cacheAgeMs` | How fresh the cached document is. While the house refreshes its dependency evidence it keeps answering with the last document it built, so `cacheAgeMs` can reach 60 seconds during a dependency stall; a document older than that is not served and the request answers 503 `CAPACITY_DEADLINE_EXCEEDED` instead |
 
 `GET /api/health/ready` is the load-balancer readiness document and follows the same rule: per-check verdicts, reason codes, release mode, deployment and build identity, and the network are public; raw dependency probes, provider addresses, worker instances, and ledger totals are not.
 

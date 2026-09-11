@@ -44,6 +44,8 @@ Global `reasonCodes` lists coarse health causes, for example `RELEASE_MODE_READ_
 
 `/api/v1/mint/capacity` and `/api/health/ready` answer with a fixed public schema: the network, the mint state, coarse reason codes, freshness timestamps, build identity, the block height, and coarse worker and financial readiness. Detailed worker, queue, and provider diagnostics are shown only to authenticated administrators. A public document that says less is not hiding a fault: everything that closes intake still surfaces as a reason code.
 
+A dependency that answers slowly for a moment does not close the house. The status keeps the last healthy observation of each remote dependency for 45 seconds before it reports that dependency as unavailable, so a short stall in the network between the house and its Bitcoin node is absorbed rather than shown as a closed mint. A dependency that stays silent longer than that, or answers with an authentication, schema, or financial fault, closes the affected operations at once. Every payment action verifies against the Bitcoin node itself when you take it, whatever the status document said a moment before.
+
 ## What UNAVAILABLE means for you
 
 - Nothing about your wallet or funds is implicated. It is the house's dependencies being held to a safety bar.
