@@ -104,3 +104,7 @@ Corrections are welcome through issues and pull requests; product support belong
 Copyright 2026 Bitcoin Universe. See [LICENSE.md](LICENSE.md).
 
 *A collectible, not an investment.*
+
+## Collection identity and current presentation
+
+Proposal-specific lore and activation commentary are retired from current product copy. Released hat labels, frozen renderer recipes, original media, trait counts, and collection hashes remain unchanged. They identify existing released assets and impose no transaction, readiness, or reveal condition. Do not regenerate original assets or rewrite their metadata to alter presentation.
