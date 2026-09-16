@@ -63,6 +63,7 @@ const NAV = [
     ["docs/collectors/sharing-and-proofs.md", "Sharing and proofs"],
     ["docs/collectors/rights.md", "Rights"],
     ["docs/collectors/airdrop.md", "The Airdrop Desk"],
+    ["docs/collectors/table-for-two.md", "Table for Two"],
   ]},
   { title: "The collection", kind: "Concept", pages: [
     ["docs/collection/the-plates.md", "The plates", "Gallery"],

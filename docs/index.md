@@ -26,6 +26,7 @@ New here? Three pages answer almost everything:
 - [My Booth](collectors/my-booth.md)
 - [Community credits](collectors/community-credits.md)
 - [Remediation and refunds](collectors/remediation-and-refunds.md)
+- [Table for Two](collectors/table-for-two.md)
 
 ## The collection
 
