@@ -1,12 +1,12 @@
 # Order states
 
-The complete order state machine, with the exact meaning of each state and what can follow it. The kitchen ticket in the app renders these states with house labels; this page is the technical truth underneath.
+The order state machine, with the meaning of each state and its ordinary transitions. The kitchen ticket renders these states with house labels. A batch also has an independent fulfillment state for each Feline: the parent order provides context, not proof of every item's delivery.
 
 ## States
 
 | State | Ticket label | Meaning | Funds moved? |
 | --- | --- | --- | --- |
-| `CREATED` | TABLE HELD | Order created; one feline reserved while checkout completes | No |
+| `CREATED` | TABLE HELD | Order created; the quoted Felines are reserved while checkout completes | No |
 | `AWAITING_PAYMENT` | PAYMENT EXPECTED | Reservation waiting for Pay with Wallet | No |
 | `PAYMENT_SEEN` | PAYMENT SEEN | Payment observed in the mempool, unconfirmed | In flight |
 | `PAYMENT_CONFIRMED` | BILL SETTLED | Payment confirmed on Bitcoin and independently verified | Yes |
@@ -19,11 +19,11 @@ The complete order state machine, with the exact meaning of each state and what 
 | `REFUND_PENDING` | MANAGER AT THE TILL | A refund is queued | Return in flight |
 | `REFUNDED` | SETTLED BACK | Refund transaction completed | Returned |
 | `FAILED_RECOVERABLE` | DROPPED TRAY. KITCHEN RETRIES. | A step failed and retries automatically; no funds are lost by this state | Unchanged |
-| `FAILED_QUARANTINED` | TAKEN TO THE BACK OFFICE | Needs operator attention; safe, held, and visible to staff | Held safely |
+| `FAILED_QUARANTINED` | TAKEN TO THE BACK OFFICE | Processing is held pending verified recovery | Read the separate payment evidence |
 
 ## What can follow what
 
-A transition that is not in this table is rejected by the application, not merely avoided by it. There is no path from any state to a different one by way of a retry, a race, or a request.
+Ordinary order transitions must follow this table. Verified typed recovery jobs can resume quarantined orders with eligible causes after checking the payment and inscription evidence. Consumed-payment cases require the guarded operator-wallet funding path. A retry, a race, or a public request cannot bypass these checks.
 
 | From | May become |
 | --- | --- |
@@ -40,12 +40,20 @@ A transition that is not in this table is rejected by the application, not merel
 | `REFUND_PENDING` | `REFUNDED`, `FAILED_RECOVERABLE` |
 | `REFUNDED` | nothing. Terminal |
 | `FAILED_RECOVERABLE` | `AWAITING_PAYMENT`, `PAYMENT_CONFIRMED`, `INSCRIBING`, `INSCRIPTION_BROADCAST`, `REFUND_PENDING`, `FAILED_QUARANTINED` |
-| `FAILED_QUARANTINED` | nothing. Terminal, and staff hold it there deliberately |
+| `FAILED_QUARANTINED` | No ordinary transition; verified typed recovery can resume eligible causes; consumed-payment cases require an operator wallet |
 
 Two rows explain most of what surprises people:
 
 - **`EXPIRED` can still see a payment.** A reservation that closed unpaid is not the end of the story if your payment turns up afterwards. That is why `EXPIRED` leads to `PAYMENT_SEEN` and then to a refund, rather than to nothing.
 - **`FAILED_RECOVERABLE` leads back into the flow.** It is a step that will be retried, not a dead end, and the states it can return to are exactly the steps that can be safely resumed.
+
+## Item state and payment state
+
+A Feline marked **ON HOLD FOR REVIEW** is paused pending verified recovery even if its parent order or another item has progressed. Its traits belong to that edition, and its portrait remains sealed until its own inscription is confirmed.
+
+Payment confirmation is separate from order and item state. **Payment confirmed at last check** and **Unconfirmed at last check** describe the recorded observation at its actual timestamp. They can remain useful historical evidence while fulfillment is held, but do not claim a fresh chain check. Missing trustworthy evidence is reported as unavailable.
+
+Eligible quarantined causes can resume through automatic typed recovery jobs after verification. An original payment consumed by earlier processing requires recovery funded by an operator wallet through the guarded path. The buyer must not pay again. Recovery never authorizes a public retry, duplicate inscription, or changed recipient.
 
 ## Guarantees across all states
 
@@ -53,7 +61,7 @@ Two rows explain most of what surprises people:
 - **Supply is consumed at `INSCRIPTION_CONFIRMED`**, not at reservation. A held table is not a confirmation.
 - **Credits redeem at `PAYMENT_CONFIRMED`**, release on legitimate expiry, and are never burned by rejections or failures.
 - **Refunds go only to the original payment address**, in every state that produces one.
-- **Failure states are safe by construction**: `FAILED_RECOVERABLE` retries without you; `FAILED_QUARANTINED` freezes the order where staff must look at it. Neither loses funds, and neither asks anything of you.
+- **Failure states do not authorize another buyer payment**: `FAILED_RECOVERABLE` retries eligible work; `FAILED_QUARANTINED` requires verified recovery, which can run automatically for eligible causes. Consumed-payment cases require an operator wallet. Read payment evidence separately, and do not pay again to release a held Feline.
 
 ## Version
 
