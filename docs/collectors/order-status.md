@@ -8,6 +8,12 @@ The ticket reads state from the server, which reads it from Bitcoin. Nothing on 
 
 When the ticket shows a mainnet transaction id, its link opens the public Ordinals explorer at `https://ordinals.com/tx/<txid>`. The house never links you to a raw IP address or an internal host; if a link claiming to be ours does, it is not ours.
 
+## Batch orders and payment evidence
+
+An order can contain several Felines paid for by one transaction. Each Feline has its own edition, traits, fulfillment state, and inscription evidence. Read the item card as well as the parent order: a parent status never proves that every item has been delivered. A shared payment transaction does not mean the Felines share artwork or traits.
+
+Payment confirmation and inscription delivery are separate facts. A payment can be confirmed while an item is still in the kitchen or held for review. **Payment confirmed at last check** and **Unconfirmed at last check** report historical evidence with the actual observation time, not a new chain check. Confirmation is unavailable when trustworthy evidence is missing. None of these readings, or a held item, is a request to pay again.
+
 ## The happy path
 
 | Ticket says | What actually happened | What you do |
@@ -28,7 +34,10 @@ When the ticket shows a mainnet transaction id, its link opens the public Ordina
 | RESERVATION CANCELLED | You cancelled before paying. Nothing was consumed | Mint again any time |
 | MANAGER AT THE TILL | A refund is queued | Nothing. It returns to the original payment source |
 | DROPPED TRAY. KITCHEN RETRIES. | A step failed and retries automatically. No funds are lost by this state | Nothing |
-| TAKEN TO THE BACK OFFICE | The order needs operator attention. It is safe, held, and visible to staff | Nothing. Staff resolve it; funds and felines are held safely |
+| TAKEN TO THE BACK OFFICE | The parent order is held pending verified recovery | Do not pay again. Contact support from the ticket if you need an update |
+| ON HOLD FOR REVIEW | This individual Feline's fulfillment is paused pending verified recovery | Do not pay again. Other items keep their own states; eligible recovery can run automatically |
+
+Recovery first verifies the cause and existing transactions. Eligible causes can resume automatically. When the original payment was already consumed by earlier processing, recovery requires an operator wallet through the guarded staff funding process. It is not another purchase: no new buyer payment or public recovery action is required. An unrevealed portrait stays sealed until that Feline's inscription is confirmed.
 
 ## Resuming after closing your browser
 
