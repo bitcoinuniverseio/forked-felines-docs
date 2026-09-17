@@ -27,6 +27,10 @@ The most common situations, what they actually mean, and what to do. Every failu
 | Situation | What it means | What to do |
 | --- | --- | --- |
 | The ticket has not moved in a while | Bitcoin confirmation is not a progress bar; blocks arrive when they arrive | See [Payment and confirmation](payment-and-confirmation.md). The ticket never invents progress |
+| An item says ON HOLD FOR REVIEW | That Feline is paused pending verified recovery. Eligible causes resume automatically; a consumed original payment requires an operator wallet | Do not pay again. Use Contact support on the existing ticket for an update |
+| Payment says confirmed or unconfirmed at last check | This is the recorded observation at the displayed time, not a new chain check | Read the timestamp and the item's separate fulfillment state; do not pay again |
+| Payment confirmation says unavailable | Trustworthy confirmation evidence is missing | Do not treat this as a request to pay again. Keep the original ticket and transaction reference |
+| Several Felines show one payment transaction | One transaction pays for the batch; every Feline has its own traits and fulfillment | Read each item's status. A sibling's delivery does not complete a held item |
 | I closed the browser mid-mint | Order state lives on the server | Open [My Booth](https://forkedfelines.art/my-booth), look up your recipient address, and resume watching |
 | I cannot find my order | Orders are keyed to the recipient address on the quote | Look up the exact recipient address you used, not another address from the same wallet |
 | The portrait frame says unavailable | Both artwork sources are momentarily unable to serve verified bytes | Your Feline is unaffected; the inscription is on Bitcoin. The frame returns when a source can serve verified bytes. See [Verified artwork](../collection/verified-artwork.md) |
