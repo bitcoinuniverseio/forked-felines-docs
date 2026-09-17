@@ -4,7 +4,7 @@ Notable changes to the Forked Felines public documentation. Product changes are 
 
 ## Unreleased documentation corrections
 
-- **Held batch items and payment evidence.** Each Feline keeps its own traits, fulfillment state, and portrait confirmation gate. Payment confirmation is separate from delivery and must distinguish current evidence from an unavailable reading. A received payment that needs operations recovery is not another purchase: buyers must not pay again, and staff use the guarded recovery path.
+- **Held batch items and payment evidence.** Each Feline keeps its own traits, fulfillment state, and portrait confirmation gate. Payment confirmation is separate from delivery; last-check evidence carries its observation time. Eligible held cases can recover automatically after verification. A consumed original payment requires guarded recovery funded by an operator wallet, never another buyer payment.
 
 - **Table for Two.** The supper club card room at `/game` is documented: tonight's seating shared by everyone from the UTC date, open seating at 6, 8, or 12 tables with an optional timed service, the tab, the game portraits, accessibility, and what the browser keeps.
 

@@ -24,9 +24,9 @@ If you decline a bump, your payment remains valid and will confirm whenever the 
 
 ## After your payment
 
-Payment confirmation proves the payment's chain state. It does not prove that an inscription has been confirmed or delivered. A batch shares one payment, while each Feline keeps its own fulfillment state. If a current confirmation reading is unavailable, the ticket must say so rather than present an old observation as current.
+Payment confirmation is separate from inscription confirmation and delivery. A batch shares one payment, while each Feline keeps its own fulfillment state. **Payment confirmed at last check** and **Unconfirmed at last check** show the recorded result with its actual observation time. Historical evidence is not a fresh chain check; confirmation is unavailable when trustworthy evidence is missing.
 
-Inscribing and delivery are the house's responsibility. Recoverable steps retry automatically; an item marked **ON HOLD FOR REVIEW** needs staff review. When the ticket says payment was received but inscription needs recovery, **do not pay again**. Staff reconcile the existing transactions and handle any required recovery funding through the guarded operator process. The original order remains the reference; use **Contact support** on its ticket for an update. Recovery is not another purchase.
+Inscribing and delivery are the house's responsibility. **ON HOLD FOR REVIEW** pauses an item pending verified recovery; eligible causes can resume automatically. If the original payment was consumed by earlier processing, recovery requires an operator wallet through the guarded staff funding process. **Do not pay again.** The original order remains the reference; use **Contact support** on its ticket for an update. Recovery is not another purchase.
 
 ## Next
 

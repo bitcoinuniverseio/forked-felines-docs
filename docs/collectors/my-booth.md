@@ -17,7 +17,9 @@ Open [forkedfelines.art/my-booth](https://forkedfelines.art/my-booth) and enter 
 
 One payment can cover several Felines. Each card shows that edition's own traits and fulfillment state, with the shared parent order shown as context. A confirmed or delivered item does not change a sibling's status. The portrait remains sealed until that item's inscription is confirmed.
 
-**ON HOLD FOR REVIEW** means that item's fulfillment is paused for staff. Payment confirmation is shown separately, from current chain evidence when available. If the card says payment was received and recovery is needed, do not pay again. Use **Contact support** on the ticket to ask about the existing order; staff handle its guarded recovery.
+**ON HOLD FOR REVIEW** means that item's fulfillment is paused pending verified recovery. Eligible causes can resume automatically; an original payment already consumed by earlier processing requires guarded recovery funded by an operator wallet. Do not pay again. Use **Contact support** on the ticket for an update.
+
+Payment confirmation is separate. **Payment confirmed at last check** and **Unconfirmed at last check** describe the recorded observation, with its actual timestamp. They do not claim a new chain check. Without trustworthy confirmation evidence, the card reports confirmation unavailable.
 
 ## Pairing cards
 
