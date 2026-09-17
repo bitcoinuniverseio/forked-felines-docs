@@ -22,9 +22,11 @@ If the fee market rose after you paid, your payment can sit in the mempool below
 
 If you decline a bump, your payment remains valid and will confirm whenever the fee market lets it, or the order will eventually expire and any late-confirming payment is refunded to its source.
 
-## What never needs your attention
+## After your payment
 
-Everything after BILL SETTLED. Inscribing, broadcasting, confirming, and delivery are the house's job, with automatic retries, and no step of it can ask you for money. If an internal step fails in a way that needs staff, the ticket says so, and the order is held safely: TAKEN TO THE BACK OFFICE is an assurance, not an alarm.
+Payment confirmation is separate from inscription confirmation and delivery. A batch shares one payment, while each Feline keeps its own fulfillment state. **Payment confirmed at last check** and **Unconfirmed at last check** show the recorded result with its actual observation time. Historical evidence is not a fresh chain check; confirmation is unavailable when trustworthy evidence is missing.
+
+Inscribing and delivery are the house's responsibility. **ON HOLD FOR REVIEW** pauses an item pending verified recovery; eligible causes can resume automatically. If the original payment was consumed by earlier processing, recovery requires an operator wallet through the guarded staff funding process. **Do not pay again.** The original order remains the reference; use **Contact support** on its ticket for an update. Recovery is not another purchase.
 
 ## Next
 

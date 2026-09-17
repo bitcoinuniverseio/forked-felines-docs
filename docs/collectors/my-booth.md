@@ -13,6 +13,14 @@ Open [forkedfelines.art/my-booth](https://forkedfelines.art/my-booth) and enter 
 - **Knot Heads standing**: verified head count and remaining free-mint credits for that address.
 - **Remediation**: if the address qualifies, the remediation choice and its status. See [Remediation and refunds](remediation-and-refunds.md).
 
+## Reading a batch
+
+One payment can cover several Felines. Each card shows that edition's own traits and fulfillment state, with the shared parent order shown as context. A confirmed or delivered item does not change a sibling's status. The portrait remains sealed until that item's inscription is confirmed.
+
+**ON HOLD FOR REVIEW** means that item's fulfillment is paused pending verified recovery. Eligible causes can resume automatically; an original payment already consumed by earlier processing requires guarded recovery funded by an operator wallet. Do not pay again. Use **Contact support** on the ticket for an update.
+
+Payment confirmation is separate. **Payment confirmed at last check** and **Unconfirmed at last check** describe the recorded observation, with its actual timestamp. They do not claim a new chain check. Without trustworthy confirmation evidence, the card reports confirmation unavailable.
+
 ## Pairing cards
 
 A Feline delivered to an address that also holds Knot Heads can be shown side by side with its Knot Head on a pairing card, a shareable image drawn from real ownership. Nothing on the card claims value; it records the pairing and the editions.
