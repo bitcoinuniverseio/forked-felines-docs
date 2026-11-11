@@ -25,7 +25,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: bitcoinuniverseio/universe-ci-actions/universe-node-env@8e24bc760556caa5ec8c7c497baaad2e9adcc912 # v1 # v1
+      - uses: bitcoinuniverseio/universe-ci-actions/universe-node-env@49c5ceb7e97bd33b567513b3135e0eb5525d89e5 # v1 # v1
       - name: Artifact provenance tests
         run: node --test tools/deploy-verified-pages.test.mjs
       - name: Publication gate
@@ -54,7 +54,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: bitcoinuniverseio/universe-ci-actions/universe-node-env@8e24bc760556caa5ec8c7c497baaad2e9adcc912 # v1 # v1
+      - uses: bitcoinuniverseio/universe-ci-actions/universe-node-env@49c5ceb7e97bd33b567513b3135e0eb5525d89e5 # v1 # v1
       # Two outcomes, two meanings. A mismatch is documentation drift and must
       # never publish. Unreachable means a runner could not open a socket to
       # the product, which says nothing about the facts and used to block the
