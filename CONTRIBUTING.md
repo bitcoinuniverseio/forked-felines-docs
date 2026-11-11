@@ -46,3 +46,9 @@ Maintainers listed in [CODEOWNERS](CODEOWNERS) review every change. Factual chan
 ## License and attribution
 
 By contributing you agree your contribution is licensed under this repository's terms. See [LICENSE.md](LICENSE.md).
+
+A queued application check has not tested its candidate. Application CI uses Universe-managed runners with the pinned toolchain; each job rejects fork-originated application code before checkout. Documentation checks and the separate Pages publication process keep their own workflow rules.
+
+A dependency security failure blocks the candidate until its manifests and lockfile use patched releases and the same candidate passes its checks. Updating the audit threshold or ignoring an advisory does not establish release acceptance.
+
+A newer commit replaces older CI runs for the same pull request or branch. Checks still belong to the exact candidate commit, so canceled older checks do not qualify the newer release.
